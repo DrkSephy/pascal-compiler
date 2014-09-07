@@ -28,7 +28,6 @@ This should be all you need. Given the following sample program, `hello.pas`:
     (* Here the main program block starts *)
     begin
         writeln('Hello World!');
-        readKey;
     end.
 
 You can compile `hello.pas` using `fpc hello.pas` on the command line, producing `hello.o` and `hello`. You can now execute the executable using `./hello`, printing `'Hello World!'`. 
