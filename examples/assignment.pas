@@ -1,4 +1,4 @@
-PROGRAM Variables;
+PROGRAM Assignment;
 
 var
 age: integer;
