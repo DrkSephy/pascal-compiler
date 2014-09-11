@@ -2,41 +2,26 @@
 # -*- MIT Licence (c) 2014 -*-
 # -*- drksephy.github.io -*-
 
+import sys
+
 def scan(source):
     # Reads <source program> and builds tokens. 
 
     # Variables to assist with tokenization
     # row/col of current character
-    curr_row = 0
+    curr_row = 1
     curr_col = 0
     # Current value of token
     curr_val = 0
     # Curent token
     curr_token = 0
 
-    for line in source: 
-        for char in line:
-            # Treat all ascii chars <= 32 as spaces
-            if to_ascii(char) == 32:
-                print "Treat as space"
-            # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
-            if ((to_ascii(char) > 32 and to_ascii(char) < 47) or (to_ascii(char) > 57 and to_ascii(char) < 65)):
-                print "symbol: " + char
-            # Check if char: 0 1 2 3 4 5 6 7 8 9 
-            if to_ascii(char) > 47 and to_ascii(char) < 58:
-                print "digit: " + char
-            # Check if char is uppercase
-            if to_ascii(char) > 64 and to_ascii(char) < 91:
-                print "uppercase: " + char
-            # Check if char is lowercase
-            if to_ascii(char) > 96 and to_ascii(char) < 123:
-                print "lowercase: " + char
-            # Check if char: [ \ ] ^ _ `
-            if to_ascii(char) > 90 and to_ascii(char) < 97: 
-                print "more symbols: " + char
-            # Check if char: { | } ~ DEL
-            if to_ascii(char) > 122 and to_ascii(char) < 128:   
-                print "even more symbols: " + char
+    text = open(source, 'r').read().splitlines()
+    for line in text:
+        print "row #: " + str(curr_row) + ":" + line
+        curr_row += 1
+
+        
 
 
 def lookup(table, key):
