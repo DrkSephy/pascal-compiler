@@ -1,5 +1,5 @@
 # -*- scanner.py -*-
-# -*- MIT Licence (c) 2014 -*-
+# -*- MIT License (c) 2014 David Leonard -*-
 # -*- drksephy.github.io -*-
 
 import sys
@@ -83,8 +83,9 @@ OPERATORS = {
     '+'         : 'TK_PLUS',
     '-'         : 'TK_MINUS',
     '*'         : 'TK_MULT',
-    'div'       : 'TK_DIV',
-    'mod'       : 'TK_MOD', 
+    'DIV'       : 'TK_DIV',
+    'MOD'       : 'TK_MOD',
+    ':'         : 'TK_COLON',
     '='         : 'TK_EQUALS',
     '>'         : 'TK_GREATER',
     '<'         : 'TK_LESS',

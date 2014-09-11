@@ -1,5 +1,5 @@
 # -*- emulator.py -*-     
-# -*- MIT License (c) 2014 -*-
+# -*- MIT License (c) 2014 David Leonard -*-
 # -*- drksephy.github.io -*-
 
 # * Reads <target> program from command line.
