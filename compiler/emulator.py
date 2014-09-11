@@ -23,6 +23,8 @@
 
 
 import sys
+import scanner
+
 
 def usage():
     sys.stderr.write('Usage: Pascal filename\n')
@@ -33,7 +35,9 @@ if __name__ == '__main__':
         usage()
     filename = sys.argv[1]
     text = open(filename).read()
-    print text
+    tokens = scanner.scan(text)
+    print tokens
+    
 
 
 
