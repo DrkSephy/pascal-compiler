@@ -10,6 +10,8 @@ Compiler Research Links
 -----------------------
 
 * [Writing Compilers with llvm-py](http://www.slideshare.net/mdevan/llvmpy-w)
+* [Pascal Keywords](http://wiki.freepascal.org/Reserved_words)
+* [Pascal Operators](http://www.tutorialspoint.com/pascal/pascal_operators.htm)
 
 
 Compiling Pascal on Mac OS X
