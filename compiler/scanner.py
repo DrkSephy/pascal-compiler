@@ -15,7 +15,22 @@ def scan(source):
     curr_token = 0
 
     for char in source:
-        print to_ascii(char)
+        # Treat all ascii chars <= 32 as spaces
+        if to_ascii(char) <= 32: 
+            pass
+        if ((to_ascii(char) > 32 and to_ascii(char) < 47) or (to_ascii(char) > 57 and to_ascii(char) < 65)):
+            print "symbol: " + char
+        if to_ascii(char) > 47 and to_ascii(char) < 58:
+            print "digit: " + char
+        if to_ascii(char) > 64 and to_ascii(char) < 91:
+            print "uppercase: " + char
+        if to_ascii(char) > 96 and to_ascii(char) < 123:
+            print "lowercase: " + char
+        if to_ascii(char) > 90 and to_ascii(char) < 97: 
+            print "more symbols: " + char
+        if to_ascii(char) > 122 and to_ascii(char) < 128:
+            print "even more symbols: " + char
+
 
 def lookup(table, key):
     # Reads token value from corresponding table
