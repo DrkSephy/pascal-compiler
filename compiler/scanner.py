@@ -4,12 +4,26 @@
 
 def scan(source):
     # Reads <source program> and builds tokens. 
+
+    # Variables to assist with tokenization
+    # row/col of current character
+    curr_row = 0
+    curr_col = 0
+    # Current value of token
+    curr_val = 0
+    # Curent token
+    curr_token = 0
+
     for char in source:
-        print char
+        print to_ascii(char)
 
 def lookup(table, key):
     # Reads token value from corresponding table
     return table[key]
+
+def to_ascii(char):
+    # Returns ascii value of a character
+    return ord(char)
 
 
 KEYWORDS = {
