@@ -7,11 +7,9 @@ def scan(target):
         print char
 
 KEYWORDS = {
-    'AND'       : 'TK_AND',
     'BEGIN'     : 'TK_BEGIN',
     'BREAK'     : 'TK_BREAK',
     'CONST'     : 'TK_CONST',
-    'DIV'       : 'TK_DIV',
     'DO'        : 'TK_DO',
     'DOWNTO'    : 'TK_DOWNTO',
     'ELSE'      : 'TK_ELSE',
@@ -20,9 +18,6 @@ KEYWORDS = {
     'FUNCTION'  : 'TK_FUNCTION',
     'IF'        : 'TK_IF',
     'LABEL'     : 'TK_LABEL', 
-    'MOD'       : 'TK_MOD',
-    'NOT'       : 'TK_NOT',
-    'OR'        : 'TK_OR', 
     'PROGRAM'   : 'TK_PROGRAM',
     'REPEAT'    : 'TK_REPEAT',
     'STRING'    : 'TK_STRING', 
@@ -31,4 +26,20 @@ KEYWORDS = {
     'TYPE'      : 'TK_TYPE',
     'VAR'       : 'TK_VAR',
     'WHILE'     : 'TK_WHILE'
+}
+
+OPERATORS = {
+    '+'         : 'TK_PLUS',
+    '-'         : 'TK_MINUS',
+    '*'         : 'TK_MULT',
+    'div'       : 'TK_DIV',
+    'mod'       : 'TK_MOD', 
+    '='         : 'TK_EQUALS',
+    '>'         : 'TK_GREATER',
+    '<'         : 'TK_LESS',
+    '>='        : 'TK_GREATER_EQUALS',
+    '<='        : 'TK_LESS_EQUALS',
+    'AND'       : 'TK_AND',
+    'OR'        : 'TK_OR',
+    'NOT'       : 'TK_NOT'
 }
