@@ -2,9 +2,15 @@
 # -*- MIT Licence (c) 2014 -*-
 # -*- drksephy.github.io -*-
 
-def scan(target):
-    for char in target:
+def scan(source):
+    # Reads <source program> and builds tokens. 
+    for char in source:
         print char
+
+def lookup(table, key):
+    # Reads token value from corresponding table
+    return table[key]
+
 
 KEYWORDS = {
     'BEGIN'     : 'TK_BEGIN',
