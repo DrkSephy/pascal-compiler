@@ -10,7 +10,7 @@ def scan(source):
     # Variables to assist with tokenization
     # row/col of current character
     curr_row = 1
-    curr_col = 0
+    curr_col = 1
     # Current value of token
     curr_val = 0
     # Curent token
@@ -18,8 +18,13 @@ def scan(source):
 
     text = open(source, 'r').read().splitlines()
     for line in text:
-        print "row #: " + str(curr_row) + ":" + line
+        print "Current row being scanned: " + str(curr_row) + ":" + line
+        curr_col = 1
         curr_row += 1
+        for char in line: 
+            print "Current column being scanned: " + str(curr_col) + ":" + char
+            curr_col += 1
+
 
         
 
