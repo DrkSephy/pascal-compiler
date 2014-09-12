@@ -11,6 +11,14 @@
 
 import sys
 
+
+# Current value of token
+curr_val = ""
+# Curent token
+curr_token = ""
+# List of tokens
+tokens = []
+
 def scan(source):
     # Reads <source program> and builds tokens. 
 
@@ -18,10 +26,6 @@ def scan(source):
     # row/col of current character
     curr_row = 1
     curr_col = 1
-    # Current value of token
-    curr_val = 0
-    # Curent token
-    curr_token = 0
 
     text = open(source, 'r').read().splitlines()
     for line in text:
@@ -59,6 +63,10 @@ def scan(source):
         curr_row += 1
 
 
+###################################
+#         HELPER FUNCTIONS        #
+###################################
+
 def lookup(table, key):
     # Reads token value from corresponding table
     return table[key]
@@ -75,6 +83,9 @@ def to_upper(char):
     # Returns uppercase string
     return char.upper()
 
+#def build_string(char):
+
+
 
 KEYWORDS = {
     'BEGIN'     : 'TK_BEGIN',
@@ -86,6 +97,7 @@ KEYWORDS = {
     'END'       : 'TK_END',
     'FOR'       : 'TK_FOR',
     'FUNCTION'  : 'TK_FUNCTION',
+    'IDENTIFIER': 'TK_IDENTIFIER',
     'IF'        : 'TK_IF',
     'LABEL'     : 'TK_LABEL', 
     'PROGRAM'   : 'TK_PROGRAM',
