@@ -42,7 +42,7 @@ def scan(source):
             
             # Check if char is uppercase
             if (to_ascii(char) > 64 and to_ascii(char) < 91):
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char 
+                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + to_lower(char) 
             
             # Check if char is lowercase
             if to_ascii(char) > 96 and to_ascii(char) < 123:
@@ -70,6 +70,10 @@ def to_ascii(char):
 def to_lower(char):
     # Returns lowercase string
     return char.lower()
+
+def to_upper(char):
+    # Returns uppercase string
+    return char.upper()
 
 
 KEYWORDS = {
