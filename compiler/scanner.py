@@ -27,7 +27,7 @@ def scan(source):
     for line in text:
         curr_col = 1
         for char in line: 
-                    
+
             # Treat all ascii chars <= 32 as spaces
             if to_ascii(char) == 32:
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
@@ -39,12 +39,12 @@ def scan(source):
             # Check if char: 0 1 2 3 4 5 6 7 8 9
             if to_ascii(char) > 47 and to_ascii(char) < 58:
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
+            
             # Check if char is uppercase
-
-            if to_ascii(char) > 64 and to_ascii(char) < 91:
+            if (to_ascii(char) > 64 and to_ascii(char) < 91):
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char 
+            
             # Check if char is lowercase
-
             if to_ascii(char) > 96 and to_ascii(char) < 123:
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
 
@@ -66,6 +66,10 @@ def lookup(table, key):
 def to_ascii(char):
     # Returns ascii value of a character
     return ord(char)
+
+def to_lower(char):
+    # Returns lowercase string
+    return char.lower()
 
 
 KEYWORDS = {
