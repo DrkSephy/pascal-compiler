@@ -119,6 +119,7 @@ OPERATORS = {
     'MOD'       : 'TK_MOD',
     ':'         : 'TK_COLON',
     '='         : 'TK_EQUALS',
+    ':='        : 'TK_ASSIGNMENT',
     '>'         : 'TK_GREATER',
     '<'         : 'TK_LESS',
     '>='        : 'TK_GREATER_EQUALS',
