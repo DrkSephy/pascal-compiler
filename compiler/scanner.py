@@ -95,6 +95,7 @@ KEYWORDS = {
     'DOWNTO'    : 'TK_DOWNTO',
     'ELSE'      : 'TK_ELSE',
     'END'       : 'TK_END',
+    'END.'      : 'TK_END_CODE',
     'FOR'       : 'TK_FOR',
     'FUNCTION'  : 'TK_FUNCTION',
     'IDENTIFIER': 'TK_IDENTIFIER',
