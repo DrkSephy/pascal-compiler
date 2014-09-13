@@ -34,6 +34,50 @@ class scanner(object):
     def to_upper(self, char):
         return char.upper()
 
+
+    KEYWORDS = {
+        'BEGIN'     : 'TK_BEGIN',
+        'BREAK'     : 'TK_BREAK',
+        'CONST'     : 'TK_CONST',
+        'DO'        : 'TK_DO',
+        'DOWNTO'    : 'TK_DOWNTO',
+        'ELSE'      : 'TK_ELSE',
+        'END'       : 'TK_END',
+        'END.'      : 'TK_END_CODE',
+        'FOR'       : 'TK_FOR',
+        'FUNCTION'  : 'TK_FUNCTION',
+        'IDENTIFIER': 'TK_IDENTIFIER',
+        'IF'        : 'TK_IF',
+        'LABEL'     : 'TK_LABEL', 
+        'PROGRAM'   : 'TK_PROGRAM',
+        'REPEAT'    : 'TK_REPEAT',
+        'STRING'    : 'TK_STRING', 
+        'THEN'      : 'TK_THEN',
+        'TO'        : 'TK_TO',
+        'TYPE'      : 'TK_TYPE',
+        'VAR'       : 'TK_VAR',
+        'WHILE'     : 'TK_WHILE'
+    }
+
+    OPERATORS = {
+        '+'         : 'TK_PLUS',
+        '-'         : 'TK_MINUS',
+        '*'         : 'TK_MULT',
+        '/'         : 'TK_DIV_FLOAT',
+        'DIV'       : 'TK_DIV',
+        'MOD'       : 'TK_MOD',
+        ':'         : 'TK_COLON',
+        '='         : 'TK_EQUALS',
+        ':='        : 'TK_ASSIGNMENT',
+        '>'         : 'TK_GREATER',
+        '<'         : 'TK_LESS',
+        '>='        : 'TK_GREATER_EQUALS',
+        '<='        : 'TK_LESS_EQUALS',
+        'AND'       : 'TK_AND',
+        'OR'        : 'TK_OR',
+        'NOT'       : 'TK_NOT'
+    }
+
 def scan(source):
     # Reads <source program> and builds tokens. 
 
@@ -80,45 +124,3 @@ def scan(source):
         curr_row += 1
     print tokens
 
-KEYWORDS = {
-    'BEGIN'     : 'TK_BEGIN',
-    'BREAK'     : 'TK_BREAK',
-    'CONST'     : 'TK_CONST',
-    'DO'        : 'TK_DO',
-    'DOWNTO'    : 'TK_DOWNTO',
-    'ELSE'      : 'TK_ELSE',
-    'END'       : 'TK_END',
-    'END.'      : 'TK_END_CODE',
-    'FOR'       : 'TK_FOR',
-    'FUNCTION'  : 'TK_FUNCTION',
-    'IDENTIFIER': 'TK_IDENTIFIER',
-    'IF'        : 'TK_IF',
-    'LABEL'     : 'TK_LABEL', 
-    'PROGRAM'   : 'TK_PROGRAM',
-    'REPEAT'    : 'TK_REPEAT',
-    'STRING'    : 'TK_STRING', 
-    'THEN'      : 'TK_THEN',
-    'TO'        : 'TK_TO',
-    'TYPE'      : 'TK_TYPE',
-    'VAR'       : 'TK_VAR',
-    'WHILE'     : 'TK_WHILE'
-}
-
-OPERATORS = {
-    '+'         : 'TK_PLUS',
-    '-'         : 'TK_MINUS',
-    '*'         : 'TK_MULT',
-    '/'         : 'TK_DIV_FLOAT',
-    'DIV'       : 'TK_DIV',
-    'MOD'       : 'TK_MOD',
-    ':'         : 'TK_COLON',
-    '='         : 'TK_EQUALS',
-    ':='        : 'TK_ASSIGNMENT',
-    '>'         : 'TK_GREATER',
-    '<'         : 'TK_LESS',
-    '>='        : 'TK_GREATER_EQUALS',
-    '<='        : 'TK_LESS_EQUALS',
-    'AND'       : 'TK_AND',
-    'OR'        : 'TK_OR',
-    'NOT'       : 'TK_NOT'
-}
