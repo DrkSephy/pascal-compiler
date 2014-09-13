@@ -13,7 +13,7 @@
 import sys
 
 
-class scanner(object):
+class Scanner(object):
 
     def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens):
         self.curr_row   = curr_row
@@ -21,6 +21,8 @@ class scanner(object):
         self.curr_token = curr_token
         self.curr_val   = curr_val
         self.tokens     = tokens
+
+
 
     def lookup(self, table, key):
         return self.table[key]
@@ -78,6 +80,8 @@ class scanner(object):
         'NOT'       : 'TK_NOT'
     }
 
+
+"""
 def scan(source):
     # Reads <source program> and builds tokens. 
 
@@ -123,4 +127,4 @@ def scan(source):
             curr_col += 1
         curr_row += 1
     print tokens
-
+"""
