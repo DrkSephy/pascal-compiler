@@ -22,71 +22,6 @@ class Scanner(object):
         self.curr_val   = curr_val
         self.tokens     = tokens
 
-
-    def scan(self, source):
-    # Reads <source program> and builds tokens. 
-        text = open(source, 'r').read().splitlines()
-        for line in text:
-            for char in line: 
-                # Treat all ascii chars <= 32 as spaces
-                if self.to_ascii(char) == 32:
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
-                # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
-
-                if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
-
-                # Check if char: 0 1 2 3 4 5 6 7 8 9
-                if self.to_ascii(char) > 47 and self.to_ascii(char) < 58:
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
-                
-                # Check if char is uppercase
-                if (self.to_ascii(char) > 64 and self.to_ascii(char) < 91):
-                    self.build_string(self.to_lower(char))
-                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + self.to_lower(char) 
-                
-                # Check if char is lowercase
-                if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
-                    # build_string(char)
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
-
-                # Check if char: [ \ ] ^ _ `
-                if self.to_ascii(char) > 90 and self.to_ascii(char) < 97:
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
-
-                # Check if char: { | } ~ DEL
-                if self.to_ascii(char) > 122 and self.to_ascii(char) < 128:
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
-                self.curr_col += 1
-            self.curr_row += 1
-
-
-    ############################
-    #      HELPER METHODS      #
-    ############################
-
-    def lookup(self, table, key):
-        # Lookup tokens 
-        return self.table[key]
-
-    def to_ascii(self, char):
-        # Returns ascii value of char
-        return ord(char)
-
-    def to_lower(self, char):
-        # Returns lowercase string
-        return char.lower()
-
-    def to_upper(self, char):
-        # Returns uppercase string
-        return char.upper()
-
-    def build_string(self, char):
-        # Builds strings for lookup
-        self.curr_val += char
-        print self.curr_val
-
-
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
         'BREAK'     : 'TK_BREAK',
@@ -129,5 +64,78 @@ class Scanner(object):
         'OR'        : 'TK_OR',
         'NOT'       : 'TK_NOT'
     }
+
+
+    def scan(self, source):
+    # Reads <source program> and builds tokens. 
+        text = open(source, 'r').read().splitlines()
+        for line in text:
+            for char in line: 
+
+                # Treat all ascii chars <= 32 as spaces
+                if self.to_ascii(char) == 32:
+                    self.build_token(char)
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
+
+                if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+
+                # Check if char: 0 1 2 3 4 5 6 7 8 9
+                if self.to_ascii(char) > 47 and self.to_ascii(char) < 58:
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                
+                # Check if char is uppercase
+                if (self.to_ascii(char) > 64 and self.to_ascii(char) < 91):
+                    self.build_string(self.to_lower(char))
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + self.to_lower(char) 
+                
+                # Check if char is lowercase
+                if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
+                    # build_string(char)
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+
+                # Check if char: [ \ ] ^ _ `
+                if self.to_ascii(char) > 90 and self.to_ascii(char) < 97:
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+
+                # Check if char: { | } ~ DEL
+                if self.to_ascii(char) > 122 and self.to_ascii(char) < 128:
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                self.curr_col += 1
+            self.curr_row += 1
+        print self.tokens
+
+
+    ############################
+    #      HELPER METHODS      #
+    ############################
+
+    def lookup(self, table, key):
+        # Lookup tokens 
+        return table[key]
+
+    def to_ascii(self, char):
+        # Returns ascii value of char
+        return ord(char)
+
+    def to_lower(self, char):
+        # Returns lowercase string
+        return char.lower()
+
+    def to_upper(self, char):
+        # Returns uppercase string
+        return char.upper()
+
+    def build_string(self, char):
+        # Builds strings for lookup
+        self.curr_val += char
+        print self.curr_val
+
+    def build_token(self, char):
+        # Pushes token into list of tokens
+        if self.to_upper(self.curr_val) in self.KEYWORDS:
+            self.tokens.append(self.lookup(self.KEYWORDS, self.to_upper(self.curr_val)))
+            self.curr_val = ''
 
 scanner = Scanner(1, 1, '', '', [])
