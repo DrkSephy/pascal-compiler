@@ -1,10 +1,10 @@
 PROGRAM assignment;
 
 var
-age: integer;
+age : integer;
 
 BEGIN
-    age:= 5;
+    age := 5;
 END.
 
 
