@@ -8,7 +8,7 @@
 
 # - [done] Scan <target program>
 # - [    ] Tokenize keywords
-# - [    ] Convert code using Classes
+# - [done] Convert code using Classes
 
 import sys
 
@@ -42,7 +42,8 @@ class Scanner(object):
                 
                 # Check if char is uppercase
                 if (self.to_ascii(char) > 64 and self.to_ascii(char) < 91):
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + self.to_lower(char) 
+                    self.build_string(self.to_lower(char))
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + self.to_lower(char) 
                 
                 # Check if char is lowercase
                 if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
@@ -60,6 +61,10 @@ class Scanner(object):
             self.curr_row += 1
 
 
+    ############################
+    #      HELPER METHODS      #
+    ############################
+
     def lookup(self, table, key):
         return self.table[key]
 
@@ -71,6 +76,10 @@ class Scanner(object):
 
     def to_upper(self, char):
         return char.upper()
+
+    def build_string(self, char):
+        self.curr_val += char
+        print self.curr_val
 
 
     KEYWORDS = {
