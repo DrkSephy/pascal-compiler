@@ -74,12 +74,13 @@ class Scanner(object):
 
                 # Treat all ascii chars <= 32 as spaces
                 if self.to_ascii(char) == 32:
-                    self.build_token()
+                    pass
+                    # self.build_token()
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
                 if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
-                    self.build_token()
+                    self.build_string(char)
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: 0 1 2 3 4 5 6 7 8 9
@@ -100,12 +101,14 @@ class Scanner(object):
 
                 # Check if char: [ \ ] ^ _ `
                 if self.to_ascii(char) > 90 and self.to_ascii(char) < 97:
-                    self.build_token()
+                    pass
+                    # self.build_token()
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: { | } ~ DEL
                 if self.to_ascii(char) > 122 and self.to_ascii(char) < 128:
-                    self.build_token()
+                    pass
+                    # self.build_token()
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
                 self.curr_col += 1
             self.curr_row += 1
@@ -134,21 +137,16 @@ class Scanner(object):
 
     def build_string(self, char):
         # Builds strings for lookup
+
+        # We see a semicolon
+        # if self.to_ascii(char) == 59:
+        #   if not self.curr_token: 
+
+
         self.curr_val += char
         print self.curr_val
-        self.build_token()
+        # self.build_token()
 
-    def build_token(self):
-        # Pushes token into list of tokens
 
-        # If the string we are building is in neither table
-        # Temporarily mark it as an identifier
-        if self.curr_val:
-            if self.to_upper(self.curr_val) not in self.KEYWORDS:
-                if self.to_upper(self.curr_val) not in self.OPERATORS:
-                    self.curr_token = 'TK_IDENTIFIER'
-            if self.to_upper(self.curr_val) in self.KEYWORDS:
-                self.tokens.append(self.lookup(self.KEYWORDS, self.to_upper(self.curr_val)))
-                self.curr_val = ''
 
 
