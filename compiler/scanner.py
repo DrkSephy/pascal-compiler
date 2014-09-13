@@ -80,8 +80,8 @@ class Scanner(object):
         'NOT'       : 'TK_NOT'
     }
 
+scanner = Scanner(1, 1, '', '', [])
 
-"""
 def scan(source):
     # Reads <source program> and builds tokens. 
 
@@ -96,35 +96,33 @@ def scan(source):
         for char in line: 
 
             # Treat all ascii chars <= 32 as spaces
-            if to_ascii(char) == 32:
+            if scanner.to_ascii(char) == 32:
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
             # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
 
-            if ((to_ascii(char) > 32 and to_ascii(char) < 47) or (to_ascii(char) > 57 and to_ascii(char) < 65)):
+            if ((scanner.to_ascii(char) > 32 and scanner.to_ascii(char) < 47) or (scanner.to_ascii(char) > 57 and scanner.to_ascii(char) < 65)):
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
 
             # Check if char: 0 1 2 3 4 5 6 7 8 9
-            if to_ascii(char) > 47 and to_ascii(char) < 58:
+            if scanner.to_ascii(char) > 47 and scanner.to_ascii(char) < 58:
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
             
             # Check if char is uppercase
-            if (to_ascii(char) > 64 and to_ascii(char) < 91):
-                x = build_string(char)
-                # print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + to_lower(char) 
+            if (scanner.to_ascii(char) > 64 and scanner.to_ascii(char) < 91):
+                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + scanner.to_lower(char) 
             
             # Check if char is lowercase
-            if to_ascii(char) > 96 and to_ascii(char) < 123:
+            if scanner.to_ascii(char) > 96 and scanner.to_ascii(char) < 123:
                 # build_string(char)
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
 
             # Check if char: [ \ ] ^ _ `
-            if to_ascii(char) > 90 and to_ascii(char) < 97:
+            if scanner.to_ascii(char) > 90 and scanner.to_ascii(char) < 97:
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
 
             # Check if char: { | } ~ DEL
-            if to_ascii(char) > 122 and to_ascii(char) < 128:
+            if scanner.to_ascii(char) > 122 and scanner.to_ascii(char) < 128:
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
             curr_col += 1
         curr_row += 1
-    print tokens
-"""
+
