@@ -84,6 +84,7 @@ class Scanner(object):
 
                 # Check if char: 0 1 2 3 4 5 6 7 8 9
                 if self.to_ascii(char) > 47 and self.to_ascii(char) < 58:
+                    pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
                 
                 # Check if char is uppercase
@@ -93,15 +94,18 @@ class Scanner(object):
                 
                 # Check if char is lowercase
                 if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
+                    pass
                     # build_string(char)
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: [ \ ] ^ _ `
                 if self.to_ascii(char) > 90 and self.to_ascii(char) < 97:
+                    pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: { | } ~ DEL
                 if self.to_ascii(char) > 122 and self.to_ascii(char) < 128:
+                    pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
                 self.curr_col += 1
             self.curr_row += 1
@@ -141,4 +145,8 @@ class Scanner(object):
             self.tokens.append(self.lookup(self.KEYWORDS, self.to_upper(self.curr_val)))
             self.curr_val = ''
 
-scanner = Scanner(1, 1, '', '', [])
+        # Handle case that the string built is in the operators table
+        if self.to_upper(self.curr_val) in self.OPERATORS:
+            self.tokens.append(self.lookup(self.OPERATORS, self.to_upper(self.curr_val)))
+            self.curr_val = ''
+
