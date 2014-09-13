@@ -62,7 +62,8 @@ class Scanner(object):
         '<='        : 'TK_LESS_EQUALS',
         'AND'       : 'TK_AND',
         'OR'        : 'TK_OR',
-        'NOT'       : 'TK_NOT'
+        'NOT'       : 'TK_NOT',
+        ';'         : 'TK_SEMICOLON'
     }
 
 
@@ -139,13 +140,14 @@ class Scanner(object):
         # Builds strings for lookup
 
         # We see a semicolon
-        # if self.to_ascii(char) == 59:
-        #   if not self.curr_token: 
+        if self.to_ascii(char) == 59:
+            if not self.curr_token: 
+                self.create_token(char)
 
-
-        self.curr_val += char
-        print self.curr_val
         # self.build_token()
+
+    def create_token(self, char):
+        self.tokens.append(self.lookup(self.OPERATORS, char))
 
 
 
