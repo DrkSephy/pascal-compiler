@@ -24,6 +24,7 @@
 
 import sys
 import scanner
+from scanner import Scanner
 
 
 def usage():
