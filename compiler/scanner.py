@@ -13,6 +13,15 @@
 import sys
 
 
+class scanner(object):
+
+    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens):
+        self.curr_row   = curr_row
+        self.curr_col   = curr_col
+        self.curr_token = curr_token
+        self.curr_val   = curr_val
+        self.tokens     = tokens
+
 def scan(source):
     # Reads <source program> and builds tokens. 
 
