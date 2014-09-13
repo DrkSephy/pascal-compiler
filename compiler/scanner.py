@@ -23,6 +23,42 @@ class Scanner(object):
         self.tokens     = tokens
 
 
+    def scan(self, source):
+    # Reads <source program> and builds tokens. 
+        text = open(source, 'r').read().splitlines()
+        for line in text:
+            for char in line: 
+                # Treat all ascii chars <= 32 as spaces
+                if self.to_ascii(char) == 32:
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
+
+                if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+
+                # Check if char: 0 1 2 3 4 5 6 7 8 9
+                if self.to_ascii(char) > 47 and self.to_ascii(char) < 58:
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                
+                # Check if char is uppercase
+                if (self.to_ascii(char) > 64 and self.to_ascii(char) < 91):
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + self.to_lower(char) 
+                
+                # Check if char is lowercase
+                if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
+                    # build_string(char)
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+
+                # Check if char: [ \ ] ^ _ `
+                if self.to_ascii(char) > 90 and self.to_ascii(char) < 97:
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+
+                # Check if char: { | } ~ DEL
+                if self.to_ascii(char) > 122 and self.to_ascii(char) < 128:
+                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                self.curr_col += 1
+            self.curr_row += 1
+
 
     def lookup(self, table, key):
         return self.table[key]
@@ -81,48 +117,3 @@ class Scanner(object):
     }
 
 scanner = Scanner(1, 1, '', '', [])
-
-def scan(source):
-    # Reads <source program> and builds tokens. 
-
-    # Variables to assist with tokenization
-    # row/col of current character
-    curr_row = 1
-    curr_col = 1
-
-    text = open(source, 'r').read().splitlines()
-    for line in text:
-        curr_col = 1
-        for char in line: 
-
-            # Treat all ascii chars <= 32 as spaces
-            if scanner.to_ascii(char) == 32:
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
-            # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
-
-            if ((scanner.to_ascii(char) > 32 and scanner.to_ascii(char) < 47) or (scanner.to_ascii(char) > 57 and scanner.to_ascii(char) < 65)):
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
-
-            # Check if char: 0 1 2 3 4 5 6 7 8 9
-            if scanner.to_ascii(char) > 47 and scanner.to_ascii(char) < 58:
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
-            
-            # Check if char is uppercase
-            if (scanner.to_ascii(char) > 64 and scanner.to_ascii(char) < 91):
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + scanner.to_lower(char) 
-            
-            # Check if char is lowercase
-            if scanner.to_ascii(char) > 96 and scanner.to_ascii(char) < 123:
-                # build_string(char)
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
-
-            # Check if char: [ \ ] ^ _ `
-            if scanner.to_ascii(char) > 90 and scanner.to_ascii(char) < 97:
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
-
-            # Check if char: { | } ~ DEL
-            if scanner.to_ascii(char) > 122 and scanner.to_ascii(char) < 128:
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
-            curr_col += 1
-        curr_row += 1
-
