@@ -11,11 +11,10 @@
 
 import sys
 
-
-# Current value of token
-curr_val = ""
+ # Current value of token
+curr_val = ''
 # Curent token
-curr_token = ""
+curr_token = ''
 # List of tokens
 tokens = []
 
@@ -46,10 +45,12 @@ def scan(source):
             
             # Check if char is uppercase
             if (to_ascii(char) > 64 and to_ascii(char) < 91):
-                print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + to_lower(char) 
+                x = build_string(char)
+                # print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + to_lower(char) 
             
             # Check if char is lowercase
             if to_ascii(char) > 96 and to_ascii(char) < 123:
+                # build_string(char)
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
 
             # Check if char: [ \ ] ^ _ `
@@ -61,6 +62,7 @@ def scan(source):
                 print "row: " + str(curr_row) + " , " + "col: " + str(curr_col) + " is: " + char
             curr_col += 1
         curr_row += 1
+    print tokens
 
 
 ###################################
@@ -71,19 +73,25 @@ def lookup(table, key):
     # Reads token value from corresponding table
     return table[key]
 
-def to_ascii(char):
+def to_ascii(string):
     # Returns ascii value of a character
-    return ord(char)
+    return ord(string)
 
-def to_lower(char):
+def to_lower(string):
     # Returns lowercase string
-    return char.lower()
+    return string.lower()
 
-def to_upper(char):
+def to_upper(string):
     # Returns uppercase string
-    return char.upper()
+    return string.upper()
 
-#def build_string(char):
+def build_string(char):
+    curr_val += char
+    print curr_val
+
+    
+
+
 
 
 
