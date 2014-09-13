@@ -75,16 +75,16 @@ class Scanner(object):
                 # Treat all ascii chars <= 32 as spaces
                 if self.to_ascii(char) == 32:
                     self.build_token(char)
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
                 # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
 
                 if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
                     self.build_token(char)
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: 0 1 2 3 4 5 6 7 8 9
                 if self.to_ascii(char) > 47 and self.to_ascii(char) < 58:
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
                 
                 # Check if char is uppercase
                 if (self.to_ascii(char) > 64 and self.to_ascii(char) < 91):
@@ -94,15 +94,15 @@ class Scanner(object):
                 # Check if char is lowercase
                 if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
                     # build_string(char)
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: [ \ ] ^ _ `
                 if self.to_ascii(char) > 90 and self.to_ascii(char) < 97:
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: { | } ~ DEL
                 if self.to_ascii(char) > 122 and self.to_ascii(char) < 128:
-                    print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
+                    # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
                 self.curr_col += 1
             self.curr_row += 1
         print self.tokens
@@ -135,6 +135,8 @@ class Scanner(object):
 
     def build_token(self, char):
         # Pushes token into list of tokens
+
+        # Handle case that the string built is in the keywords table
         if self.to_upper(self.curr_val) in self.KEYWORDS:
             self.tokens.append(self.lookup(self.KEYWORDS, self.to_upper(self.curr_val)))
             self.curr_val = ''
