@@ -8,15 +8,10 @@
 
 # - [done] Scan <target program>
 # - [    ] Tokenize keywords
+# - [    ] Convert code using Classes
 
 import sys
 
- # Current value of token
-curr_val = ''
-# Curent token
-curr_token = ''
-# List of tokens
-tokens = []
 
 def scan(source):
     # Reads <source program> and builds tokens. 
@@ -84,15 +79,6 @@ def to_lower(string):
 def to_upper(string):
     # Returns uppercase string
     return string.upper()
-
-def build_string(char):
-    curr_val += char
-    print curr_val
-
-    
-
-
-
 
 
 KEYWORDS = {
