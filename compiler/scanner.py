@@ -79,6 +79,7 @@ class Scanner(object):
                 # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
 
                 if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
+                    self.build_token(char)
                     print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: 0 1 2 3 4 5 6 7 8 9
