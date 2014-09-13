@@ -22,6 +22,18 @@ class scanner(object):
         self.curr_val   = curr_val
         self.tokens     = tokens
 
+    def lookup(self, table, key):
+        return self.table[key]
+
+    def to_ascii(self, char):
+        return ord(char)
+
+    def to_lower(char):
+        return char.lower()
+
+    def to_upper(char):
+        return char.upper()
+
 def scan(source):
     # Reads <source program> and builds tokens. 
 
@@ -67,28 +79,6 @@ def scan(source):
             curr_col += 1
         curr_row += 1
     print tokens
-
-
-###################################
-#         HELPER FUNCTIONS        #
-###################################
-
-def lookup(table, key):
-    # Reads token value from corresponding table
-    return table[key]
-
-def to_ascii(string):
-    # Returns ascii value of a character
-    return ord(string)
-
-def to_lower(string):
-    # Returns lowercase string
-    return string.lower()
-
-def to_upper(string):
-    # Returns uppercase string
-    return string.upper()
-
 
 KEYWORDS = {
     'BEGIN'     : 'TK_BEGIN',
