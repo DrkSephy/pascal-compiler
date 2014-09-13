@@ -81,7 +81,7 @@ class Scanner(object):
 
                 # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
                 if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
-                    self.build_string(char)
+                    pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: 0 1 2 3 4 5 6 7 8 9
@@ -91,12 +91,12 @@ class Scanner(object):
                 
                 # Check if char is uppercase
                 if (self.to_ascii(char) > 64 and self.to_ascii(char) < 91):
-                    self.build_string(self.to_lower(char))
+                    pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + self.to_lower(char) 
                 
                 # Check if char is lowercase
                 if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
-                    self.build_string(char)
+                    pass
                     # build_string(char)
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
@@ -135,39 +135,6 @@ class Scanner(object):
     def to_upper(self, char):
         # Returns uppercase string
         return char.upper()
-
-    def build_string(self, char):
-        # Builds strings for lookup
-
-        # We see a semicolon
-        if self.to_ascii(char) == 59:
-            # ... And we have a current token value
-            if self.curr_token: 
-                self.tokens.append('TK_IDENTIFIER')
-                self.curr_token = ''
-            if not self.curr_token: 
-                self.create_token(char)
-
-        self.curr_val += char
-        print self.curr_val
-
-        if (self.to_upper(self.curr_val) in self.KEYWORDS):
-            self.tokens.append(self.lookup(self.KEYWORDS, self.to_upper(self.curr_val)))
-            self.curr_val = ''
-
-        # Handle case if string is not in any table
-        # Temporarily mark it as identifier
-        if (self.to_upper(self.curr_val) not in self.KEYWORDS):
-            if (self.to_upper(self.curr_val) not in self.OPERATORS):
-                self.curr_token = 'TK_IDENTIFIER'
-
-
-
-
-
-    def create_token(self, char):
-        # Creates a token from a symbol
-        self.tokens.append(self.lookup(self.OPERATORS, char))
 
 
 
