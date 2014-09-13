@@ -141,12 +141,32 @@ class Scanner(object):
 
         # We see a semicolon
         if self.to_ascii(char) == 59:
+            # ... And we have a current token value
+            if self.curr_token: 
+                self.tokens.append('TK_IDENTIFIER')
+                self.curr_token = ''
             if not self.curr_token: 
                 self.create_token(char)
 
-        # self.build_token()
+        self.curr_val += char
+        print self.curr_val
+
+        if (self.to_upper(self.curr_val) in self.KEYWORDS):
+            self.tokens.append(self.lookup(self.KEYWORDS, self.to_upper(self.curr_val)))
+            self.curr_val = ''
+
+        # Handle case if string is not in any table
+        # Temporarily mark it as identifier
+        if (self.to_upper(self.curr_val) not in self.KEYWORDS):
+            if (self.to_upper(self.curr_val) not in self.OPERATORS):
+                self.curr_token = 'TK_IDENTIFIER'
+
+
+
+
 
     def create_token(self, char):
+        # Creates a token from a symbol
         self.tokens.append(self.lookup(self.OPERATORS, char))
 
 
