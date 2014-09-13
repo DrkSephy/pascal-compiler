@@ -28,10 +28,10 @@ class scanner(object):
     def to_ascii(self, char):
         return ord(char)
 
-    def to_lower(char):
+    def to_lower(self, char):
         return char.lower()
 
-    def to_upper(char):
+    def to_upper(self, char):
         return char.upper()
 
 def scan(source):
