@@ -66,18 +66,23 @@ class Scanner(object):
     ############################
 
     def lookup(self, table, key):
+        # Lookup tokens 
         return self.table[key]
 
     def to_ascii(self, char):
+        # Returns ascii value of char
         return ord(char)
 
     def to_lower(self, char):
+        # Returns lowercase string
         return char.lower()
 
     def to_upper(self, char):
+        # Returns uppercase string
         return char.upper()
 
     def build_string(self, char):
+        # Builds strings for lookup
         self.curr_val += char
         print self.curr_val
 
