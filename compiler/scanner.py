@@ -170,7 +170,7 @@ class Scanner(object):
         if self.to_ascii(char) == 58:
             # If there is no current token, assign colon token
             if not self.curr_token:
-                self.curr_token = 'TK_SEMICOLON'
+                self.curr_token = 'TK_COLON'
                 return
 
         # Character is equals
@@ -185,6 +185,26 @@ class Scanner(object):
                 self.tokens.append('TK_ASSIGNMENT')
                 self.curr_token = ''
                 return
+
+
+        # If none of the above cases are true
+        self.curr_val += char
+
+        if self.to_upper(self.curr_val) in self.KEYWORDS: 
+            print self.to_upper(self.curr_val)
+            self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
+
+        if self.to_upper(self.curr_val) in self.OPERATORS:
+            print self.curr_val
+            self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
+
+        # string is not in either table
+        if self.to_upper(self.curr_val) not in self.KEYWORDS:
+            if self.to_upper(self.curr_val) not in self.OPERATORS:
+                self.curr_token = 'TK_IDENTIFIER'
+
+
+
 
 
 
