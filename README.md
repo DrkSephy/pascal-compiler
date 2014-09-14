@@ -1,10 +1,14 @@
 pascal-compiler
 ---------------
 
-Repository for a pascal compiler built using Python. Other possible languages for implementing this compiler are listed below (but are not limited to):
+A Pascal compiler built using Python. 
 
-* JavaScript
-* Rust
+Restrictions
+------------
+
+As a means to learn, no libraries will be used for heavy lifting of the implementation of the scanner, parser or abstract syntax tree. The only libraries being used within this project are:
+
+* [Pretty Tables](https://github.com/dprince/python-prettytable) : Library for printing ascii tables, useful for printing debug statements and generated tokens to console.
 
 Compiler Research Links
 -----------------------
