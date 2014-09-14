@@ -75,7 +75,13 @@ class Scanner(object):
                 self.build_string(char)
                 self.curr_col += 1
             self.curr_row += 1
-        print self.tokens
+
+        i = 1
+        for token in self.tokens:
+            print str(i) + " : " + token
+            i += 1
+
+
 
 
     ############################
