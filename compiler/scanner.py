@@ -15,6 +15,7 @@
 # - [    ] Need to build system tables
 
 import sys
+from prettytable import PrettyTable
 
 
 class Scanner(object):
@@ -80,12 +81,30 @@ class Scanner(object):
                 self.build_string(char)
                 self.curr_col += 1
             self.curr_row += 1
+            self.curr_col = 0
 
-        i = 1
+
+        x = PrettyTable()
+        x.field_names = ['TOKEN', 'COLUMN', 'VALUE', 'ROW']
+        
+        i = 0
+        datum = []
         for data in self.metadata:
+            print data
             for k, v in data.items():
-                print k, v
+                if str(k) == 'TOKEN':
+                    datum.append(v)
+                if str(k) == 'ROW':
+                    datum.append(v)
+                if str(k) == 'VALUE':
+                    datum.append(v)
+                if str(k) == 'COL':
+                    datum.append(v)
+            x.add_row(datum)
+            del datum[:]
             i += 1
+        print x
+                
 
 
 
