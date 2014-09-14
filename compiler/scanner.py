@@ -121,6 +121,14 @@ class Scanner(object):
                     self.curr_val = ''
                     return 
 
+                if self.to_upper(self.curr_val) not in self.OPERATORS:
+                    if self.to_upper(self.curr_val) not in self.KEYWORDS:
+                        print 'Identifier: ' + self.curr_val
+                        self.tokens.append(self.curr_token)
+                        self.curr_token = ''
+                        self.curr_val = ''
+                        return
+
         # Character is a semicolon
         if self.to_ascii(char) == 59:
             # If current token exists, we append it
@@ -162,7 +170,7 @@ class Scanner(object):
 
         # If none of the above cases are true
         self.curr_val += char
-        print 'Value of current string: ' + self.curr_val
+        # print 'Value of current string: ' + self.curr_val
 
         # string is not in either table
         if self.to_upper(self.curr_val) not in self.KEYWORDS:
