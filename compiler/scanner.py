@@ -7,8 +7,12 @@
 #################
 
 # - [done] Scan <target program>
-# - [    ] Tokenize keywords
+# - [done] Tokenize program
 # - [done] Convert code using Classes
+# - [    ] Create metadata for debugging
+# - [    ] Need to tokenize '' ""
+# - [    ] Need to tokenize (  )
+# - [    ] Need to build system tables
 
 import sys
 
