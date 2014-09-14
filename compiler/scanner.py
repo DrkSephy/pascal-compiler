@@ -135,6 +135,7 @@ class Scanner(object):
                         self.curr_val = ''
                         return
 
+            # If there is no token and we are looking at spaces, just return
             if not self.curr_token: 
                 return
 
