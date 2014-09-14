@@ -81,16 +81,16 @@ class Scanner(object):
                 self.build_string(char)
                 self.curr_col += 1
             self.curr_row += 1
-            self.curr_col = 0
+            self.curr_col = 1
 
 
         x = PrettyTable()
-        x.field_names = ['TOKEN', 'COLUMN', 'VALUE', 'ROW']
+        x.field_names = ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW']
         
         i = 0
         datum = []
         for data in self.metadata:
-            print data
+            datum.append(i)
             for k, v in data.items():
                 if str(k) == 'TOKEN':
                     datum.append(v)
@@ -100,6 +100,8 @@ class Scanner(object):
                     datum.append(v)
                 if str(k) == 'COL':
                     datum.append(v)
+
+            print datum
             x.add_row(datum)
             del datum[:]
             i += 1
