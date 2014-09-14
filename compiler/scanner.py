@@ -83,7 +83,8 @@ class Scanner(object):
 
         i = 1
         for data in self.metadata:
-            print data
+            for k, v in data.items():
+                print k, v
             i += 1
 
 
