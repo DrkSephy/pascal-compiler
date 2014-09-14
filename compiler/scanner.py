@@ -177,6 +177,14 @@ class Scanner(object):
                 self.curr_token = ''
                 return
 
+        # Character is a dot
+        if self.to_ascii(char) == 46:
+            # If there is a current token, it is END
+            if self.curr_token:
+                self.tokens.append('TK_END_CODE')
+                self.curr_token = ''
+                return
+
 
         # If none of the above cases are true
         self.curr_val += char
