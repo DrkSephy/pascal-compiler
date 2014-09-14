@@ -82,8 +82,8 @@ class Scanner(object):
             self.curr_row += 1
 
         i = 1
-        for token in self.tokens:
-            print str(i) + " : " + token
+        for data in self.metadata:
+            print data
             i += 1
 
 
@@ -124,6 +124,7 @@ class Scanner(object):
                     # print 'Keyword: ' + self.curr_val
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
+                    self.metadata.append({'TOKEN' : self.curr_token})
                     self.curr_token = ''
                     self.curr_val = ''
                     return
@@ -132,6 +133,7 @@ class Scanner(object):
                     # print 'Operator: ' + self.curr_val
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
+                    self.metadata.append({'TOKEN' : self.curr_token})
                     self.curr_token = ''
                     self.curr_val = ''
                     return 
@@ -140,6 +142,7 @@ class Scanner(object):
                     if self.to_upper(self.curr_val) not in self.KEYWORDS:
                         # print 'Space Identifier: ' + self.curr_val
                         self.tokens.append(self.curr_token)
+                        self.metadata.append({'TOKEN' : self.curr_token})
                         self.curr_token = ''
                         self.curr_val = ''
                         return
@@ -154,6 +157,7 @@ class Scanner(object):
             if self.curr_token:
                 # print 'Semi-Colon Identifier: ' + self.curr_val
                 self.tokens.append(self.curr_token)
+                self.metadata.append({'TOKEN' : self.curr_token})
                 self.curr_token = ''
                 self.curr_val = '' 
 
@@ -161,6 +165,7 @@ class Scanner(object):
             if not self.curr_token:
                 # print 'Semicolon: ' + char
                 self.tokens.append('TK_SEMICOLON')
+                self.metadata.append({'TOKEN' : 'TK_SEMICOLON'})
                 return
 
         # Character is colon
@@ -177,12 +182,14 @@ class Scanner(object):
             if not self.curr_token:
                 # print 'Equals: ' + char
                 self.tokens.append('TK_EQUALS')
+                self.metadata.append({'TOKEN' : 'TK_EQUALS'})
                 return
 
             # If there is a current token, it must be colon
             if self.curr_token:
                 # print 'Assignment: ' + ':' + char
                 self.tokens.append('TK_ASSIGNMENT')
+                self.metadata.append({'TOKEN': 'TK_ASSIGNMENT'})
                 self.curr_token = ''
                 return
 
@@ -191,6 +198,7 @@ class Scanner(object):
             # If there is a current token, it is END
             if self.curr_token:
                 self.tokens.append('TK_END_CODE')
+                self.metadata.append({'TOKEN': 'TK_END_CODE'})
                 self.curr_token = ''
                 return
 
