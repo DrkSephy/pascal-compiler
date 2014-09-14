@@ -148,7 +148,7 @@ class Scanner(object):
             # If current token exists, we append it
             if self.curr_token:
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
-                    print self.curr_val
+                    print 'Keyworld: ' + self.curr_val
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
                     self.curr_token = ''
@@ -156,7 +156,7 @@ class Scanner(object):
                     return
 
                 if self.to_upper(self.curr_val) in self.OPERATORS:
-                    print self.curr_val
+                    print 'Operator: ' + self.curr_val
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
                     self.curr_token = ''
@@ -167,13 +167,14 @@ class Scanner(object):
         if self.to_ascii(char) == 59:
             # If current token exists, we append it
             if self.curr_token:
+                print 'Identifier: ' + self.curr_val
                 self.tokens.append(self.curr_token)
                 self.curr_token = ''
-                self.curr_val = ''
-                return 
+                self.curr_val = '' 
 
             # If there is no current token, push semicolon token
             if not self.curr_token:
+                print 'Semicolon: ' + char
                 self.tokens.append('TK_SEMICOLON')
                 return
 
@@ -181,6 +182,7 @@ class Scanner(object):
         if self.to_ascii(char) == 58:
             # If there is no current token, assign colon token
             if not self.curr_token:
+                print 'Colon: ' + char
                 self.curr_token = 'TK_COLON'
                 return
 
@@ -188,11 +190,13 @@ class Scanner(object):
         if self.to_ascii(char) == 61:
             # If there is no current token, push equals token
             if not self.curr_token:
+                print 'Equals: ' + char
                 self.tokens.append('TK_EQUALS')
                 return
 
             # If there is a current token, it must be colon
             if self.curr_token:
+                print 'Assignment: ' + ':' + char
                 self.tokens.append('TK_ASSIGNMENT')
                 self.curr_token = ''
                 return
