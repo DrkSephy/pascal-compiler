@@ -87,7 +87,7 @@ class Scanner(object):
         x = PrettyTable()
         x.field_names = ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW']
         
-        i = 0
+        i = 1
         datum = []
         for data in self.metadata:
             datum.append(i)
@@ -100,8 +100,6 @@ class Scanner(object):
                     datum.append(v)
                 if str(k) == 'COL':
                     datum.append(v)
-
-            print datum
             x.add_row(datum)
             del datum[:]
             i += 1
@@ -143,7 +141,6 @@ class Scanner(object):
             # If current token exists, we append it
             if self.curr_token:
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
-                    # print 'Keyword: ' + self.curr_val
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
@@ -152,7 +149,6 @@ class Scanner(object):
                     return
 
                 if self.to_upper(self.curr_val) in self.OPERATORS:
-                    # print 'Operator: ' + self.curr_val
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
@@ -166,7 +162,7 @@ class Scanner(object):
                             self.tokens.append(self.curr_token)
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : ':', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
-                        else: # print 'Space Identifier: ' + self.curr_val
+                        else: 
                             self.tokens.append(self.curr_token)
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
@@ -181,7 +177,6 @@ class Scanner(object):
         if self.to_ascii(char) == 59:
             # If current token exists, we append it
             if self.curr_token:
-                # print 'Semi-Colon Identifier: ' + self.curr_val
                 self.tokens.append(self.curr_token)
                 self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
@@ -189,7 +184,6 @@ class Scanner(object):
 
             # If there is no current token, push semicolon token
             if not self.curr_token:
-                # print 'Semicolon: ' + char
                 self.tokens.append('TK_SEMICOLON')
                 self.metadata.append({'TOKEN' : 'TK_SEMICOLON', 'VALUE' : ';', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
@@ -198,7 +192,6 @@ class Scanner(object):
         if self.to_ascii(char) == 58:
             # If there is no current token, assign colon token
             if not self.curr_token:
-                # print 'Colon: ' + char
                 self.curr_token = 'TK_COLON'
                 return
 
@@ -206,14 +199,12 @@ class Scanner(object):
         if self.to_ascii(char) == 61:
             # If there is no current token, push equals token
             if not self.curr_token:
-                # print 'Equals: ' + char
                 self.tokens.append('TK_EQUALS')
                 self.metadata.append({'TOKEN' : 'TK_EQUALS', 'VALUE' : '=', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
 
             # If there is a current token, it must be colon
             if self.curr_token:
-                # print 'Assignment: ' + ':' + char
                 self.tokens.append('TK_ASSIGNMENT')
                 self.metadata.append({'TOKEN': 'TK_ASSIGNMENT', 'VALUE' : ':=', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
@@ -229,9 +220,8 @@ class Scanner(object):
                 return
 
 
-        # If none of the above cases are true
+        # If none of the above cases are true, build string
         self.curr_val += char
-        print 'Value of current string: ' + self.curr_val
 
         # string is not in either table
         if self.to_upper(self.curr_val) not in self.KEYWORDS:
