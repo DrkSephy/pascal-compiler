@@ -124,7 +124,7 @@ class Scanner(object):
                     # print 'Keyword: ' + self.curr_val
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
-                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row})
+                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
                     return
@@ -133,19 +133,23 @@ class Scanner(object):
                     # print 'Operator: ' + self.curr_val
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
-                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row})
+                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
                     return 
 
                 if self.to_upper(self.curr_val) not in self.OPERATORS:
                     if self.to_upper(self.curr_val) not in self.KEYWORDS:
-                        # print 'Space Identifier: ' + self.curr_val
-                        self.tokens.append(self.curr_token)
-                        self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row})
-                        self.curr_token = ''
-                        self.curr_val = ''
-                        return
+                        if self.curr_token == 'TK_COLON':
+                            self.tokens.append(self.curr_token)
+                            self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : ':', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                            self.curr_token = ''
+                        else: # print 'Space Identifier: ' + self.curr_val
+                            self.tokens.append(self.curr_token)
+                            self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                            self.curr_token = ''
+                            self.curr_val = ''
+                            return
 
             # If there is no token and we are looking at spaces, just return
             if not self.curr_token: 
@@ -157,7 +161,7 @@ class Scanner(object):
             if self.curr_token:
                 # print 'Semi-Colon Identifier: ' + self.curr_val
                 self.tokens.append(self.curr_token)
-                self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row})
+                self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
                 self.curr_val = '' 
 
@@ -165,7 +169,7 @@ class Scanner(object):
             if not self.curr_token:
                 # print 'Semicolon: ' + char
                 self.tokens.append('TK_SEMICOLON')
-                self.metadata.append({'TOKEN' : 'TK_SEMICOLON', 'VALUE' : ';', 'ROW' : self.curr_row})
+                self.metadata.append({'TOKEN' : 'TK_SEMICOLON', 'VALUE' : ';', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
 
         # Character is colon
@@ -182,14 +186,14 @@ class Scanner(object):
             if not self.curr_token:
                 # print 'Equals: ' + char
                 self.tokens.append('TK_EQUALS')
-                self.metadata.append({'TOKEN' : 'TK_EQUALS', 'VALUE' : '=', 'ROW' : self.curr_row})
+                self.metadata.append({'TOKEN' : 'TK_EQUALS', 'VALUE' : '=', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
 
             # If there is a current token, it must be colon
             if self.curr_token:
                 # print 'Assignment: ' + ':' + char
                 self.tokens.append('TK_ASSIGNMENT')
-                self.metadata.append({'TOKEN': 'TK_ASSIGNMENT', 'VALUE' : ':=', 'ROW' : self.curr_row})
+                self.metadata.append({'TOKEN': 'TK_ASSIGNMENT', 'VALUE' : ':=', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
                 return
 
@@ -198,7 +202,7 @@ class Scanner(object):
             # If there is a current token, it is END
             if self.curr_token:
                 self.tokens.append('TK_END_CODE')
-                self.metadata.append({'TOKEN': 'TK_END_CODE', 'VALUE' : 'END.', 'ROW' : self.curr_row})
+                self.metadata.append({'TOKEN': 'TK_END_CODE', 'VALUE' : 'END.', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 self.curr_token = ''
                 return
 
@@ -211,10 +215,4 @@ class Scanner(object):
         if self.to_upper(self.curr_val) not in self.KEYWORDS:
             if self.to_upper(self.curr_val) not in self.OPERATORS:
                 self.curr_token = 'TK_IDENTIFIER'
-                
-
-
-
-
-
 
