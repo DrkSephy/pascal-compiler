@@ -19,12 +19,13 @@ import sys
 
 class Scanner(object):
 
-    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens):
+    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata):
         self.curr_row   = curr_row
         self.curr_col   = curr_col
         self.curr_token = curr_token
         self.curr_val   = curr_val
         self.tokens     = tokens
+        self.metadata   = metadata
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
@@ -108,6 +109,10 @@ class Scanner(object):
         # Returns uppercase string
         return char.upper()
 
+    def alphanumberic(self, char):
+        # Checks if string is alphanumeric
+        # Useful for generating errors in with scanning
+        return char.isalpha()
 
     def build_string(self, char):
 
