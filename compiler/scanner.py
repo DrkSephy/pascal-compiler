@@ -75,28 +75,32 @@ class Scanner(object):
 
                 # Treat all ascii chars <= 32 as spaces
                 if self.to_ascii(char) == 32:
-                    pass
+                    self.build_string(char)
                     # self.build_token()
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @
                 if ((self.to_ascii(char) > 32 and self.to_ascii(char) < 47) or (self.to_ascii(char) > 57 and self.to_ascii(char) < 65)):
-                    pass
+                    self.build_string(char)
+                    # pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
                 # Check if char: 0 1 2 3 4 5 6 7 8 9
                 if self.to_ascii(char) > 47 and self.to_ascii(char) < 58:
-                    pass
+                    self.build_string(char)
+                    # pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
                 
                 # Check if char is uppercase
                 if (self.to_ascii(char) > 64 and self.to_ascii(char) < 91):
-                    pass
+                    self.build_string(char)
+                    # pass
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + self.to_lower(char) 
                 
                 # Check if char is lowercase
                 if self.to_ascii(char) > 96 and self.to_ascii(char) < 123:
-                    pass
+                    self.build_string(char)
+                    # pass
                     # build_string(char)
                     # print "row: " + str(self.curr_row) + " , " + "col: " + str(self.curr_col) + " is: " + char
 
@@ -136,6 +140,51 @@ class Scanner(object):
         # Returns uppercase string
         return char.upper()
 
+
+    def build_string(self, char):
+
+        # Character is a space
+        if self.to_ascii(char) <= 32: 
+            # If current token exists, we append it
+            if self.curr_token:
+                self.tokens.append(self.curr_token)
+                self.curr_token = ''
+                self.curr_val = ''
+                return 
+
+        # Character is a semicolon
+        if self.to_ascii(char) == 59:
+            # If current token exists, we append it
+            if self.curr_token:
+                self.tokens.append(self.curr_token)
+                self.curr_token = ''
+                self.curr_val = ''
+                return 
+
+            # If there is no current token, push semicolon token
+            if not self.curr_token:
+                self.tokens.append('TK_SEMICOLON')
+                return
+
+        # Character is colon
+        if self.to_ascii(char) == 58:
+            # If there is no current token, assign colon token
+            if not self.curr_token:
+                self.curr_token = 'TK_SEMICOLON'
+                return
+
+        # Character is equals
+        if self.to_ascii(char) == 61:
+            # If there is no current token, push equals token
+            if not self.curr_token:
+                self.tokens.append('TK_EQUALS')
+                return
+
+            # If there is a current token, it must be colon
+            if self.curr_token:
+                self.tokens.append('TK_ASSIGNMENT')
+                self.curr_token = ''
+                return
 
 
 
