@@ -6,6 +6,3 @@ age : integer;
 BEGIN
     age := 5;
 END.
-
-
-
