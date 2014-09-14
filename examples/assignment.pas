@@ -1,6 +1,6 @@
 PROGRAM assignment;
 
-var
+var 
 age : integer;
 
 BEGIN
