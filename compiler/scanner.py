@@ -86,7 +86,7 @@ class Scanner(object):
                     self.curr_row += 1
                 self.curr_col += 1
 
-
+        # Print out metadata
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
 
 
@@ -97,7 +97,18 @@ class Scanner(object):
     ############################
 
     def printer(self, iterator, field_names, storage, data):
-        # Pretty prints list of data
+        # Returns: Ascii formatted table 
+        #
+        # Parameters:
+        #   iterator: int
+        #       token counter
+        #   field_names: list of strings
+        #       table headers
+        #   storage: list
+        #       row of data to append 
+        #   data: list of dictionaries
+        #      key, value pairs of metadata
+
         table = PrettyTable()
         table.field_names = field_names
         for datum in data:
