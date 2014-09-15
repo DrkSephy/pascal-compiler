@@ -72,6 +72,8 @@ class Scanner(object):
         ';'         : 'TK_SEMICOLON',
         '('         : 'TK_OPEN_PARENTHESIS',
         ')'         : 'TK_CLOSE_PARENTHESIS'
+        '\''        : 'TK_QUOTE',
+
     }
 
 
