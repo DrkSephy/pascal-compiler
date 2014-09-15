@@ -75,13 +75,14 @@ class Scanner(object):
 
     def scan(self, source):
     # Reads <source program> and builds tokens. 
-        text = open(source, 'r').read().splitlines()
+        text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
+                if self.to_ascii(char) == 13:
+                    self.curr_col = 1
+                    self.curr_row += 1
                 self.build_string(char)
                 self.curr_col += 1
-            self.curr_row += 1
-            self.curr_col = 1
 
 
         x = PrettyTable()

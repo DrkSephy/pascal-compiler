@@ -1,8 +1,1 @@
-PROGRAM assignment;
-
-var
-age : integer;
-
-BEGIN
-    age := 5;
-END.
+PROGRAM assignment;varage : integer;BEGIN    age := 5;END.
