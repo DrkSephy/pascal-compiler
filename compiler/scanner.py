@@ -76,6 +76,10 @@ class Scanner(object):
 
     }
 
+    SYSTEM = {
+        'Writeln'   : 'TK_WRITELN'
+    }
+
 
     def scan(self, source):
     # Reads <source program> and builds tokens. 
