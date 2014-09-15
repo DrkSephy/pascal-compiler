@@ -69,7 +69,9 @@ class Scanner(object):
         'AND'       : 'TK_AND',
         'OR'        : 'TK_OR',
         'NOT'       : 'TK_NOT',
-        ';'         : 'TK_SEMICOLON'
+        ';'         : 'TK_SEMICOLON',
+        '('         : 'TK_OPEN_PARENTHESIS',
+        ')'         : 'TK_CLOSE_PARENTHESIS'
     }
 
 
@@ -85,27 +87,7 @@ class Scanner(object):
                 self.curr_col += 1
 
 
-        x = PrettyTable()
-        x.field_names = ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW']
-        
-        i = 1
-        datum = []
-        for data in self.metadata:
-            datum.append(i)
-            for k, v in data.items():
-                if str(k) == 'TOKEN':
-                    datum.append(v)
-                if str(k) == 'ROW':
-                    datum.append(v)
-                if str(k) == 'VALUE':
-                    datum.append(v)
-                if str(k) == 'COL':
-                    datum.append(v)
-            x.add_row(datum)
-            del datum[:]
-            i += 1
-        print x
-                
+        print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
 
 
 
@@ -113,6 +95,27 @@ class Scanner(object):
     ############################
     #      HELPER METHODS      #
     ############################
+
+    def printer(self, iterator, field_names, storage, data):
+        # Pretty prints list of data
+        table = PrettyTable()
+        table.field_names = field_names
+        for datum in data:
+            storage.append(iterator)
+            for k, v in datum.items():
+                if str(k) == 'TOKEN':
+                    storage.append(v)
+                if str(k) == 'ROW':
+                    storage.append(v)
+                if str(k) == 'VALUE':
+                    storage.append(v)
+                if str(k) == 'COL':
+                    storage.append(v)
+            table.add_row(storage)
+            del storage[:]
+            iterator += 1
+        return table
+
 
     def lookup(self, table, key):
         # Lookup tokens 
