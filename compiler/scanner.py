@@ -78,10 +78,10 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
+                self.build_string(char)
                 if self.to_ascii(char) == 13:
                     self.curr_col = 1
                     self.curr_row += 1
-                self.build_string(char)
                 self.curr_col += 1
 
 
