@@ -129,27 +129,62 @@ class Scanner(object):
 
 
     def lookup(self, table, key):
-        # Lookup tokens 
+        # Returns: value from table
+        #
+        # Parameters:
+        #   table: dictionary
+        #       key, value pairs 
+        #   key: string
+        #       lookup key 
+
         return table[key]
 
     def to_ascii(self, char):
-        # Returns ascii value of char
+        # Returns: ascii value of char
+        # 
+        # Parameters:
+        #   char: character
+        #       character to get ascii value of
+
         return ord(char)
 
     def to_lower(self, char):
-        # Returns lowercase string
+        # Returns: lowercase string
+        #
+        # Parameters:
+        #   char: character
+        #       character to lowercase
+
         return char.lower()
 
     def to_upper(self, char):
-        # Returns uppercase string
+        # Returns: uppercase string
+        # 
+        # Parameters:
+        #   char: character
+        #       character to uppercase
+
         return char.upper()
 
     def alphanumberic(self, char):
-        # Checks if string is alphanumeric
-        # Useful for generating errors in with scanning
+        # Returns: Boolean
+        # 
+        # Parameters:
+        #   char: character
+        #       character to check if alphanumeric
+        
         return char.isalpha()
 
     def build_string(self, char):
+        # Based on existing conditions, uses a state-machine
+        # approach to determine when and what tokens to build, 
+        # using current existing tokens and built string.
+        # 
+        # Returns: Nothing
+        #
+        # Parameters: 
+        #   char: character
+        #       character to build strings with
 
         # Character is a space
         if self.to_ascii(char) <= 32: 
