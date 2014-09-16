@@ -201,7 +201,7 @@ class Scanner(object):
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
-                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
                     return
@@ -209,7 +209,7 @@ class Scanner(object):
                 if self.to_upper(self.curr_val) in self.OPERATORS:
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
                     self.tokens.append(self.curr_token)
-                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
                     return 
@@ -222,7 +222,7 @@ class Scanner(object):
                             self.curr_token = ''
                         else: 
                             self.tokens.append(self.curr_token)
-                            self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                            self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
                             self.curr_val = ''
                             return
@@ -236,7 +236,7 @@ class Scanner(object):
             # If current token exists, we append it
             if self.curr_token:
                 self.tokens.append(self.curr_token)
-                self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
                 self.curr_val = '' 
 
@@ -273,7 +273,7 @@ class Scanner(object):
             # If there is a current token, it is END
             if self.curr_token:
                 self.tokens.append('TK_END_CODE')
-                self.metadata.append({'TOKEN': 'TK_END_CODE', 'VALUE' : 'END.', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+                self.metadata.append({'TOKEN': 'TK_END_CODE', 'VALUE' : 'end.', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 self.curr_token = ''
                 return
 
