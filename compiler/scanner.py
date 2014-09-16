@@ -9,10 +9,12 @@
 # - [done] Scan <target program>
 # - [done] Tokenize program
 # - [done] Convert code using Classes
-# - [    ] Create metadata for debugging
+# - [done] Create metadata for debugging
 # - [    ] Need to tokenize '' ""
 # - [    ] Need to tokenize (  )
 # - [    ] Need to build system tables
+# - [    ] Need to handle comment tokens
+
 
 import sys
 from prettytable import PrettyTable
