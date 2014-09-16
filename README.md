@@ -17,6 +17,7 @@ Compiler Research Links
 * [Pascal Keywords](http://wiki.freepascal.org/Reserved_words)
 * [Pascal Operators](http://www.tutorialspoint.com/pascal/pascal_operators.htm)
 * [Symbol Tables](http://en.wikipedia.org/wiki/Symbol_table)
+* [System Functions](http://www.freepascal.org/docs-html/rtl/system/index-5.html)
 
 
 Compiling Pascal on Mac OS X
