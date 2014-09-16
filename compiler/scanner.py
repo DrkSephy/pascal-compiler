@@ -71,13 +71,13 @@ class Scanner(object):
         'NOT'       : 'TK_NOT',
         ';'         : 'TK_SEMICOLON',
         '('         : 'TK_OPEN_PARENTHESIS',
-        ')'         : 'TK_CLOSE_PARENTHESIS'
-        '\''        : 'TK_QUOTE',
-
+        ')'         : 'TK_CLOSE_PARENTHESIS',
+        '\''        : 'TK_QUOTE'
     }
 
     SYSTEM = {
-        'Writeln'   : 'TK_WRITELN'
+        'Writeln'   : 'TK_WRITELN',
+        'abs'       : 'TK_ABS'
     }
 
 
