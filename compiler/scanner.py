@@ -96,6 +96,7 @@ class Scanner(object):
 
         # Print out metadata
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
+        print(self.tokens)
 
 
 
@@ -200,7 +201,7 @@ class Scanner(object):
             if self.curr_token:
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
-                    self.tokens.append(self.curr_token)
+                    self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1))
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
@@ -208,7 +209,7 @@ class Scanner(object):
 
                 if self.to_upper(self.curr_val) in self.OPERATORS:
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
-                    self.tokens.append(self.curr_token)
+                    self.tokens.append(self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1)
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
@@ -217,11 +218,11 @@ class Scanner(object):
                 if self.to_upper(self.curr_val) not in self.OPERATORS:
                     if self.to_upper(self.curr_val) not in self.KEYWORDS:
                         if self.curr_token == 'TK_COLON':
-                            self.tokens.append(self.curr_token)
+                            self.tokens.append((self.curr_token, ':', self.curr_row, self.curr_col -1))
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : ':', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
                         else: 
-                            self.tokens.append(self.curr_token)
+                            self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1))
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
                             self.curr_val = ''
@@ -235,14 +236,14 @@ class Scanner(object):
         if self.to_ascii(char) == 59:
             # If current token exists, we append it
             if self.curr_token:
-                self.tokens.append(self.curr_token)
+                self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1))
                 self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
                 self.curr_val = '' 
 
             # If there is no current token, push semicolon token
             if not self.curr_token:
-                self.tokens.append('TK_SEMICOLON')
+                self.tokens.append(('TK_SEMICOLON', ';', self.curr_row, self.curr_col))
                 self.metadata.append({'TOKEN' : 'TK_SEMICOLON', 'VALUE' : ';', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
 
@@ -257,13 +258,13 @@ class Scanner(object):
         if self.to_ascii(char) == 61:
             # If there is no current token, push equals token
             if not self.curr_token:
-                self.tokens.append('TK_EQUALS')
+                self.tokens.append(('TK_EQUALS', '=', self.curr_row, self.curr_col))
                 self.metadata.append({'TOKEN' : 'TK_EQUALS', 'VALUE' : '=', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
 
             # If there is a current token, it must be colon
             if self.curr_token:
-                self.tokens.append('TK_ASSIGNMENT')
+                self.tokens.append(('TK_ASSIGNMENT', ':=', self.curr_row, self.curr_col -1))
                 self.metadata.append({'TOKEN': 'TK_ASSIGNMENT', 'VALUE' : ':=', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
                 return
@@ -272,7 +273,7 @@ class Scanner(object):
         if self.to_ascii(char) == 46:
             # If there is a current token, it is END
             if self.curr_token:
-                self.tokens.append('TK_END_CODE')
+                self.tokens.append(('TK_END_CODE', 'end.', self.curr_row, self.curr_col))
                 self.metadata.append({'TOKEN': 'TK_END_CODE', 'VALUE' : 'end.', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 self.curr_token = ''
                 return
