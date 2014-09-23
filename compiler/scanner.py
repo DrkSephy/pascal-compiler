@@ -22,7 +22,7 @@ from prettytable import PrettyTable
 
 class Scanner(object):
 
-    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment):
+    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string):
         self.curr_row   = curr_row
         self.curr_col   = curr_col
         self.curr_token = curr_token
@@ -30,6 +30,7 @@ class Scanner(object):
         self.tokens     = tokens
         self.metadata   = metadata
         self.comment    = comment
+        self.string     = string
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
@@ -353,6 +354,9 @@ class Scanner(object):
                 self.comment = True
                 return
 
+        # Character is ' (open quote)
+        if self.to_ascii(char) == 39: 
+            pass
 
         # If none of the above cases are true, build string
         self.curr_val += char
