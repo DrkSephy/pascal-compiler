@@ -310,13 +310,16 @@ class Scanner(object):
         if self.to_ascii(char) == 59:
             # If current token exists, we append it
             if self.curr_token:
+                # If current token value is a keyword....
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
-                    return
+                    
+                # If current token is not a keyword...
+                # It is currently treated as an identifier
                 else: 
                     self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1))
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
@@ -398,7 +401,6 @@ class Scanner(object):
 
         # If none of the above cases are true, build string
         self.curr_val += char
-        print self.curr_val
         # string is not in either table
         if self.to_upper(self.curr_val) not in self.KEYWORDS:
             if self.to_upper(self.curr_val) not in self.OPERATORS:
