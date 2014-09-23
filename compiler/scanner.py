@@ -22,13 +22,14 @@ from prettytable import PrettyTable
 
 class Scanner(object):
 
-    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata):
+    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment):
         self.curr_row   = curr_row
         self.curr_col   = curr_col
         self.curr_token = curr_token
         self.curr_val   = curr_val
         self.tokens     = tokens
         self.metadata   = metadata
+        self.comment    = comment
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
