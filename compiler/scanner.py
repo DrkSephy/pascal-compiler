@@ -129,7 +129,19 @@ class Scanner(object):
     #      HELPER METHODS      #
     ############################
     def string_builder(self, char):
-        pass
+        # If char is a quote ...
+        if self.to_ascii(char) == 39:
+            self.curr_val += char
+            self.string = False
+            self.tokens.append(('TK_STRING', self.curr_val, self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN' : 'TK_STRING', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col })
+            self.curr_val = ''
+            return
+        # Char is not a quote, so keep building string 
+        else: 
+            self.curr_val += char
+            return
+
 
     def handle_comments(self, char):
         # If char is * ...
@@ -362,9 +374,18 @@ class Scanner(object):
                 self.comment = True
                 return
 
+        # Character is right parenthesis
+        if self.to_ascii(char) == 41:
+            # We are not handling a comment, so push token
+            self.tokens.append(('TK_CLOSE_PARENTHESIS', ')', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN' : 'TK_CLOSE_PARENTHESIS', 'VALUE' : ')', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+            self.curr_val = ''
+            return
+
         # Character is ' (open quote)
         if self.to_ascii(char) == 39: 
             self.string = True
+            self.curr_val += char
             return
 
         # If none of the above cases are true, build string
