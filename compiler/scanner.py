@@ -119,7 +119,27 @@ class Scanner(object):
     ############################
 
     def handle_comments(self, char):
+        # If char is * ...
+        if self.to_ascii(char) == 42:
+            self.curr_token = 'TK_MULT'
+            return
+
+        # If char is ) ...
+        if self.to_ascii(char) == 41:
+            # If there is no current token
+            if not self.curr_token:
+                pass
+            
+            # If there is a current token, it has to be *
+            if self.curr_token == 'TK_MULT':
+                self.comment = False
+                self.tokens.append(('TK_END_COMMENT', '*)', self.curr_row, self.curr_col))
+                self.metadata.append({'TOKEN' : 'TK_END_COMMENT', 'VALUE' : '*)', 'ROW' : self.curr_row, 'COL' : self.curr_col })
+                self.curr_token = '' 
+
+        # We have not yet ended our comment section
         pass
+
 
     def printer(self, iterator, field_names, storage, data):
         # Returns: Ascii formatted table 
