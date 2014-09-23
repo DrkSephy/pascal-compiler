@@ -22,7 +22,7 @@ from prettytable import PrettyTable
 
 class Scanner(object):
 
-    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string):
+    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string, integer):
         self.curr_row   = curr_row
         self.curr_col   = curr_col
         self.curr_token = curr_token
@@ -31,6 +31,7 @@ class Scanner(object):
         self.metadata   = metadata
         self.comment    = comment
         self.string     = string
+        self.integer    = integer
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
@@ -97,19 +98,24 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
-                # If we are handling a comment, process it
+
+                # Handle comments
                 if self.comment: 
                     self.handle_comments(char)
                     if self.to_ascii(char) == 13:
                         self.curr_col = 1
                         self.curr_row += 1
                     self.curr_col += 1
+
+                # Handle strings
                 elif self.string:
                     self.string_builder(char)
                     if self.to_ascii(char) == 13:
                         self.curr_col = 1
                         self.curr_row += 1
                     self.curr_col += 1
+
+                # Handle other cases
                 else: 
                     self.build_string(char)
                     # Handle carriage returns
@@ -197,6 +203,9 @@ class Scanner(object):
             iterator += 1
         return table
 
+
+    def numeric(self, char):
+        return char.isdigit()
 
     def lookup(self, table, key):
         # Returns: value from table
@@ -398,6 +407,11 @@ class Scanner(object):
             self.string = True
             self.curr_val += char
             return
+
+        # Character is a digit
+        if self.numeric(char): 
+            print char
+
 
         # If none of the above cases are true, build string
         self.curr_val += char
