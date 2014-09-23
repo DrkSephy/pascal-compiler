@@ -101,7 +101,13 @@ class Scanner(object):
                 if self.comment: 
                     self.handle_comments(char)
                     if self.to_ascii(char) == 13:
-                        self.curr_row = 1
+                        self.curr_col = 1
+                        self.curr_row += 1
+                    self.curr_col += 1
+                elif self.string:
+                    self.string_builder(char)
+                    if self.to_ascii(char) == 13:
+                        self.curr_col = 1
                         self.curr_row += 1
                     self.curr_col += 1
                 else: 
@@ -122,6 +128,8 @@ class Scanner(object):
     ############################
     #      HELPER METHODS      #
     ############################
+    def string_builder(self, char):
+        pass
 
     def handle_comments(self, char):
         # If char is * ...
@@ -356,7 +364,8 @@ class Scanner(object):
 
         # Character is ' (open quote)
         if self.to_ascii(char) == 39: 
-            pass
+            self.string = True
+            return
 
         # If none of the above cases are true, build string
         self.curr_val += char
