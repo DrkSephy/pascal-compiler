@@ -79,7 +79,9 @@ class Scanner(object):
         ';'         : 'TK_SEMICOLON',
         '('         : 'TK_OPEN_PARENTHESIS',
         ')'         : 'TK_CLOSE_PARENTHESIS',
-        '\''        : 'TK_QUOTE'
+        '\''        : 'TK_QUOTE',
+        '(*'        : 'TK_BEGIN_COMMENT',
+        '*)'        : 'TK_END_COMMENT'
     }
 
     SYSTEM = {
@@ -101,7 +103,7 @@ class Scanner(object):
 
         # Print out metadata
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
-        print(self.tokens)
+        # print(self.tokens)
 
 
 
@@ -206,7 +208,7 @@ class Scanner(object):
             if self.curr_token:
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
-                    self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1))
+                    self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
@@ -214,17 +216,22 @@ class Scanner(object):
 
                 if self.to_upper(self.curr_val) in self.OPERATORS:
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
-                    self.tokens.append(self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1)
+                    self.tokens.append(self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1)
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
                     return 
 
+                # Current token value is not in any table
                 if self.to_upper(self.curr_val) not in self.OPERATORS:
                     if self.to_upper(self.curr_val) not in self.KEYWORDS:
                         if self.curr_token == 'TK_COLON':
-                            self.tokens.append((self.curr_token, ':', self.curr_row, self.curr_col -1))
+                            self.tokens.append((self.curr_token, ':', self.curr_row, self.curr_col - 1))
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : ':', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                            self.curr_token = ''
+                        elif self.curr_token == 'TK_OPEN_PARENTHESIS':
+                            self.tokens.append((self.curr_token, '(', self.curr_row, self.curr_col - 1))
+                            self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : '(', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
                         else: 
                             self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1))
@@ -280,6 +287,27 @@ class Scanner(object):
             if self.curr_token:
                 self.tokens.append(('TK_END_CODE', 'end.', self.curr_row, self.curr_col))
                 self.metadata.append({'TOKEN': 'TK_END_CODE', 'VALUE' : 'end.', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+                self.curr_token = ''
+                return
+
+        # Character is left parenthesis
+        if self.to_ascii(char) == 40: 
+            # Possible to be start of comment, store token
+            if not self.curr_token:
+                self.curr_token = 'TK_OPEN_PARENTHESIS'
+                return
+
+        # Character is *
+        if self.to_ascii(char) == 42:
+            # If there is no current token, push * token
+            if not self.curr_token:
+                self.tokens.append(('TK_MULT', '*', self.curr_row, self.curr_col))
+                self.metadata.append({'TOKEN' : 'TK_MULT', 'VALUE' : '*', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+
+            # If there is a current token, it must form (*
+            if self.curr_token:
+                self.tokens.append(('TK_BEGIN_COMMENT', '(*', self.curr_row, self.curr_col))
+                self.metadata.append({'TOKEN' : 'TK_BEGIN_COMMENT', 'VALUE' : '(*', 'ROW': self.curr_row, 'COL' : self.curr_col})
                 self.curr_token = ''
                 return
 
