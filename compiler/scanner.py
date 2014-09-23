@@ -96,11 +96,16 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
-                self.build_string(char)
-                if self.to_ascii(char) == 13:
-                    self.curr_col = 1
-                    self.curr_row += 1
-                self.curr_col += 1
+                # If we are handling a comment, process it
+                if self.comment: 
+                    self.handle_comments(char)
+                else: 
+                    self.build_string(char)
+                    # Handle carriage returns
+                    if self.to_ascii(char) == 13:
+                        self.curr_col = 1
+                        self.curr_row += 1
+                    self.curr_col += 1
 
         # Print out metadata
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
@@ -112,6 +117,9 @@ class Scanner(object):
     ############################
     #      HELPER METHODS      #
     ############################
+
+    def handle_comments(self, char):
+        pass
 
     def printer(self, iterator, field_names, storage, data):
         # Returns: Ascii formatted table 
@@ -310,6 +318,7 @@ class Scanner(object):
                 self.tokens.append(('TK_BEGIN_COMMENT', '(*', self.curr_row, self.curr_col))
                 self.metadata.append({'TOKEN' : 'TK_BEGIN_COMMENT', 'VALUE' : '(*', 'ROW': self.curr_row, 'COL' : self.curr_col})
                 self.curr_token = ''
+                self.comment = True
                 return
 
 
