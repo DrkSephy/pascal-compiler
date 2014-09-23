@@ -86,8 +86,8 @@ class Scanner(object):
     }
 
     SYSTEM = {
-        'Writeln'   : 'TK_WRITELN',
-        'abs'       : 'TK_ABS'
+        'WRITELN'   : 'TK_WRITELN',
+        'ABS'       : 'TK_ABS'
     }
 
 
@@ -255,6 +255,14 @@ class Scanner(object):
                     self.curr_val = ''
                     return 
 
+                if self.to_upper(self.curr_val) in self.SYSTEM: 
+                    self.curr_token = self.lookup(self.SYSTEM, self.to_upper(self.curr_val))
+                    self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))
+                    self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                    self.curr_token = ''
+                    self.curr_val = ''
+                    return
+
                 # Current token value is not in any table
                 if self.to_upper(self.curr_val) not in self.OPERATORS:
                     if self.to_upper(self.curr_val) not in self.KEYWORDS:
@@ -352,5 +360,6 @@ class Scanner(object):
         # string is not in either table
         if self.to_upper(self.curr_val) not in self.KEYWORDS:
             if self.to_upper(self.curr_val) not in self.OPERATORS:
-                self.curr_token = 'TK_IDENTIFIER'
+                if self.to_upper(self.curr_val) not in self.SYSTEM: 
+                    self.curr_token = 'TK_IDENTIFIER'
 
