@@ -35,7 +35,7 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         usage()
     filename = sys.argv[1]
-    scanner = Scanner(1, 1, '', '', [], [])
+    scanner = Scanner(1, 1, '', '', [], [], False)
     tokens = scanner.scan(filename)
     
     
