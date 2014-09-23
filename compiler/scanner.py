@@ -99,6 +99,10 @@ class Scanner(object):
                 # If we are handling a comment, process it
                 if self.comment: 
                     self.handle_comments(char)
+                    if self.to_ascii(char) == 13:
+                        self.curr_row = 1
+                        self.curr_row += 1
+                    self.curr_col += 1
                 else: 
                     self.build_string(char)
                     # Handle carriage returns
