@@ -99,7 +99,7 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
-
+                print char
                 # Handle comments
                 if self.comment: 
                     self.handle_comments(char)
@@ -148,8 +148,8 @@ class Scanner(object):
         if self.to_ascii(char) >= 48 and self.to_ascii(char) <=57:
             self.curr_val += char
 
-        # Character is a symbol, time to build token
-        if self.to_ascii(char) > 57:
+        # Character is a symbol/space, time to build token
+        if (self.to_ascii(char) > 57 or self.to_ascii(char) <= 32):
             self.numeric = False
             if self.real: 
                 self.tokens.append(('TK_REAL', self.curr_val, self.curr_row, self.curr_col - 1))
@@ -431,7 +431,6 @@ class Scanner(object):
 
         # Character is right parenthesis
         if self.to_ascii(char) == 41:
-            print "HELLO: " + str(self.curr_row)
             # We are not handling a comment, so push token
             self.tokens.append(('TK_CLOSE_PARENTHESIS', ')', self.curr_row, self.curr_col))
             self.metadata.append({'TOKEN' : 'TK_CLOSE_PARENTHESIS', 'VALUE' : ')', 'ROW' : self.curr_row, 'COL' : self.curr_col})
@@ -450,6 +449,12 @@ class Scanner(object):
             self.curr_val += char
             return 
 
+        # Character is minus 
+        if self.to_ascii(char) == 45:
+            self.tokens.append(('TK_MINUS', '-', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN' : 'TK_MULT', 'VALUE' : '-', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+            self.curr_val = ''
+            return
 
         # If none of the above cases are true, build string
         self.curr_val += char
