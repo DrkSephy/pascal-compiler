@@ -1,1 +1,1 @@
-program math;uses crt; begin    writeln (( 2 + 10.59 ) - (( 9 div 51.12 )) / 8);end.
+program math;uses crt; begin    writeln (( 2 + 10.59 ) - (( 9 div 51.12 )) / 8 );end.

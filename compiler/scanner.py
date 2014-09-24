@@ -23,6 +23,28 @@ from prettytable import PrettyTable
 class Scanner(object):
 
     def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string, numeric, real):
+        # Parameters
+        #   * curr_row  : Integer
+        #       - Row token is built
+        #   * curr_col  : Integer
+        #       - Column token is built   
+        #   * curr_token: String
+        #       - Current token state
+        #   * curr_val  : String
+        #       - Current token value
+        #   * tokens    : List of tuples
+        #       - List of tokens, row, column, value
+        #   * metadata  : List of dictionaries
+        #       - List of dicts containing token, row, column, value
+        #   * comment   : Boolean
+        #       - Comment state (Building comments)
+        #   * string    : Boolean
+        #       - String state (Building strings)
+        #   * numeric   : Boolean
+        #       - Numeric state (Building integers)
+        #   * real      : Boolean
+        #       - Real state (Building floats)
+
         self.curr_row   = curr_row
         self.curr_col   = curr_col
         self.curr_token = curr_token
@@ -34,64 +56,7 @@ class Scanner(object):
         self.numeric    = numeric
         self.real       = real
 
-    KEYWORDS = {
-        'BEGIN'     : 'TK_BEGIN',
-        'BREAK'     : 'TK_BREAK',
-        'CONST'     : 'TK_CONST',
-        'DO'        : 'TK_DO',
-        'DOWNTO'    : 'TK_DOWNTO',
-        'ELSE'      : 'TK_ELSE',
-        'END'       : 'TK_END',
-        'END.'      : 'TK_END_CODE',
-        'FOR'       : 'TK_FOR',
-        'FUNCTION'  : 'TK_FUNCTION',
-        'IDENTIFIER': 'TK_IDENTIFIER',
-        'IF'        : 'TK_IF',
-        'LABEL'     : 'TK_LABEL', 
-        'PROGRAM'   : 'TK_PROGRAM',
-        'REPEAT'    : 'TK_REPEAT',
-        'STRING'    : 'TK_STRING', 
-        'THEN'      : 'TK_THEN',
-        'TO'        : 'TK_TO',
-        'TYPE'      : 'TK_TYPE',
-        'VAR'       : 'TK_VAR',
-        'WHILE'     : 'TK_WHILE',
-        'INTEGER'   : 'TK_TYPE', 
-        'REAL'      : 'TK_TYPE',
-        'CHAR'      : 'TK_TYPE', 
-        'STRING'    : 'TK_TYPE',
-        'BOOLEAN'   : 'TK_TYPE'
-    }
 
-    OPERATORS = {
-        '+'         : 'TK_PLUS',
-        '-'         : 'TK_MINUS',
-        '*'         : 'TK_MULT',
-        '/'         : 'TK_DIV_FLOAT',
-        'DIV'       : 'TK_DIV',
-        'MOD'       : 'TK_MOD',
-        ':'         : 'TK_COLON',
-        '='         : 'TK_EQUALS',
-        ':='        : 'TK_ASSIGNMENT',
-        '>'         : 'TK_GREATER',
-        '<'         : 'TK_LESS',
-        '>='        : 'TK_GREATER_EQUALS',
-        '<='        : 'TK_LESS_EQUALS',
-        'AND'       : 'TK_AND',
-        'OR'        : 'TK_OR',
-        'NOT'       : 'TK_NOT',
-        ';'         : 'TK_SEMICOLON',
-        '('         : 'TK_OPEN_PARENTHESIS',
-        ')'         : 'TK_CLOSE_PARENTHESIS',
-        '\''        : 'TK_QUOTE',
-        '(*'        : 'TK_BEGIN_COMMENT',
-        '*)'        : 'TK_END_COMMENT'
-    }
-
-    SYSTEM = {
-        'WRITELN'   : 'TK_WRITELN',
-        'ABS'       : 'TK_ABS'
-    }
 
 
     def scan(self, source):
@@ -99,7 +64,6 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
-                print char
                 # Handle comments
                 if self.comment: 
                     self.handle_comments(char)
@@ -413,7 +377,7 @@ class Scanner(object):
                 self.tokens.append(('TK_OPEN_PARENTHESIS', '(', self.curr_row, self.curr_col - 1))
                 self.metadata.append({'TOKEN' : 'TK_OPEN_PARENTHESIS', 'VALUE' : '(', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 self.curr_token = ''
-                 
+
             # Possible to be start of comment, store token
             if not self.curr_token:
                 self.curr_token = 'TK_OPEN_PARENTHESIS'
@@ -483,4 +447,63 @@ class Scanner(object):
             if self.to_upper(self.curr_val) not in self.OPERATORS:
                 if self.to_upper(self.curr_val) not in self.SYSTEM: 
                     self.curr_token = 'TK_IDENTIFIER'
+
+    KEYWORDS = {
+        'BEGIN'     : 'TK_BEGIN',
+        'BREAK'     : 'TK_BREAK',
+        'CONST'     : 'TK_CONST',
+        'DO'        : 'TK_DO',
+        'DOWNTO'    : 'TK_DOWNTO',
+        'ELSE'      : 'TK_ELSE',
+        'END'       : 'TK_END',
+        'END.'      : 'TK_END_CODE',
+        'FOR'       : 'TK_FOR',
+        'FUNCTION'  : 'TK_FUNCTION',
+        'IDENTIFIER': 'TK_IDENTIFIER',
+        'IF'        : 'TK_IF',
+        'LABEL'     : 'TK_LABEL', 
+        'PROGRAM'   : 'TK_PROGRAM',
+        'REPEAT'    : 'TK_REPEAT',
+        'STRING'    : 'TK_STRING', 
+        'THEN'      : 'TK_THEN',
+        'TO'        : 'TK_TO',
+        'TYPE'      : 'TK_TYPE',
+        'VAR'       : 'TK_VAR',
+        'WHILE'     : 'TK_WHILE',
+        'INTEGER'   : 'TK_TYPE', 
+        'REAL'      : 'TK_TYPE',
+        'CHAR'      : 'TK_TYPE', 
+        'STRING'    : 'TK_TYPE',
+        'BOOLEAN'   : 'TK_TYPE'
+    }
+
+    OPERATORS = {
+        '+'         : 'TK_PLUS',
+        '-'         : 'TK_MINUS',
+        '*'         : 'TK_MULT',
+        '/'         : 'TK_DIV_FLOAT',
+        'DIV'       : 'TK_DIV',
+        'MOD'       : 'TK_MOD',
+        ':'         : 'TK_COLON',
+        '='         : 'TK_EQUALS',
+        ':='        : 'TK_ASSIGNMENT',
+        '>'         : 'TK_GREATER',
+        '<'         : 'TK_LESS',
+        '>='        : 'TK_GREATER_EQUALS',
+        '<='        : 'TK_LESS_EQUALS',
+        'AND'       : 'TK_AND',
+        'OR'        : 'TK_OR',
+        'NOT'       : 'TK_NOT',
+        ';'         : 'TK_SEMICOLON',
+        '('         : 'TK_OPEN_PARENTHESIS',
+        ')'         : 'TK_CLOSE_PARENTHESIS',
+        '\''        : 'TK_QUOTE',
+        '(*'        : 'TK_BEGIN_COMMENT',
+        '*)'        : 'TK_END_COMMENT'
+    }
+
+    SYSTEM = {
+        'WRITELN'   : 'TK_WRITELN',
+        'ABS'       : 'TK_ABS'
+    }
 
