@@ -154,6 +154,7 @@ class Scanner(object):
                 self.tokens.append(('TK_REAL', self.curr_val, self.curr_row, self.curr_col - 1))
                 self.metadata.append({'TOKEN' : 'TK_REAL', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_val = ''
+                self.real = False
                 return
             else: 
                 self.tokens.append(('TK_INTEGER', self.curr_val, self.curr_row, self.curr_col - 1))
@@ -175,6 +176,7 @@ class Scanner(object):
             self.metadata.append({'TOKEN' : 'TK_STRING', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col })
             self.curr_val = ''
             return
+
         # Char is not a quote, so keep building string 
         else: 
             self.curr_val += char
