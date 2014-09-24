@@ -150,17 +150,21 @@ class Scanner(object):
         # Character is a symbol, time to build token
         if self.to_ascii(char) > 57:
             self.numeric = False
-            self.tokens.append(('TK_INTEGER', self.curr_val, self.curr_row, self.curr_col - 1))
-            self.metadata.append({'TOKEN' : 'TK_INTEGER', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
-            self.curr_val = ''
-            return
+            if self.real: 
+                self.tokens.append(('TK_REAL', self.curr_val, self.curr_row, self.curr_col - 1))
+                self.metadata.append({'TOKEN' : 'TK_REAL', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                self.curr_val = ''
+                return
+            else: 
+                self.tokens.append(('TK_INTEGER', self.curr_val, self.curr_row, self.curr_col - 1))
+                self.metadata.append({'TOKEN' : 'TK_INTEGER', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                self.curr_val = ''
+                return
 
         # If Character is a dot, it can be a real
         if self.to_ascii(char) == 46: 
-            self.curr_token = 'TK_REAL'
             self.curr_val += char
-
-
+            self.real = True
 
     def string_builder(self, char):
         # If char is a quote ...
@@ -345,7 +349,6 @@ class Scanner(object):
 
         # Character is a semicolon
         if self.to_ascii(char) == 59 and not self.numeric:
-            print "Hello world"
             # If current token exists, we append it
             if self.curr_token:
                 # If current token value is a keyword....
@@ -425,6 +428,7 @@ class Scanner(object):
 
         # Character is right parenthesis
         if self.to_ascii(char) == 41:
+            print "HELLO: " + str(self.curr_row)
             # We are not handling a comment, so push token
             self.tokens.append(('TK_CLOSE_PARENTHESIS', ')', self.curr_row, self.curr_col))
             self.metadata.append({'TOKEN' : 'TK_CLOSE_PARENTHESIS', 'VALUE' : ')', 'ROW' : self.curr_row, 'COL' : self.curr_col})

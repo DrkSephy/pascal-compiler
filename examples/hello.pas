@@ -1,1 +1,1 @@
-program HelloWorld;uses crt; (* Here begins ;;;;; the main program block *);begin    WRITELN ( 'Hello World!');end.
+program HelloWorld;uses crt; (* Here begins the main program block *)begin    WRITELN ( 'Hello World!' );end.
