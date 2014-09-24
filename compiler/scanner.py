@@ -314,7 +314,7 @@ class Scanner(object):
 
                 if self.to_upper(self.curr_val) in self.OPERATORS:
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
-                    self.tokens.append(self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1)
+                    self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))   
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                     self.curr_token = ''
                     self.curr_val = ''
@@ -408,7 +408,12 @@ class Scanner(object):
                 return
 
         # Character is left parenthesis
-        if self.to_ascii(char) == 40: 
+        if self.to_ascii(char) == 40:
+            if self.curr_token:
+                self.tokens.append(('TK_OPEN_PARENTHESIS', '(', self.curr_row, self.curr_col - 1))
+                self.metadata.append({'TOKEN' : 'TK_OPEN_PARENTHESIS', 'VALUE' : '(', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+                self.curr_token = ''
+                 
             # Possible to be start of comment, store token
             if not self.curr_token:
                 self.curr_token = 'TK_OPEN_PARENTHESIS'
