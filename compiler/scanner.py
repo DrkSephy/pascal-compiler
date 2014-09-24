@@ -58,12 +58,16 @@ class Scanner(object):
 
 
 
+    ##########################################
+    #               SCANNER                  #
+    ##########################################
 
     def scan(self, source):
     # Reads <source program> and builds tokens. 
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
+
                 # Handle comments
                 if self.comment: 
                     self.handle_comments(char)
@@ -104,9 +108,10 @@ class Scanner(object):
 
 
 
-    ############################
-    #      HELPER METHODS      #
-    ############################
+    ##########################################
+    #             NUMERIC STATE              #
+    ##########################################
+
     def numeric_builder(self, char):
         # If char is a number, keep building number string
         if self.to_ascii(char) >= 48 and self.to_ascii(char) <=57:
@@ -132,6 +137,10 @@ class Scanner(object):
             self.curr_val += char
             self.real = True
 
+    ##########################################
+    #              STRING STATE              #
+    ##########################################
+
     def string_builder(self, char):
         # If char is a quote ...
         if self.to_ascii(char) == 39:
@@ -147,6 +156,10 @@ class Scanner(object):
             self.curr_val += char
             return
 
+
+    ##########################################
+    #             COMMENTS STATE             #
+    ##########################################
 
     def handle_comments(self, char):
         # If char is * ...
@@ -170,6 +183,9 @@ class Scanner(object):
         # We have not yet ended our comment section
         pass
 
+    ##########################################
+    #             PRETTY PRINTER             #
+    ##########################################
 
     def printer(self, iterator, field_names, storage, data):
         # Returns: Ascii formatted table 
@@ -203,7 +219,17 @@ class Scanner(object):
         return table
 
 
+    ##########################################
+    #            HELPER METHODS              #
+    ##########################################
+
     def handle_numeric(self, char):
+        # Returns: boolean
+        #
+        # Parameters:
+        #   char: character
+        #       String to determine if numeric
+
         return char.isdigit()
 
     def lookup(self, table, key):
@@ -253,6 +279,11 @@ class Scanner(object):
         
         return char.isalpha()
 
+        
+    ##########################################
+    #               MAIN STATE               #
+    ##########################################
+
     def build_string(self, char):
         # Based on existing conditions, uses a state-machine
         # approach to determine when and what tokens to build, 
@@ -264,7 +295,11 @@ class Scanner(object):
         #   char: character
         #       character to build strings with
 
-        # Character is a space
+
+        ##########################################
+        #             SPACE SUBSTATE             #
+        ##########################################
+
         if self.to_ascii(char) <= 32: 
             # If current token exists, we append it
             if self.curr_token:
@@ -314,6 +349,10 @@ class Scanner(object):
             if not self.curr_token: 
                 return
 
+        ##########################################
+        #           SEMICOLON SUBSTATE           #
+        ##########################################
+
         # Character is a semicolon
         if self.to_ascii(char) == 59 and not self.numeric:
             # If current token exists, we append it
@@ -340,12 +379,21 @@ class Scanner(object):
                 self.metadata.append({'TOKEN' : 'TK_SEMICOLON', 'VALUE' : ';', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
 
+        ##########################################
+        #            COLON SUBSTATE              #
+        ##########################################
+
         # Character is colon
         if self.to_ascii(char) == 58:
             # If there is no current token, assign colon token
             if not self.curr_token:
                 self.curr_token = 'TK_COLON'
                 return
+
+
+        ##########################################
+        #             EQUALS SUBSTATE            #
+        ##########################################
 
         # Character is equals
         if self.to_ascii(char) == 61:
@@ -362,6 +410,10 @@ class Scanner(object):
                 self.curr_token = ''
                 return
 
+        ##########################################
+        #              DOT SUBSTATE              #
+        ##########################################
+
         # Character is a dot
         if self.to_ascii(char) == 46:
             # If there is a current token, it is END
@@ -370,6 +422,11 @@ class Scanner(object):
                 self.metadata.append({'TOKEN': 'TK_END_CODE', 'VALUE' : 'end.', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 self.curr_token = ''
                 return
+
+
+        ##########################################
+        #       OPEN PARENTHESIS SUBSTATE        #
+        ##########################################
 
         # Character is left parenthesis
         if self.to_ascii(char) == 40:
@@ -382,6 +439,10 @@ class Scanner(object):
             if not self.curr_token:
                 self.curr_token = 'TK_OPEN_PARENTHESIS'
                 return
+
+        ##########################################
+        #              MULT SUBSTATE             #
+        ##########################################
 
         # Character is *
         if self.to_ascii(char) == 42:
@@ -399,6 +460,11 @@ class Scanner(object):
                 self.comment = True
                 return
 
+
+        ##########################################
+        #        CLOSE PARENTHESIS SUBSTATE      #
+        ##########################################
+
         # Character is right parenthesis
         if self.to_ascii(char) == 41:
             # We are not handling a comment, so push token
@@ -407,17 +473,29 @@ class Scanner(object):
             self.curr_val = ''
             return
 
+        ##########################################
+        #           BEGIN QUOTE SUBSTATE         #
+        ##########################################
+
         # Character is ' (open quote)
         if self.to_ascii(char) == 39: 
             self.string = True
             self.curr_val += char
             return
 
+        ##########################################
+        #       BEGIN DIGIT STRING SUBSTATE      #
+        ##########################################
+
         # Character is a digit
         if self.handle_numeric(char):
             self.numeric = True 
             self.curr_val += char
             return 
+
+        ##########################################
+        #              PLUS SUBSTATE             #
+        ##########################################
 
         # Character is plus 
         if self.to_ascii(char) == 43:
@@ -426,12 +504,20 @@ class Scanner(object):
             self.curr_val = ''
             return 
 
+        ##########################################
+        #            MINUS SUBSTATE              #
+        ##########################################
+
         # Character is minus 
         if self.to_ascii(char) == 45:
             self.tokens.append(('TK_MINUS', '-', self.curr_row, self.curr_col))
             self.metadata.append({'TOKEN' : 'TK_MINUS', 'VALUE' : '-', 'ROW' : self.curr_row, 'COL' : self.curr_col})
             self.curr_val = ''
             return
+
+        ##########################################
+        #              DIV SUBSTATE              #
+        ##########################################
 
         # Character is /
         if self.to_ascii(char) == 47:
@@ -440,6 +526,10 @@ class Scanner(object):
             self.curr_val = ''
             return
 
+        ##########################################
+        #          IDENTIFIER SUBSTATE           #
+        ##########################################
+
         # If none of the above cases are true, build string
         self.curr_val += char
         # string is not in either table
@@ -447,6 +537,11 @@ class Scanner(object):
             if self.to_upper(self.curr_val) not in self.OPERATORS:
                 if self.to_upper(self.curr_val) not in self.SYSTEM: 
                     self.curr_token = 'TK_IDENTIFIER'
+
+
+    ##########################################
+    #               TABLES                   #
+    ##########################################
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
