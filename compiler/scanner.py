@@ -10,10 +10,10 @@
 # - [done] Tokenize program
 # - [done] Convert code using Classes
 # - [done] Create metadata for debugging
-# - [    ] Need to tokenize '' ""
-# - [    ] Need to tokenize (  )
-# - [    ] Need to build system tables
-# - [    ] Need to handle comment tokens
+# - [done] Need to tokenize '' ""
+# - [done] Need to tokenize (  )
+# - [done] Need to build system tables
+# - [done] Need to handle comment tokens
 
 
 import sys
