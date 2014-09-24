@@ -146,6 +146,20 @@ class Scanner(object):
     #             NUMERIC STATE              #
     ##########################################
 
+    # Builds numeric strings
+
+    # <pre-condition> 
+    #   * Seen numeric character
+    #   * self.numeric : True
+
+    # <post-condition>
+    #   * If we see a number, keep building
+    #   * If we see a symbol/space, build token
+    #       * self.real = False
+    #       * self.numeric = False
+    #   * If we see (dot), we are building a real
+    #       * self.real = True
+
     def numeric_builder(self, char):
         # If char is a number, keep building number string
         if self.to_ascii(char) >= 48 and self.to_ascii(char) <=57:
@@ -161,8 +175,8 @@ class Scanner(object):
                 self.real = False
                 return
             else: 
-                self.tokens.append(('TK_INTEGER', self.curr_val, self.curr_row, self.curr_col - 1))
-                self.metadata.append({'TOKEN' : 'TK_INTEGER', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+                self.tokens.append(( 'TK_INTEGER', self.curr_val, self.curr_row, self.curr_col - 1 ))
+                self.metadata.append({ 'TOKEN' : 'TK_INTEGER', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1 })
                 self.curr_val = ''
                 return
 
@@ -175,13 +189,24 @@ class Scanner(object):
     #              STRING STATE              #
     ##########################################
 
+    # Builds real strings
+
+    # <pre-condition>
+    #   * Seen a quote
+    #   * self.string = True
+
+    # <post-condition>
+    #   * If we see endquote, we build string
+    #       * self.string = False
+    #   * Else, keep building string
+
     def string_builder(self, char):
         # If char is a quote ...
         if self.to_ascii(char) == 39:
             self.curr_val += char
             self.string = False
-            self.tokens.append(('TK_STRING', self.curr_val, self.curr_row, self.curr_col))
-            self.metadata.append({'TOKEN' : 'TK_STRING', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col })
+            self.tokens.append(( 'TK_STRING', self.curr_val, self.curr_row, self.curr_col ))
+            self.metadata.append({ 'TOKEN' : 'TK_STRING', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col })
             self.curr_val = ''
             return
 
@@ -194,6 +219,22 @@ class Scanner(object):
     ##########################################
     #             COMMENTS STATE             #
     ##########################################
+
+    # Builds comments
+
+    # <pre-condition>
+    #   * Seen (*
+    #   * self.comment = True
+
+    # <post-condition>
+    #   * If we see *, might be building *)
+    #       * self.curr_token = 'TK_MULT'
+    #   * If char is )
+    #       * If no current token, just pass
+    #   * If current token is *, we build *)
+    #       * self.comment = False
+    #       * self.curr_token = ''
+    #   * Else, we have not ended our comment section
 
     def handle_comments(self, char):
         # If char is * ...
@@ -318,6 +359,39 @@ class Scanner(object):
     #               MAIN STATE               #
     ##########################################
 
+    # Builds arbitrary character strings
+
+    # <pre-condition>
+    #   * Not in comment, string or numeric state
+
+    # <post-condition>
+    #   * If we see a space, build token from table
+    #       * If token not in table, mark as identifier
+    #   * If we see * 
+    #       * self.curr_token = 'TK_MULT'
+    #       * If we have seen (, build (*
+    #           * self.comment = True
+    #   * If we see :
+    #       * self.curr_token = 'TK_COLON'
+    #       * If we see =
+    #           * build 'TK_ASSIGNMENT'
+    #       * Else build colon token
+    #   * If we see ;, build semicolon token
+    #   * If we see a digit
+    #       * self.numeric = True
+    #   * If we see open quote
+    #       * self.string = True
+    #   * If we see +, -, /, *, build token
+    #   * If we see .
+    #       * self.curr_token = 'TK_DOT'
+    #       * If we have seen END
+    #           * build 'TK_END.'
+    #       * Else build 'TK_DOT' token
+    #   * Else concatenate string, mark as identifier
+    #       * If cycle repeats and not in any table, we
+    #         build token as an identifier when we see a 
+    #         space, symbol or digit
+    
     def build_string(self, char):
         # Based on existing conditions, uses a state-machine
         # approach to determine when and what tokens to build, 
