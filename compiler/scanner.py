@@ -62,6 +62,40 @@ class Scanner(object):
     #               SCANNER                  #
     ##########################################
 
+    # Reads source program and build tokens.
+     
+    # Cycles through the following states:
+    #       Comments state -> String state -> 
+    #           Numeric state -> Build String state
+     
+    # Comments state: 
+    #       <pre-condition> Entered when we see (*
+    #       Determines if we see beginning of comment. 
+    #       If we are in comment state, ignore everything
+    #       until we see close comment *)
+     
+    # String state:
+    #       <pre-condition> Entered once we see a quote.
+    #       Determines if we are building a real string.
+    #       Builds the string until we see an end quote. 
+    
+    # Numeric state:
+    #       <pre-condition> Entered once we see a numeric char.
+    #       Determines if we are building digit strings.
+    #       Depending on symbol we see in this state, we toggle
+    #       between building integers and building reals.
+    
+    # Build String state:
+    #       <pre-condition> Entered if we none of above are true.
+    #       Contains substates for building the following structures:
+    #           * If we see a space, build current token based on tables
+    #           * Builds : and := tokens.
+    #           * Builds -, +, /, * tokens
+    #           * Builds parenthesis, determines if comment being built
+    #           * Builds . and end. tokens
+    #           * Builds identifiers.  
+   
+
     def scan(self, source):
     # Reads <source program> and builds tokens. 
         text = open(source, 'r').readlines()
@@ -279,7 +313,7 @@ class Scanner(object):
         
         return char.isalpha()
 
-        
+
     ##########################################
     #               MAIN STATE               #
     ##########################################
