@@ -1,1 +1,1 @@
-PROGRAM assignment;var    age         : integer;    name        : string;    graduated   : boolean;    gpa         : real; BEGIN    age := 50;END.
+PROGRAM assignment;var    age         : integer;    name        : string;    graduated   : boolean;    gpa         : real; BEGIN    age := 59000 ;END.

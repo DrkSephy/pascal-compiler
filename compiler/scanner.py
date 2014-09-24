@@ -22,7 +22,7 @@ from prettytable import PrettyTable
 
 class Scanner(object):
 
-    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string, integer):
+    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string, numeric):
         self.curr_row   = curr_row
         self.curr_col   = curr_col
         self.curr_token = curr_token
@@ -31,7 +31,7 @@ class Scanner(object):
         self.metadata   = metadata
         self.comment    = comment
         self.string     = string
-        self.integer    = integer
+        self.numeric    = numeric
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
@@ -134,6 +134,7 @@ class Scanner(object):
     ############################
     #      HELPER METHODS      #
     ############################
+
     def string_builder(self, char):
         # If char is a quote ...
         if self.to_ascii(char) == 39:
@@ -204,7 +205,7 @@ class Scanner(object):
         return table
 
 
-    def numeric(self, char):
+    def handle_numeric(self, char):
         return char.isdigit()
 
     def lookup(self, table, key):
@@ -245,7 +246,7 @@ class Scanner(object):
 
         return char.upper()
 
-    def alphanumberic(self, char):
+    def alphanumeric(self, char):
         # Returns: Boolean
         # 
         # Parameters:
@@ -316,7 +317,7 @@ class Scanner(object):
                 return
 
         # Character is a semicolon
-        if self.to_ascii(char) == 59:
+        if self.to_ascii(char) == 59 and not self.numeric:
             # If current token exists, we append it
             if self.curr_token:
                 # If current token value is a keyword....
@@ -409,8 +410,10 @@ class Scanner(object):
             return
 
         # Character is a digit
-        if self.numeric(char): 
-            print char
+        if self.handle_numeric(char):
+            self.numeric = True 
+            self.curr_val += char
+            return 
 
 
         # If none of the above cases are true, build string
