@@ -450,10 +450,24 @@ class Scanner(object):
             self.curr_val += char
             return 
 
+        # Character is plus 
+        if self.to_ascii(char) == 43:
+            self.tokens.append(('TK_PLUS', '+', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN' : 'TK_PLUS', 'VALUE' : '+', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+            self.curr_val = ''
+            return 
+
         # Character is minus 
         if self.to_ascii(char) == 45:
             self.tokens.append(('TK_MINUS', '-', self.curr_row, self.curr_col))
             self.metadata.append({'TOKEN' : 'TK_MINUS', 'VALUE' : '-', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+            self.curr_val = ''
+            return
+
+        # Character is /
+        if self.to_ascii(char) == 47:
+            self.tokens.append(('TK_DIV_FLOAT', '/', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN' : 'TK_DIV_FLOAT', 'VALUE' : '/', 'ROW' : self.curr_row, 'COL' : self.curr_col})
             self.curr_val = ''
             return
 

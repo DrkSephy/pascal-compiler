@@ -1,1 +1,1 @@
-program math;2 * 10.59;
+program math;2 + 10.59 - 9 * 51.12 / 8;
