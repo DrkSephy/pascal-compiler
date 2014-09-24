@@ -420,6 +420,7 @@ class Scanner(object):
             if not self.curr_token:
                 self.tokens.append(('TK_MULT', '*', self.curr_row, self.curr_col))
                 self.metadata.append({'TOKEN' : 'TK_MULT', 'VALUE' : '*', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+                return
 
             # If there is a current token, it must form (*
             if self.curr_token:
@@ -452,7 +453,7 @@ class Scanner(object):
         # Character is minus 
         if self.to_ascii(char) == 45:
             self.tokens.append(('TK_MINUS', '-', self.curr_row, self.curr_col))
-            self.metadata.append({'TOKEN' : 'TK_MULT', 'VALUE' : '-', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+            self.metadata.append({'TOKEN' : 'TK_MINUS', 'VALUE' : '-', 'ROW' : self.curr_row, 'COL' : self.curr_col})
             self.curr_val = ''
             return
 

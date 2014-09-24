@@ -1,1 +1,1 @@
-program math;2 - 10.59;
+program math;2 * 10.59;
