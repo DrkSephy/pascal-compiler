@@ -99,6 +99,7 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
+
                 # Handle comments
                 if self.comment: 
                     self.handle_comments(char)
@@ -108,7 +109,7 @@ class Scanner(object):
                     self.curr_col += 1
 
                 # Handle strings
-                if self.string:
+                elif self.string:
                     self.string_builder(char)
                     if self.to_ascii(char) == 13:
                         self.curr_col = 1
@@ -116,7 +117,7 @@ class Scanner(object):
                     self.curr_col += 1
 
                 # Handle digits
-                if self.numeric:
+                elif self.numeric:
                     self.numeric_builder(char)
                     if self.to_ascii(char) == 13:
                         self.curr_col = 1
@@ -124,7 +125,7 @@ class Scanner(object):
                     self.curr_col += 1
 
                 # Handle other cases
-                if not self.comment and not self.string and not self.numeric: 
+                else:
                     self.build_string(char)
                     # Handle carriage returns
                     if self.to_ascii(char) == 13:
