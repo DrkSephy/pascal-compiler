@@ -22,7 +22,7 @@ from prettytable import PrettyTable
 
 class Scanner(object):
 
-    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string, numeric):
+    def __init__(self, curr_row, curr_col, curr_token, curr_val, tokens, metadata, comment, string, numeric, real):
         self.curr_row   = curr_row
         self.curr_col   = curr_col
         self.curr_token = curr_token
@@ -32,6 +32,7 @@ class Scanner(object):
         self.comment    = comment
         self.string     = string
         self.numeric    = numeric
+        self.real       = real
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
@@ -98,7 +99,6 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
-
                 # Handle comments
                 if self.comment: 
                     self.handle_comments(char)
@@ -108,15 +108,23 @@ class Scanner(object):
                     self.curr_col += 1
 
                 # Handle strings
-                elif self.string:
+                if self.string:
                     self.string_builder(char)
                     if self.to_ascii(char) == 13:
                         self.curr_col = 1
                         self.curr_row += 1
                     self.curr_col += 1
 
+                # Handle digits
+                if self.numeric:
+                    self.numeric_builder(char)
+                    if self.to_ascii(char) == 13:
+                        self.curr_col = 1
+                        self.curr_row += 1
+                    self.curr_col += 1
+
                 # Handle other cases
-                else: 
+                if not self.comment and not self.string and not self.numeric: 
                     self.build_string(char)
                     # Handle carriage returns
                     if self.to_ascii(char) == 13:
@@ -134,6 +142,25 @@ class Scanner(object):
     ############################
     #      HELPER METHODS      #
     ############################
+    def numeric_builder(self, char):
+        # If char is a number, keep building number string
+        if self.to_ascii(char) >= 48 and self.to_ascii(char) <=57:
+            self.curr_val += char
+
+        # Character is a symbol, time to build token
+        if self.to_ascii(char) > 57:
+            self.numeric = False
+            self.tokens.append(('TK_INTEGER', self.curr_val, self.curr_row, self.curr_col - 1))
+            self.metadata.append({'TOKEN' : 'TK_INTEGER', 'VALUE' : self.curr_val, 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
+            self.curr_val = ''
+            return
+
+        # If Character is a dot, it can be a real
+        if self.to_ascii(char) == 46: 
+            self.curr_token = 'TK_REAL'
+            self.curr_val += char
+
+
 
     def string_builder(self, char):
         # If char is a quote ...
@@ -318,6 +345,7 @@ class Scanner(object):
 
         # Character is a semicolon
         if self.to_ascii(char) == 59 and not self.numeric:
+            print "Hello world"
             # If current token exists, we append it
             if self.curr_token:
                 # If current token value is a keyword....
