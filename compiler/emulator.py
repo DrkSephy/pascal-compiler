@@ -17,7 +17,7 @@
 
 # - [done] Read <target program>
 # - [done] Print program 
-# - [    ] Tokenize <target program>
+# - [done] Tokenize <target program>
 # - [    ] Build Parser
 # - [    ] Build Abstract Syntax Tree
 
@@ -25,6 +25,7 @@
 import sys
 import scanner
 from scanner import Scanner
+from parser import Parser
 
 
 def usage():
@@ -35,9 +36,10 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         usage()
     filename = sys.argv[1]
-    scanner = Scanner(1, 1, '', '', [], [], False, False, False, False)
-    tokens = scanner.scan(filename)
-
+    scanner  = Scanner(1, 1, '', '', [], [], False, False, False, False)
+    tokens   = scanner.scan(filename)
+    parser   = Parser(tokens)
+    ast      = parser.parse()
     
     
 
