@@ -145,7 +145,7 @@ class Scanner(object):
     ##########################################
     #             NUMERIC STATE              #
     ##########################################
-
+    
     # Builds numeric strings
 
     # <pre-condition> 

@@ -8,7 +8,7 @@ Restrictions
 
 As a means to learn, no libraries will be used for heavy lifting of the implementation of the scanner, parser or abstract syntax tree. The only libraries being used within this project are:
 
-* [Pretty Tables](https://github.com/dprince/python-prettytable) : Library for printing ascii tables, useful for printing debug statements and generated tokens to console.
+* [Pretty Tables](https://github.com/dprince/python-prettytable) : Library for printing ascii tables, useful for formatting debug statements and generated tokens to console.
 
 Compiler Research Links
 -----------------------
@@ -19,7 +19,8 @@ Compiler Research Links
 * [Symbol Tables](http://en.wikipedia.org/wiki/Symbol_table)
 * [System Functions](http://www.freepascal.org/docs-html/rtl/system/index-5.html)
 * [Data Types](http://wiki.freepascal.org/Variables_and_Data_Types)
-
+* [Parsers and Compilers](http://parsingintro.sourceforge.net/#contents_item_7)
+* [How does an interpreter/compiler work?](http://forums.devshed.com/programming-languages-139/interpreter-compiler-312483.html#post1342279)
 
 Compiling Pascal on Mac OS X
 ----------------------------
