@@ -1,0 +1,1 @@
+BEGIN    writeln ( 2 * 4 - 3 )END.
