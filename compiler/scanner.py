@@ -15,8 +15,6 @@
 # - [done] Need to build system tables
 # - [done] Need to handle comment tokens
 
-
-import sys
 from prettytable import PrettyTable
 
 
@@ -138,6 +136,7 @@ class Scanner(object):
         # Print out metadata
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
         # print(self.tokens)
+        return self.tokens
 
 
 
@@ -145,7 +144,7 @@ class Scanner(object):
     ##########################################
     #             NUMERIC STATE              #
     ##########################################
-    
+
     # Builds numeric strings
 
     # <pre-condition> 
@@ -391,7 +390,7 @@ class Scanner(object):
     #       * If cycle repeats and not in any table, we
     #         build token as an identifier when we see a 
     #         space, symbol or digit
-    
+
     def build_string(self, char):
         # Based on existing conditions, uses a state-machine
         # approach to determine when and what tokens to build, 
