@@ -9,4 +9,8 @@
 class Parser(object):
 
     def __init__(self, tokens):
-        pass
+        self.tokens = tokens
+
+    def parse(self):
+        for token in self.tokens:
+            print "Token Type: " + str(token[0])
