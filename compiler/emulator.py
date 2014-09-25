@@ -23,7 +23,6 @@
 
 
 import sys
-import scanner
 from scanner import Scanner
 from parser import Parser
 
@@ -38,7 +37,7 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     scanner  = Scanner(1, 1, '', '', [], [], False, False, False, False)
     tokens   = scanner.scan(filename)
-    parser   = Parser(tokens)
+    parser   = Parser(tokens, 0)
     ast      = parser.parse()
     
     

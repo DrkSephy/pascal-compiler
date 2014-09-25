@@ -8,9 +8,10 @@
 
 class Parser(object):
 
-    def __init__(self, tokens):
-        self.tokens = tokens
+    def __init__(self, tokens, curr_token):
+        self.tokens     = tokens
+        self.curr_token = curr_token
 
     def parse(self):
         for token in self.tokens:
-            print "Token Type: " + str(token[0])
+            print "Handling token: " + str(token)
