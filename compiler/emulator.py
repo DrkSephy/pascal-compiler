@@ -3,7 +3,7 @@
 # -*- drksephy.github.io -*-
 
 # * Reads <target> program from command line.
-# * Simply prints out the <target> program.
+
 
 ################
 #    USAGE     #
@@ -37,6 +37,7 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     scanner = Scanner(1, 1, '', '', [], [], False, False, False, False)
     tokens = scanner.scan(filename)
+
     
     
 
