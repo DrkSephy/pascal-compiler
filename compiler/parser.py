@@ -2,9 +2,17 @@
 # -*- MIT License (c) 2014 David Leonard -*-
 # -*- drksephy.github.io -*-
 
-# * Pascal Parser
-# * Consumes tokens one at a time, builds parse tree
+#################
+#     TODO      #
+#################
 
+# - [done] Consumes tokens one at a time
+# - [    ] Needs grammar to handle arithmetic structures
+# - [    ] Needs to handle if statements
+# - [    ] Needs to handle while statements
+# - [    ] Needs to handle for statements
+# - [    ] Needs to handle if-then-else statements
+# - [    ] Returns parse tree
 
 class Parser(object):
 
