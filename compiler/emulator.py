@@ -35,9 +35,13 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         usage()
     filename = sys.argv[1]
+    # Initialize scanner
     scanner  = Scanner(1, 1, '', '', [], [], False, False, False, False)
+    # Pass in file name, return list of tokens
     tokens   = scanner.scan(filename)
+    # Initialize parser
     parser   = Parser(tokens, 0)
+    # Return the AST using tokens
     ast      = parser.parse()
     
     
