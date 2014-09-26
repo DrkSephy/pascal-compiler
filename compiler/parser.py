@@ -16,12 +16,13 @@
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token):
+    def __init__(self, tokens, curr_token, op):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #   * curr_token : current token being processed
         self.tokens     = tokens
         self.curr_token = curr_token
+        self.op         = op
 
     def parse(self):
-        pass
+        pass 
