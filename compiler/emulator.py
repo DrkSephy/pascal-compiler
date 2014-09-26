@@ -40,7 +40,7 @@ if __name__ == '__main__':
     # Pass in file name, return list of tokens
     tokens   = scanner.scan(filename)
     # Initialize parser
-    parser   = Parser(tokens, 0)
+    parser   = Parser(tokens, 0, '')
     # Return the AST using tokens
     ast      = parser.parse()
     

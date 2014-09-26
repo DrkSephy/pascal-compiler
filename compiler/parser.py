@@ -20,6 +20,7 @@ class Parser(object):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #   * curr_token : current token being processed
+        
         self.tokens     = tokens
         self.curr_token = curr_token
         self.op         = op
