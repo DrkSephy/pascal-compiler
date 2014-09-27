@@ -34,7 +34,7 @@ class Parser(object):
 
 
     #----------------------------------------
-    #          TOKEN HELPER METHODS
+    #      KEYWORD TOKEN HELPER METHODS
     #----------------------------------------
 
     def token_begin(self, token):
@@ -108,6 +108,51 @@ class Parser(object):
 
     def token_char(self, token):
         pass
+
+    def token_boolean(self, token):
+        pass
+
+    #----------------------------------------
+    #      OPERATOR TOKEN HELPER METHODS
+    #----------------------------------------
+
+    def token_plus(self, token):
+        pass
+
+    def token_minus(self, token):
+        pass
+
+    def token_mult(self, token):
+        pass
+
+    def token_div_float(self, token):
+        pass
+
+    def token_div(self, token):
+        pass
+
+    def token_mod(self, token):
+        pass
+
+    def token_colon(self, token):
+        pass
+
+    def token_equals(self, token):
+        pass
+
+    def token_assignment(self, token):
+        pass
+
+    def token_greater(self, token):
+        pass
+
+    def token_less(self, token):
+        pass
+
+    def token_greater_equals(self, token):
+        pass
+
+    
 
 
 
