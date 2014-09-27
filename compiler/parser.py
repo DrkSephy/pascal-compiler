@@ -12,6 +12,7 @@
 # - [    ] Needs to handle while statements
 # - [    ] Needs to handle for statements
 # - [    ] Needs to handle if-then-else statements
+# - [    ] Create classes to handle each token
 # - [    ] Returns parse tree
 
 class Parser(object):
@@ -29,4 +30,4 @@ class Parser(object):
         self.op         = op
 
     def parse(self):
-        pass 
+         
