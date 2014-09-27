@@ -152,6 +152,30 @@ class Parser(object):
     def token_greater_equals(self, token):
         pass
 
+    def token_less_equals(self, token):
+        pass
+
+    def token_and(self, token):
+        pass
+
+    def token_or(self, token):
+        pass
+
+    def token_not(self, token):
+        pass
+
+    def token_semicolon(self, token):
+        pass
+
+    def token_open_parenthesis(self, token):
+        pass
+
+    def token_close_parenthesis(self, token):
+        pass
+
+    def token_quote(self, token):
+        pass
+
     
 
 
