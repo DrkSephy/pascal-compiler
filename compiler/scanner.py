@@ -2,9 +2,9 @@
 # -*- MIT License (c) 2014 David Leonard -*-
 # -*- drksephy.github.io -*-
 
-#################
-#     TODO      #
-#################
+#----------------------------------------
+#  TODO      
+#----------------------------------------
 
 # - [done] Scan <target program>
 # - [done] Tokenize program
@@ -56,9 +56,9 @@ class Scanner(object):
 
 
 
-    ##########################################
-    #               SCANNER                  #
-    ##########################################
+    #----------------------------------------
+    #               SCANNER                  
+    #----------------------------------------
 
     # Reads source program and build tokens.
      
@@ -141,9 +141,9 @@ class Scanner(object):
 
 
 
-    ##########################################
-    #             NUMERIC STATE              #
-    ##########################################
+    #----------------------------------------
+    #             NUMERIC STATE              
+    #----------------------------------------
 
     # Builds numeric strings
 
@@ -184,9 +184,9 @@ class Scanner(object):
             self.curr_val += char
             self.real = True
 
-    ##########################################
-    #              STRING STATE              #
-    ##########################################
+    #----------------------------------------
+    #              STRING STATE              
+    #----------------------------------------
 
     # Builds real strings
 
@@ -215,9 +215,9 @@ class Scanner(object):
             return
 
 
-    ##########################################
-    #             COMMENTS STATE             #
-    ##########################################
+    #----------------------------------------
+    #             COMMENTS STATE             
+    #----------------------------------------
 
     # Builds comments
 
@@ -257,9 +257,9 @@ class Scanner(object):
         # We have not yet ended our comment section
         pass
 
-    ##########################################
-    #             PRETTY PRINTER             #
-    ##########################################
+    #----------------------------------------
+    #             PRETTY PRINTER             
+    #----------------------------------------
 
     def printer(self, iterator, field_names, storage, data):
         # Returns: Ascii formatted table 
@@ -293,9 +293,9 @@ class Scanner(object):
         return table
 
 
-    ##########################################
-    #            HELPER METHODS              #
-    ##########################################
+    #----------------------------------------
+    #            HELPER METHODS              
+    #----------------------------------------
 
     def handle_numeric(self, char):
         # Returns: boolean
@@ -354,9 +354,9 @@ class Scanner(object):
         return char.isalpha()
 
 
-    ##########################################
-    #               MAIN STATE               #
-    ##########################################
+    #----------------------------------------
+    #               MAIN STATE               
+    #----------------------------------------
 
     # Builds arbitrary character strings
 
@@ -403,9 +403,9 @@ class Scanner(object):
         #       character to build strings with
 
 
-        ##########################################
-        #             SPACE SUBSTATE             #
-        ##########################################
+        #----------------------------------------
+        #             SPACE SUBSTATE             
+        #----------------------------------------
 
         if self.to_ascii(char) <= 32: 
             # If current token exists, we append it
@@ -456,9 +456,9 @@ class Scanner(object):
             if not self.curr_token: 
                 return
 
-        ##########################################
-        #           SEMICOLON SUBSTATE           #
-        ##########################################
+        #----------------------------------------
+        #           SEMICOLON SUBSTATE           
+        #----------------------------------------
 
         # Character is a semicolon
         if self.to_ascii(char) == 59 and not self.numeric:
@@ -486,9 +486,9 @@ class Scanner(object):
                 self.metadata.append({'TOKEN' : 'TK_SEMICOLON', 'VALUE' : ';', 'ROW' : self.curr_row, 'COL' : self.curr_col})
                 return
 
-        ##########################################
-        #            COLON SUBSTATE              #
-        ##########################################
+        #----------------------------------------
+        #            COLON SUBSTATE              
+        #----------------------------------------
 
         # Character is colon
         if self.to_ascii(char) == 58:
@@ -498,9 +498,9 @@ class Scanner(object):
                 return
 
 
-        ##########################################
-        #             EQUALS SUBSTATE            #
-        ##########################################
+        #----------------------------------------
+        #             EQUALS SUBSTATE            
+        #----------------------------------------
 
         # Character is equals
         if self.to_ascii(char) == 61:
@@ -517,9 +517,9 @@ class Scanner(object):
                 self.curr_token = ''
                 return
 
-        ##########################################
-        #              DOT SUBSTATE              #
-        ##########################################
+        #----------------------------------------
+        #              DOT SUBSTATE              
+        #----------------------------------------
 
         # Character is a dot
         if self.to_ascii(char) == 46:
@@ -531,9 +531,9 @@ class Scanner(object):
                 return
 
 
-        ##########################################
-        #       OPEN PARENTHESIS SUBSTATE        #
-        ##########################################
+        #----------------------------------------
+        #       OPEN PARENTHESIS SUBSTATE        
+        #----------------------------------------
 
         # Character is left parenthesis
         if self.to_ascii(char) == 40:
@@ -547,9 +547,9 @@ class Scanner(object):
                 self.curr_token = 'TK_OPEN_PARENTHESIS'
                 return
 
-        ##########################################
-        #              MULT SUBSTATE             #
-        ##########################################
+        #----------------------------------------
+        #              MULT SUBSTATE             
+        #----------------------------------------
 
         # Character is *
         if self.to_ascii(char) == 42:
@@ -568,9 +568,9 @@ class Scanner(object):
                 return
 
 
-        ##########################################
-        #        CLOSE PARENTHESIS SUBSTATE      #
-        ##########################################
+        #----------------------------------------
+        #        CLOSE PARENTHESIS SUBSTATE      
+        #----------------------------------------
 
         # Character is right parenthesis
         if self.to_ascii(char) == 41:
@@ -580,9 +580,9 @@ class Scanner(object):
             self.curr_val = ''
             return
 
-        ##########################################
-        #           BEGIN QUOTE SUBSTATE         #
-        ##########################################
+        #----------------------------------------
+        #           BEGIN QUOTE SUBSTATE         
+        #----------------------------------------
 
         # Character is ' (open quote)
         if self.to_ascii(char) == 39: 
@@ -590,9 +590,9 @@ class Scanner(object):
             self.curr_val += char
             return
 
-        ##########################################
-        #       BEGIN DIGIT STRING SUBSTATE      #
-        ##########################################
+        #----------------------------------------
+        #       BEGIN DIGIT STRING SUBSTATE      
+        #----------------------------------------
 
         # Character is a digit
         if self.handle_numeric(char):
@@ -600,9 +600,9 @@ class Scanner(object):
             self.curr_val += char
             return 
 
-        ##########################################
-        #              PLUS SUBSTATE             #
-        ##########################################
+        #----------------------------------------
+        #              PLUS SUBSTATE             
+        #----------------------------------------
 
         # Character is plus 
         if self.to_ascii(char) == 43:
@@ -611,9 +611,9 @@ class Scanner(object):
             self.curr_val = ''
             return 
 
-        ##########################################
-        #            MINUS SUBSTATE              #
-        ##########################################
+        #----------------------------------------
+        #            MINUS SUBSTATE              
+        #----------------------------------------
 
         # Character is minus 
         if self.to_ascii(char) == 45:
@@ -622,9 +622,9 @@ class Scanner(object):
             self.curr_val = ''
             return
 
-        ##########################################
-        #              DIV SUBSTATE              #
-        ##########################################
+        #----------------------------------------
+        #              DIV SUBSTATE              
+        #----------------------------------------
 
         # Character is /
         if self.to_ascii(char) == 47:
@@ -633,9 +633,9 @@ class Scanner(object):
             self.curr_val = ''
             return
 
-        ##########################################
-        #          IDENTIFIER SUBSTATE           #
-        ##########################################
+        #----------------------------------------
+        #          IDENTIFIER SUBSTATE           
+        #----------------------------------------
 
         # If none of the above cases are true, build string
         self.curr_val += char
@@ -646,9 +646,9 @@ class Scanner(object):
                     self.curr_token = 'TK_IDENTIFIER'
 
 
-    ##########################################
-    #               TABLES                   #
-    ##########################################
+    #----------------------------------------
+    #               TABLES                   
+    #----------------------------------------
 
     KEYWORDS = {
         'BEGIN'     : 'TK_BEGIN',
