@@ -3,7 +3,7 @@
 # -*- drksephy.github.io -*-
 
 #----------------------------------------
-#     TODO      
+#                  TODO      
 #----------------------------------------
 
 # - [done] Consumes tokens one at a time
@@ -14,6 +14,21 @@
 # - [    ] Needs to handle if-then-else statements
 # - [    ] Create functions to handle each token
 # - [    ] Returns parse tree
+
+#----------------------------------------------
+#           ARITHMETIC GRAMMER
+#----------------------------------------------
+
+#----------------------------------------------
+#
+#   G   -> E | EOF
+#   E   -> T E'
+#   E'  -> empty | + T (+) E' | - T (-) E'
+#   T   -> fT'
+#   T'  -> empty | x F (*) T' | / F (/) T'
+#   F   -> Lit | id | - F(-) | + F | not F | (F)
+#
+#-----------------------------------------------
 
 class Parser(object):
 
