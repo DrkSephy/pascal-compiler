@@ -23,6 +23,7 @@ Compiler Research Links
 * [How does an interpreter/compiler work?](http://forums.devshed.com/programming-languages-139/interpreter-compiler-312483.html#post1342279)
 * [Top Down Recursive Parsing](https://www.cs.duke.edu/~raw/cps218/Handouts/TDRD.htm)
 * [Recursive Descent Parser](http://en.wikipedia.org/wiki/Recursive_descent_parser)
+* [Terminals and Non-terminals](http://en.wikipedia.org/wiki/Terminal_and_nonterminal_symbols)
 
 Compiling Pascal on Mac OS X
 ----------------------------
