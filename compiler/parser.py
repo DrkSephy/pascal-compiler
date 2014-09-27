@@ -67,4 +67,47 @@ class Parser(object):
     def token_function(self, token):
         pass
 
+    def token_identifier(self, token):
+        pass
+
+    def token_if(self, token):
+        pass
+
+    def token_label(self, token):
+        pass
+
+    def token_program(self, token):
+        pass
+
+    def token_repeat(self, token):
+        pass
+
+    def token_string(self, token):
+        pass
+
+    def token_then(self, token):
+        pass
+
+    def token_to(self, token):
+        pass
+
+    def token_type(self, token):
+        pass
+
+    def token_var(self, token):
+        pass
+
+    def token_while(self, token):
+        pass
+
+    def token_integer(self, token):
+        pass
+
+    def token_real(self, token):
+        pass
+
+    def token_char(self, token):
+        pass
+
+
 
