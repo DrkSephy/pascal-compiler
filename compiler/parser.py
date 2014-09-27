@@ -32,3 +32,39 @@ class Parser(object):
     def parse(self):
         pass
 
+
+    #----------------------------------------
+    #          TOKEN HELPER METHODS
+    #----------------------------------------
+
+    def token_begin(self, token):
+        pass
+
+    def token_break(self, token):
+        pass
+
+    def token_const(self, token):
+        pass
+
+    def token_do(self, token):
+        pass
+
+    def token_downto(self, token):
+        pass
+
+    def token_else(self, token):
+        pass
+
+    def token_end(self, token):
+        pass
+
+    def token_end_program(self, token):
+        pass
+
+    def token_for(self, token):
+        pass
+
+    def token_function(self, token):
+        pass
+
+
