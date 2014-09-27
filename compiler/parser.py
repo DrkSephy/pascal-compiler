@@ -19,8 +19,11 @@ class Parser(object):
     def __init__(self, tokens, curr_token, op):
         # Parameters:
         #   * tokens : list of tuples of tokens
+        #       - tokens produced by scanner
         #   * curr_token : current token being processed
-        
+        #       - current token being read
+        #   * op : current operation to handle
+        #       - current operation to print to stack
         self.tokens     = tokens
         self.curr_token = curr_token
         self.op         = op
