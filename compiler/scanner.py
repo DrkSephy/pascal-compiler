@@ -672,10 +672,10 @@ class Scanner(object):
         'TYPE'      : 'TK_TYPE',
         'VAR'       : 'TK_VAR',
         'WHILE'     : 'TK_WHILE',
-        'INTEGER'   : 'TK_INTEGER', 
-        'REAL'      : 'TK_REAL',
-        'CHAR'      : 'TK_CHAR',
-        'BOOLEAN'   : 'TK_BOOLEAN'
+        'INTEGER'   : 'TK_ID_INTEGER', 
+        'REAL'      : 'TK_ID_REAL',
+        'CHAR'      : 'TK_ID_CHAR',
+        'BOOLEAN'   : 'TK_ID_BOOLEAN'
     }
 
     OPERATORS = {
