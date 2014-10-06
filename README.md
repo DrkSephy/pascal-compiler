@@ -24,6 +24,8 @@ Compiler Research Links
 * [Top Down Recursive Parsing](https://www.cs.duke.edu/~raw/cps218/Handouts/TDRD.htm)
 * [Recursive Descent Parser](http://en.wikipedia.org/wiki/Recursive_descent_parser)
 * [Terminals and Non-terminals](http://en.wikipedia.org/wiki/Terminal_and_nonterminal_symbols)
+* [Pascal Grammar](https://www.cs.utexas.edu/users/novak/grammar.html)
+* [Pascal Complete Grammar](http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&ved=0CC0QFjAC&url=http%3A%2F%2Fwww.cse.iitk.ac.in%2Fusers%2Facprasad%2Fgrammar.pdf&ei=GtoyVJW8GI-byASbyoD4Cg&usg=AFQjCNG_vQuq3Wmejnc6EkPCd8XAitCntQ&sig2=sO6dazNpRIviE1dGQ_CfkA&bvm=bv.76802529,d.aWw)
 
 Compiling Pascal on Mac OS X
 ----------------------------
