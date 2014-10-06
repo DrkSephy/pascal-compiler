@@ -1,1 +1,1 @@
-BEGIN    writeln ( 2 * 4 - 3 )END.
+2 * 4 - 8 / 2
