@@ -44,22 +44,23 @@ class Parser(object):
     def level(self):
     # Function for first level of grammar
     # L -> E | E < E | E > E | E <= E | E >= E | E = E | E != E
-        pass
+        print "level"
+
 
     def expression(self):
     # Function for building expressions
-    # E -> T E'
-        self.term()
-        self.expression_prime()
-
+    # E -> E + T | E - T | T | E or T | E xor T
         print "expression"
 
     def term(self):
     # Function for building terms
+    # T -> T x F | F | T / F | T div F | T mod F | T and F 
         print "term"
+
 
     def factor(self):
     # Function for building factors
+    # F -> LITERAL | VARIABLE | - F | + F | ( L ) | not F
         print "factor"
 
     def expression_prime(self):
