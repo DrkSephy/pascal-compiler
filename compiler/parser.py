@@ -55,7 +55,8 @@ class Parser(object):
             self.error(token)
 
     def error(self, token):
-        print "ERROR, expected token: %s but saw %s" % (token, self.curr_token[0])
+        # Returns error message
+        print "ERROR, expected token: %s but got %s." % (token, self.curr_token[0])
 
     def level(self):
     # Function for first level of grammar
