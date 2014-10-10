@@ -30,14 +30,32 @@ class Parser(object):
         self.op         = op
 
     def parse(self):
-        x = self.get_token()
+        iterator = self.get_token()
+        # self.curr_token = iterator.next()
         for i in range(1, 29):
-            self.curr_token = x.next()
+            self.curr_token = iterator.next()
             print self.curr_token
 
     def get_token(self):
+        # Returns an iterator for tokens
         tokens = iter(self.tokens)
         return tokens
+
+    def expression(self):
+    # Function for building expressions
+        pass
+
+    def term(self):
+    # Function for building terms
+        pass
+
+    def factor(self):
+    # Function for building factors
+        pass
+
+        
+
+
 
         
 
