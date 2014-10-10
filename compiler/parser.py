@@ -41,6 +41,11 @@ class Parser(object):
         tokens = iter(self.tokens)
         return tokens
 
+    def level(self):
+    # Function for first level of grammar
+    # L -> E | E < E | E > E | E <= E | E >= E | E = E | E != E
+        pass
+
     def expression(self):
     # Function for building expressions
     # E -> T E'
