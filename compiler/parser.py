@@ -70,6 +70,7 @@ class Parser(object):
     def level(self):
     # Function for first level of grammar
     # L -> E | E < E | E > E | E <= E | E >= E | E = E | E != E
+
         print "level"
 
 
@@ -100,7 +101,7 @@ class Parser(object):
 
     def goal(self):
     # Function for starting grammar
-        self.expression()
+        self.level()
         print "goal"
 
 
