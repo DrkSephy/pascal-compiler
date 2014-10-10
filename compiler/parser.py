@@ -31,8 +31,9 @@ class Parser(object):
         self.iterator   = self.return_iterator()
 
     def parse(self):
-        for i in range(1, 29):
-            print(self.get_token())
+        self.get_token()
+        print self.curr_token[0]
+        self.expect_token('TK_IDENTIFIER')
 
 
     def return_iterator(self):
@@ -44,14 +45,17 @@ class Parser(object):
     def get_token(self):
         # Returns next token in list
         self.curr_token = self.iterator.next()
-        return self.curr_token
+        return self.curr_token[0]
 
     def expect_token(self, token):
         # Checks if expected token is proper
-        if self.curr_token == token:
+        if self.curr_token[0] == token:
             return 
         else:
-            print "Expected different token: %s" % token
+            self.error(token)
+
+    def error(self, token):
+        print "ERROR, expected token: %s but saw %s" % (token, self.curr_token[0])
 
     def level(self):
     # Function for first level of grammar
