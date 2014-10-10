@@ -61,6 +61,10 @@ class Parser(object):
     # Function for second level of Terms
         pass
 
+    def goal(self):
+    # Function for starting grammar
+        pass
+
 
 
         
