@@ -36,6 +36,11 @@ class Parser(object):
         self.expect_token('TK_IDENTIFIER')
 
 
+
+    #----------------------------------------
+    #          PARSER HELPER METHODS                 
+    #----------------------------------------
+
     def return_iterator(self):
         # Returns an iterator for tokens
         tokens = iter(self.tokens)
@@ -57,6 +62,10 @@ class Parser(object):
     def error(self, token):
         # Returns error message
         print "ERROR, expected token: %s but got %s." % (token, self.curr_token[0])
+
+    #----------------------------------------
+    #          PARSER GRAMMAR METHODS                
+    #----------------------------------------
 
     def level(self):
     # Function for first level of grammar
