@@ -43,27 +43,33 @@ class Parser(object):
 
     def expression(self):
     # Function for building expressions
-        pass
+    # E -> T E'
+        self.term()
+        self.expression_prime()
+
+        print "expression"
 
     def term(self):
     # Function for building terms
-        pass
+        print "term"
 
     def factor(self):
     # Function for building factors
-        pass
+        print "factor"
 
     def expression_prime(self):
     # Function for second level of Expressions
-        pass
+    # E' -> empty | + T
+        print "expression_prime"
 
     def term_prime(self):
     # Function for second level of Terms
-        pass
+        print "term_prime"
 
     def goal(self):
     # Function for starting grammar
-        pass
+        self.expression()
+        print "goal"
 
 
 
