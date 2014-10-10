@@ -30,13 +30,13 @@ class Parser(object):
         self.op         = op
 
     def parse(self):
-        iterator = self.get_token()
+        iterator = self.return_iterator()
         # self.curr_token = iterator.next()
         for i in range(1, 29):
             self.curr_token = iterator.next()
             print self.curr_token
 
-    def get_token(self):
+    def return_iterator(self):
         # Returns an iterator for tokens
         tokens = iter(self.tokens)
         return tokens
@@ -44,6 +44,7 @@ class Parser(object):
     def level(self):
     # Function for first level of grammar
     # L -> E | E < E | E > E | E <= E | E >= E | E = E | E != E
+
         print "level"
 
 
