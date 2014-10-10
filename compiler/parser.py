@@ -53,7 +53,13 @@ class Parser(object):
     # Function for building factors
         pass
 
-        
+    def expression_prime(self):
+    # Function for second level of Expressions
+        pass
+
+    def term_prime(self):
+    # Function for second level of Terms
+        pass
 
 
 
