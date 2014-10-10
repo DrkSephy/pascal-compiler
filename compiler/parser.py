@@ -30,4 +30,7 @@ class Parser(object):
         self.op         = op
 
     def parse(self):
-        pass
+        print self.tokens
+
+    def get_token(self, self.tokens):
+
