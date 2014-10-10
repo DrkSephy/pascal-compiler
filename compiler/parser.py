@@ -30,7 +30,14 @@ class Parser(object):
         self.op         = op
 
     def parse(self):
-        print self.tokens
+        x = self.get_token()
+        for i in range(1, 29):
+            self.curr_token = x.next()
+            print self.curr_token
 
-    def get_token(self, self.tokens):
+    def get_token(self):
+        tokens = iter(self.tokens)
+        return tokens
+
+        
 

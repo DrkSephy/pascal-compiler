@@ -135,7 +135,7 @@ class Scanner(object):
 
         # Print out metadata
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
-        print(self.tokens)
+        # print(self.tokens)
         return self.tokens
 
 
