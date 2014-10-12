@@ -31,9 +31,7 @@ class Parser(object):
         self.iterator   = self.return_iterator()
 
     def parse(self):
-        self.get_token()
-        print self.curr_token[0]
-        self.expect_token('TK_IDENTIFIER')
+        pass
 
 
 
@@ -70,24 +68,34 @@ class Parser(object):
     def level(self):
     # Function for first level of grammar
     # L -> E | E < E | E > E | E <= E | E >= E | E = E | E != E
-
+        self.get_token()
+        self.expression()
         print "level"
 
 
     def expression(self):
     # Function for building expressions
     # E -> E + T | E - T | T | E or T | E xor T
+        if self.curr_token[0] == 'TK_INTEGER':
+            self.term() 
+
+        
         print "expression"
 
     def term(self):
     # Function for building terms
     # T -> T x F | F | T / F | T div F | T mod F | T and F 
+        if self.curr_token[0] == 'TK_INTEGER':
+            self.factor()
         print "term"
 
 
     def factor(self):
     # Function for building factors
     # F -> LITERAL | VARIABLE | - F | + F | ( L ) | not F
+        if self.curr_token[0] == 'TK_INTEGER':
+            pass
+            # push self.curr_token[1]
         print "factor"
 
     def expression_prime(self):
