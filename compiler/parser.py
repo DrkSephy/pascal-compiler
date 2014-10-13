@@ -98,9 +98,7 @@ class Parser(object):
     def factor(self):
     # Function for building factors
     # F -> LITERAL | VARIABLE | - F | + F | ( L ) | not F
-        if self.curr_token[0] == 'TK_INTEGER':
-            self.nodes.append(self.curr_token[0])
-            return
+        pass
         print "factor"
 
     def expression_prime(self):
