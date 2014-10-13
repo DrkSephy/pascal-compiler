@@ -21,6 +21,7 @@ Compiler Research Links
 * [Data Types](http://wiki.freepascal.org/Variables_and_Data_Types)
 * [Parsers and Compilers](http://parsingintro.sourceforge.net/#contents_item_7)
 * [How does an interpreter/compiler work?](http://forums.devshed.com/programming-languages-139/interpreter-compiler-312483.html#post1342279)
+* [More notes on Recursive Parsing](http://math.hws.edu/javanotes/c9/s5.html)
 * [Top Down Recursive Parsing](https://www.cs.duke.edu/~raw/cps218/Handouts/TDRD.htm)
 * [Recursive Descent Parser](http://en.wikipedia.org/wiki/Recursive_descent_parser)
 * [Terminals and Non-terminals](http://en.wikipedia.org/wiki/Terminal_and_nonterminal_symbols)
