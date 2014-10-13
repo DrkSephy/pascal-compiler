@@ -17,7 +17,7 @@
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op):
+    def __init__(self, tokens, curr_token, op, nodes):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -29,6 +29,7 @@ class Parser(object):
         self.curr_token = curr_token
         self.op         = op
         self.iterator   = self.return_iterator()
+        self.nodes      = []
 
     def parse(self):
         pass
@@ -87,6 +88,10 @@ class Parser(object):
     # T -> T x F | F | T / F | T div F | T mod F | T and F 
         if self.curr_token[0] == 'TK_INTEGER':
             self.factor()
+        # Get next token
+        self.get_token()
+        if self.curr_token[0] == 'TK_MULT':
+            self.nodes.append(self.curr_token[0])
         print "term"
 
 
@@ -94,8 +99,8 @@ class Parser(object):
     # Function for building factors
     # F -> LITERAL | VARIABLE | - F | + F | ( L ) | not F
         if self.curr_token[0] == 'TK_INTEGER':
-            pass
-            # push self.curr_token[1]
+            self.nodes.append(self.curr_token[0])
+            return
         print "factor"
 
     def expression_prime(self):
