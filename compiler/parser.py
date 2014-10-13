@@ -65,8 +65,8 @@ class Parser(object):
     #          PARSER GRAMMAR METHODS                
     #----------------------------------------
 
-    def level(self):
-    # Function for first level of grammar
+    def logic(self):
+    # Function for grammar logic
     # L -> E | E < E | E > E | E <= E | E >= E | E = E | E != E
         self.get_token()
         self.expression()
