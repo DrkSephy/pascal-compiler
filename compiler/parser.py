@@ -87,18 +87,22 @@ class Parser(object):
     # Function for building terms
     # T -> T x F | F | T / F | T div F | T mod F | T and F 
         if self.curr_token[0] == 'TK_INTEGER':
+            self.term()
             self.factor()
         # Get next token
         self.get_token()
         if self.curr_token[0] == 'TK_MULT':
             self.nodes.append(self.curr_token[0])
+        self.factor()
         print "term"
 
 
     def factor(self):
     # Function for building factors
     # F -> LITERAL | VARIABLE | - F | + F | ( L ) | not F
-        pass
+        if self.curr_token[0] == 'TK_INTEGER':
+            self.nodes.append(self.curr_token[0])
+            return
         print "factor"
 
     def expression_prime(self):
