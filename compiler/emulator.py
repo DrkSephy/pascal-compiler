@@ -39,6 +39,7 @@ if __name__ == '__main__':
     scanner  = Scanner(1, 1, '', '', [], [], False, False, False, False)
     # Pass in file name, return list of tokens
     tokens   = scanner.scan(filename)
+    tokens.append(('EOF', 0, 0, 0))
     # Initialize parser
     parser   = Parser(tokens, 0, '', [])
     # Return the AST using tokens
