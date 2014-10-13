@@ -32,7 +32,7 @@ class Parser(object):
         self.nodes      = []
 
     def parse(self):
-        pass
+        self.logic()
 
 
 
@@ -94,6 +94,7 @@ class Parser(object):
         if self.curr_token[0] == 'TK_MULT':
             self.nodes.append(self.curr_token[0])
         self.factor()
+        return
         print "term"
 
 
@@ -104,22 +105,3 @@ class Parser(object):
             self.nodes.append(self.curr_token[0])
             return
         print "factor"
-
-    def expression_prime(self):
-    # Function for second level of Expressions
-    # E' -> empty | + T
-        print "expression_prime"
-
-    def term_prime(self):
-    # Function for second level of Terms
-        print "term_prime"
-
-    def goal(self):
-    # Function for starting grammar
-        self.level()
-        print "goal"
-
-
-
-        
-
