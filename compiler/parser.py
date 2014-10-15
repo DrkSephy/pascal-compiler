@@ -93,5 +93,12 @@ class Parser(object):
             self.match('TK_MULT')
             self.factor()
             self.term_prime()
+        elif self.curr_token[0] == 'TK_DIV_FLOAT':
+            self.match('TK_DIV_FLOAT')
+            self.factor()
+            self.term_prime()
+        else:
+            pass
+
 
 
