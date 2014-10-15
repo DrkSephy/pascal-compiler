@@ -35,6 +35,7 @@ class Parser(object):
     def parse(self):
         self.goal()
         print self.nodes
+        print self.decorated_nodes
 
     #----------------------------------------
     #          PARSER HELPER METHODS                 
@@ -54,7 +55,10 @@ class Parser(object):
     def match(self, token):
         # Checks if expected token is proper
         if token == self.curr_token[0]:
+            # Append leaf nodes into list
             self.nodes.append(self.curr_token[1])
+            # Generate stack machine ASM
+            self.code_generation(self.curr_token)
             # Get next token
             self.get_token()
             return True
@@ -123,6 +127,16 @@ class Parser(object):
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.match('TK_IDENTIFIER')
 
+    #----------------------------------------
+    #        DECORATED GRAMMAR METHODS                
+    #----------------------------------------
 
-
-
+    def code_generation(self, token):
+        if token[0] == 'TK_IDENTIFIER':
+            self.decorated_nodes.append('push ' + self.curr_token[1])
+        elif token[0] == 'TK_MULT':
+            self.decorated_nodes.append('mul')
+        elif token[0] == 'TK_PLUS':
+            self.decorated_nodes.append('add')
+        else:
+            pass
