@@ -32,7 +32,8 @@ class Parser(object):
         self.nodes      = []
 
     def parse(self):
-        self.logic()
+        self.goal()
+        print self.nodes
 
 
 
@@ -69,10 +70,11 @@ class Parser(object):
     #----------------------------------------
 
     def goal(self):
+        self.get_token()
         self.expression()
         if self.curr_token[0] == 'TK_EOF':
             return 
-            
+
     def expression(self):
         self.term()
         self.expression_prime()
@@ -80,10 +82,12 @@ class Parser(object):
     def expression_prime(self):
         if self.curr_token[0] == 'TK_PLUS':
             self.match('TK_PLUS')
+            self.nodes.append(self.curr_token[1])
             self.term()
             self.expression_prime()
         elif self.curr_token[0] == 'TK_MINUS':
             self.match('TK_MINUS')
+            self.nodes.append(self.curr_token[1])
             self.term()
             self.expression_prime()
         else:
@@ -96,10 +100,12 @@ class Parser(object):
     def term_prime(self):
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
+            self.nodes.append(self.curr_token[1])
             self.factor()
             self.term_prime()
         elif self.curr_token[0] == 'TK_DIV_FLOAT':
             self.match('TK_DIV_FLOAT')
+            self.nodes.append(self.curr_token[1])
             self.factor()
             self.term_prime()
         else:
@@ -108,7 +114,7 @@ class Parser(object):
     def factor(self):
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.match('TK_IDENTIFIER')
-            self.nodes.append(self.curr_token[0])
+            self.nodes.append(self.curr_token[1])
 
 
 
