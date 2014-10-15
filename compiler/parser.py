@@ -77,6 +77,12 @@ class Parser(object):
             self.match('TK_PLUS')
             self.term()
             self.expression_prime()
+        elif self.curr_token[0] == 'TK_MINUS':
+            self.match('TK_MINUS')
+            self.term()
+            self.expression_prime()
+        else:
+            pass
 
     def term(self):
         self.factor()
@@ -87,5 +93,5 @@ class Parser(object):
             self.match('TK_MULT')
             self.factor()
             self.term_prime()
-            
+
 
