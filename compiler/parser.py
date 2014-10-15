@@ -54,7 +54,8 @@ class Parser(object):
     def expect_token(self, token):
         # Checks if expected token is proper
         if self.curr_token[0] == token:
-            return 
+            self.get_token()
+            return True
         else:
             self.error(token)
 
@@ -65,43 +66,3 @@ class Parser(object):
     #----------------------------------------
     #          PARSER GRAMMAR METHODS                
     #----------------------------------------
-
-    def logic(self):
-    # Function for grammar logic
-    # L -> E | E < E | E > E | E <= E | E >= E | E = E | E != E
-        self.get_token()
-        self.expression()
-        print "level"
-
-
-    def expression(self):
-    # Function for building expressions
-    # E -> E + T | E - T | T | E or T | E xor T
-        if self.curr_token[0] == 'TK_INTEGER':
-            self.term() 
-
-        
-        print "expression"
-
-    def term(self):
-    # Function for building terms
-    # T -> T x F | F | T / F | T div F | T mod F | T and F 
-        if self.curr_token[0] == 'TK_INTEGER':
-            self.term()
-            self.factor()
-        # Get next token
-        self.get_token()
-        if self.curr_token[0] == 'TK_MULT':
-            self.nodes.append(self.curr_token[0])
-        self.factor()
-        return
-        print "term"
-
-
-    def factor(self):
-    # Function for building factors
-    # F -> LITERAL | VARIABLE | - F | + F | ( L ) | not F
-        if self.curr_token[0] == 'TK_INTEGER':
-            self.nodes.append(self.curr_token[0])
-            return
-        print "factor"
