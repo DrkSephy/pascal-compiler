@@ -57,8 +57,6 @@ class Parser(object):
         if token == self.curr_token[0]:
             # Append leaf nodes into list
             self.nodes.append(self.curr_token[1])
-            # Generate stack machine ASM
-            self.code_generation(self.curr_token)
             # Get next token
             self.get_token()
             return True
@@ -93,10 +91,12 @@ class Parser(object):
         if self.curr_token[0] == 'TK_PLUS':
             self.match('TK_PLUS')
             self.term()
+            self.code_generation('TK_PLUS')
             self.expression_prime()
         elif self.curr_token[0] == 'TK_MINUS':
             self.match('TK_MINUS')
             self.term()
+            self.code_generation('TK_MINUS')
             self.expression_prime()
         else:
             pass
@@ -113,18 +113,21 @@ class Parser(object):
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
             self.factor()
+            self.code_generation('TK_MULT')
             self.term_prime()
         elif self.curr_token[0] == 'TK_DIV_FLOAT':
             self.match('TK_DIV_FLOAT')
             self.factor()
+            self.code_generation('TK_DIV_FLOAT')
             self.term_prime()
         else:
             pass
 
     def factor(self):
         # Factor -> id
-        print self.curr_token[1]
+
         if self.curr_token[0] == 'TK_IDENTIFIER':
+            self.code_generation(self.curr_token)
             self.match('TK_IDENTIFIER')
 
     #----------------------------------------
@@ -134,9 +137,9 @@ class Parser(object):
     def code_generation(self, token):
         if token[0] == 'TK_IDENTIFIER':
             self.decorated_nodes.append('push ' + self.curr_token[1])
-        elif token[0] == 'TK_MULT':
+        elif token == 'TK_MULT':
             self.decorated_nodes.append('mul')
-        elif token[0] == 'TK_PLUS':
+        elif token == 'TK_PLUS':
             self.decorated_nodes.append('add')
         else:
             pass
