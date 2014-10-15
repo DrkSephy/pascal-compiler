@@ -82,4 +82,10 @@ class Parser(object):
         self.factor()
         self.term_prime()
 
+    def term_prime(self):
+        if self.curr_token[0] == 'TK_MULT':
+            self.match('TK_MULT')
+            self.factor()
+            self.term_prime()
+            
 
