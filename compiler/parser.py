@@ -67,3 +67,9 @@ class Parser(object):
     #----------------------------------------
     #          PARSER GRAMMAR METHODS                
     #----------------------------------------
+
+    def expression(self):
+        self.term()
+        self.expression_prime()
+        
+
