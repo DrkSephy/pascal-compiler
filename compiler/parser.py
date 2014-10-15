@@ -50,11 +50,12 @@ class Parser(object):
     def get_token(self):
         # Returns next token in list
         self.curr_token = self.iterator.next()
-        return self.curr_token[0]
+        return
 
     def match(self, token):
         # Checks if expected token is proper
         if token == self.curr_token[0]:
+            self.nodes.append(self.curr_token[1])
             # Get next token
             self.get_token()
             return True
@@ -82,12 +83,12 @@ class Parser(object):
     def expression_prime(self):
         if self.curr_token[0] == 'TK_PLUS':
             self.match('TK_PLUS')
-            self.nodes.append(self.curr_token[1])
+            #self.nodes.append(self.curr_token[1])
             self.term()
             self.expression_prime()
         elif self.curr_token[0] == 'TK_MINUS':
             self.match('TK_MINUS')
-            self.nodes.append(self.curr_token[1])
+            #self.nodes.append(self.curr_token[1])
             self.term()
             self.expression_prime()
         else:
@@ -100,21 +101,22 @@ class Parser(object):
     def term_prime(self):
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
-            self.nodes.append(self.curr_token[1])
+            #self.nodes.append(self.curr_token[1])
             self.factor()
             self.term_prime()
         elif self.curr_token[0] == 'TK_DIV_FLOAT':
             self.match('TK_DIV_FLOAT')
-            self.nodes.append(self.curr_token[1])
+            #self.nodes.append(self.curr_token[1])
             self.factor()
             self.term_prime()
         else:
             pass
 
     def factor(self):
+        print self.curr_token[1]
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.match('TK_IDENTIFIER')
-            self.nodes.append(self.curr_token[1])
+
 
 
 
