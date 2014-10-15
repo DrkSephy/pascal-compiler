@@ -51,9 +51,10 @@ class Parser(object):
         self.curr_token = self.iterator.next()
         return self.curr_token[0]
 
-    def expect_token(self, token):
+    def match(self, token):
         # Checks if expected token is proper
-        if self.curr_token[0] == token:
+        if token == self.curr_token[0]:
+            # Get next token
             self.get_token()
             return True
         else:
