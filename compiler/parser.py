@@ -35,8 +35,6 @@ class Parser(object):
         self.goal()
         print self.nodes
 
-
-
     #----------------------------------------
     #          PARSER HELPER METHODS                 
     #----------------------------------------
@@ -71,48 +69,55 @@ class Parser(object):
     #----------------------------------------
 
     def goal(self):
+        # Goal -> Expression EOF
+
         self.get_token()
         self.expression()
         if self.curr_token[0] == 'TK_EOF':
             return 
 
     def expression(self):
+        # Expression -> Term Expression'
+
         self.term()
         self.expression_prime()
 
     def expression_prime(self):
+        # Expression' -> + Term Expression' | - Term Expression' | e
+
         if self.curr_token[0] == 'TK_PLUS':
             self.match('TK_PLUS')
-            #self.nodes.append(self.curr_token[1])
             self.term()
             self.expression_prime()
         elif self.curr_token[0] == 'TK_MINUS':
             self.match('TK_MINUS')
-            #self.nodes.append(self.curr_token[1])
             self.term()
             self.expression_prime()
         else:
             pass
 
     def term(self):
+        # Term -> Factor Term'
+
         self.factor()
         self.term_prime()
 
     def term_prime(self):
+        # Term' -> * Factor Term' | / Factor Term' | e
+
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
-            #self.nodes.append(self.curr_token[1])
             self.factor()
             self.term_prime()
         elif self.curr_token[0] == 'TK_DIV_FLOAT':
             self.match('TK_DIV_FLOAT')
-            #self.nodes.append(self.curr_token[1])
             self.factor()
             self.term_prime()
         else:
             pass
 
     def factor(self):
+        # Factor -> id
         print self.curr_token[1]
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.match('TK_IDENTIFIER')
