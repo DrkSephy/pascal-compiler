@@ -78,3 +78,8 @@ class Parser(object):
             self.term()
             self.expression_prime()
 
+    def term(self):
+        self.factor()
+        self.term_prime()
+        
+
