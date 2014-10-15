@@ -17,7 +17,7 @@
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op, nodes):
+    def __init__(self, tokens, curr_token, op, nodes, decorated_nodes):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -25,11 +25,12 @@ class Parser(object):
         #       - current token being read
         #   * op : current operation to handle
         #       - current operation to print to stack
-        self.tokens     = tokens
-        self.curr_token = curr_token
-        self.op         = op
-        self.iterator   = self.return_iterator()
-        self.nodes      = []
+        self.tokens             = tokens
+        self.curr_token         = curr_token
+        self.op                 = op
+        self.iterator           = self.return_iterator()
+        self.nodes              = []
+        self.decorated_nodes    = decorated_nodes
 
     def parse(self):
         self.goal()
@@ -83,7 +84,7 @@ class Parser(object):
         self.expression_prime()
 
     def expression_prime(self):
-        # Expression' -> + Term Expression' | - Term Expression' | e
+        # Expression' -> + Term [+] Expression' | - Term [-] Expression' | e
 
         if self.curr_token[0] == 'TK_PLUS':
             self.match('TK_PLUS')
@@ -103,7 +104,7 @@ class Parser(object):
         self.term_prime()
 
     def term_prime(self):
-        # Term' -> * Factor Term' | / Factor Term' | e
+        # Term' -> * Factor [*] Term' | / Factor [/] Term' | e
 
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
