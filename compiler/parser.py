@@ -68,6 +68,11 @@ class Parser(object):
     #          PARSER GRAMMAR METHODS                
     #----------------------------------------
 
+    def goal(self):
+        self.expression()
+        if self.curr_token[0] == 'TK_EOF':
+            return 
+            
     def expression(self):
         self.term()
         self.expression_prime()
@@ -103,7 +108,7 @@ class Parser(object):
     def factor(self):
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.match('TK_IDENTIFIER')
-            
+            self.nodes.append(self.curr_token[0])
 
 
 
