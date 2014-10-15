@@ -71,5 +71,10 @@ class Parser(object):
     def expression(self):
         self.term()
         self.expression_prime()
-        
+
+    def expression_prime(self):
+        if self.curr_token[0] = 'TK_PLUS':
+            self.match('TK_PLUS')
+            self.term()
+            self.expression_prime()
 
