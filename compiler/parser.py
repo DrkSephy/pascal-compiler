@@ -100,5 +100,10 @@ class Parser(object):
         else:
             pass
 
+    def factor(self):
+        if self.curr_token[0] == 'TK_IDENTIFIER':
+            self.match('TK_IDENTIFIER')
+            
+
 
 
