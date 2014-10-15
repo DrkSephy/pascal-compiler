@@ -487,7 +487,26 @@ class Scanner(object):
                 return
 
         #----------------------------------------
-        #            COLON SUBSTATE              
+        #           LESS THAN SUBSTATE              
+        #----------------------------------------
+
+        # Character is <
+        if self.to_ascii(char) == 60:
+            if not self.curr_token:
+                self.curr_token = 'TK_LESS'
+
+
+        #----------------------------------------
+        #           GREATER THAN SUBSTATE              
+        #----------------------------------------
+
+        # Character is <
+        if self.to_ascii(char) == 62:
+            if not self.curr_token:
+                self.curr_token = 'TK_GREATER'
+
+        #----------------------------------------
+        #             COLON SUBSTATE              
         #----------------------------------------
 
         # Character is colon
