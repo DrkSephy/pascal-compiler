@@ -135,7 +135,7 @@ class Scanner(object):
 
         # Print out metadata
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
-        print(self.tokens)
+        # print(self.tokens)
         return self.tokens
 
 
@@ -419,6 +419,7 @@ class Scanner(object):
                     return
 
                 if self.to_upper(self.curr_val) in self.OPERATORS:
+                    print "Building: " + self.to_upper(self.curr_val)
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
                     self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))   
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
@@ -500,10 +501,20 @@ class Scanner(object):
         #           GREATER THAN SUBSTATE              
         #----------------------------------------
 
-        # Character is <
+        # Character is >
         if self.to_ascii(char) == 62:
             if not self.curr_token:
                 self.curr_token = 'TK_GREATER'
+
+
+        #----------------------------------------
+        #           EXCLAMATION SUBSTATE              
+        #----------------------------------------
+
+        # Character is !
+        if self.to_ascii(char) == 33:
+            if not self.curr_token:
+                self.curr_token = 'TK_EXCLAMATION'
 
         #----------------------------------------
         #             COLON SUBSTATE              
@@ -527,14 +538,16 @@ class Scanner(object):
             if not self.curr_token:
                 self.tokens.append(('TK_EQUALS', '=', self.curr_row, self.curr_col))
                 self.metadata.append({'TOKEN' : 'TK_EQUALS', 'VALUE' : '=', 'ROW' : self.curr_row, 'COL' : self.curr_col})
+                self.curr_token = ''
                 return
 
-            # If there is a current token, it must be colon
-            if self.curr_token:
+            # If there is a current token, it can either be a colon, less than, or greater than
+            if self.curr_token == 'TK_COLON':
                 self.tokens.append(('TK_ASSIGNMENT', ':=', self.curr_row, self.curr_col -1))
                 self.metadata.append({'TOKEN': 'TK_ASSIGNMENT', 'VALUE' : ':=', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                 self.curr_token = ''
                 return
+
 
         #----------------------------------------
         #              DOT SUBSTATE              
@@ -711,6 +724,8 @@ class Scanner(object):
         '<'         : 'TK_LESS',
         '>='        : 'TK_GREATER_EQUALS',
         '<='        : 'TK_LESS_EQUALS',
+        '!'         : 'TK_EXCLAMATION',
+        '!='        : 'TK_NOT_EQUALS',
         'AND'       : 'TK_AND',
         'OR'        : 'TK_OR',
         'NOT'       : 'TK_NOT',
