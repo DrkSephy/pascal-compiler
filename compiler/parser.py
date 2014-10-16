@@ -130,6 +130,10 @@ class Parser(object):
             self.code_generation(self.curr_token)
             self.match('TK_IDENTIFIER')
 
+        if self.curr_token[0] == 'TK_INTEGER':
+            self.code_generation(self.curr_token)
+            self.match('TK_INTEGER')
+
     #----------------------------------------
     #        DECORATED GRAMMAR METHODS                
     #----------------------------------------
@@ -137,9 +141,13 @@ class Parser(object):
     def code_generation(self, token):
         if token[0] == 'TK_IDENTIFIER':
             self.decorated_nodes.append('push ' + self.curr_token[1])
+        elif token[0] == 'TK_INTEGER':
+            self.decorated_nodes.append('push' + self.curr_token[1])
         elif token == 'TK_MULT':
             self.decorated_nodes.append('mul')
         elif token == 'TK_PLUS':
             self.decorated_nodes.append('add')
+        elif token == 'TK_MINUS':
+            self.decorated_nodes.append('sub')
         else:
             pass
