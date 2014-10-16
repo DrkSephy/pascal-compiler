@@ -15,6 +15,8 @@
 # - [    ] Create functions to handle each token
 # - [    ] Returns parse tree
 
+from prettytable import PrettyTable
+
 class Parser(object):
 
     def __init__(self, tokens, curr_token, op, nodes, decorated_nodes):
@@ -36,6 +38,36 @@ class Parser(object):
         self.goal()
         print self.nodes
         print self.decorated_nodes
+        print (self.printer(1, ['NUMBER', 'INSTRUCTIONS'], [], self.decorated_nodes))
+
+
+    #----------------------------------------
+    #             PRETTY PRINTER             
+    #----------------------------------------
+
+    def printer(self, iterator, field_names, storage, data):
+        # Returns: Ascii formatted table 
+        #
+        # Parameters:
+        #   iterator: int
+        #       token counter
+        #   field_names: list of strings
+        #       table headers
+        #   storage: list
+        #       row of data to append 
+        #   data: list of dictionaries
+        #      key, value pairs of metadata
+
+        table = PrettyTable()
+        table.field_names = field_names
+        for datum in data:
+            storage.append(iterator)
+            storage.append(datum)
+            table.add_row(storage)
+            del storage[:]
+
+            iterator += 1
+        return table
 
     #----------------------------------------
     #          PARSER HELPER METHODS                 
@@ -140,14 +172,14 @@ class Parser(object):
 
     def code_generation(self, token):
         if token[0] == 'TK_IDENTIFIER':
-            self.decorated_nodes.append('push ' + self.curr_token[1])
+            self.decorated_nodes.append('PUSH ' + self.curr_token[1])
         elif token[0] == 'TK_INTEGER':
-            self.decorated_nodes.append('push' + self.curr_token[1])
+            self.decorated_nodes.append('PUSH ' + self.curr_token[1])
         elif token == 'TK_MULT':
-            self.decorated_nodes.append('mul')
+            self.decorated_nodes.append('MUL')
         elif token == 'TK_PLUS':
-            self.decorated_nodes.append('add')
+            self.decorated_nodes.append('ADD')
         elif token == 'TK_MINUS':
-            self.decorated_nodes.append('sub')
+            self.decorated_nodes.append('SUB')
         else:
             pass
