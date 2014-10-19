@@ -7,7 +7,8 @@
 #----------------------------------------
 
 # - [done] Consumes tokens one at a time
-# - [    ] Needs grammar to handle arithmetic structures
+# - [done] Needs grammar to handle arithmetic structures
+# - [done] Generate stack machine assembly
 # - [    ] Needs to handle if statements
 # - [    ] Needs to handle while statements
 # - [    ] Needs to handle for statements
