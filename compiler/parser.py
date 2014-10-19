@@ -9,18 +9,19 @@
 # - [done] Consumes tokens one at a time
 # - [done] Needs grammar to handle arithmetic structures
 # - [done] Generate stack machine assembly
+# - [    ] Print parse tree
 # - [    ] Needs to handle if statements
 # - [    ] Needs to handle while statements
 # - [    ] Needs to handle for statements
 # - [    ] Needs to handle if-then-else statements
 # - [    ] Create functions to handle each token
-# - [    ] Returns parse tree
+# - [done] Returns parse tree
 
 from prettytable import PrettyTable
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op, nodes, decorated_nodes):
+    def __init__(self, tokens, curr_token, op, nodes, decorated_nodes, level=0):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -34,6 +35,7 @@ class Parser(object):
         self.iterator           = self.return_iterator()
         self.nodes              = []
         self.decorated_nodes    = decorated_nodes
+        self.level              = 0
 
     def parse(self):
         self.goal()
@@ -184,3 +186,8 @@ class Parser(object):
             self.decorated_nodes.append('SUB')
         else:
             pass
+
+    #----------------------------------------
+    #    PARSE TREE VISUALIZATION METHODS              
+    #----------------------------------------
+
