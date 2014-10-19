@@ -10,23 +10,35 @@ As a means to learn, no libraries will be used for heavy lifting of the implemen
 
 * [Pretty Tables](https://github.com/dprince/python-prettytable) : Library for printing ascii tables, useful for formatting debug statements and generated tokens to console.
 
-Compiler Research Links
------------------------
+###Compiler Research Links
 
-* [Writing Compilers with llvm-py](http://www.slideshare.net/mdevan/llvmpy-w)
+######General 
+
 * [Pascal Keywords](http://wiki.freepascal.org/Reserved_words)
 * [Pascal Operators](http://www.tutorialspoint.com/pascal/pascal_operators.htm)
 * [Symbol Tables](http://en.wikipedia.org/wiki/Symbol_table)
 * [System Functions](http://www.freepascal.org/docs-html/rtl/system/index-5.html)
 * [Data Types](http://wiki.freepascal.org/Variables_and_Data_Types)
+
+######Compiler Theory
+
 * [Parsers and Compilers](http://parsingintro.sourceforge.net/#contents_item_7)
 * [How does an interpreter/compiler work?](http://forums.devshed.com/programming-languages-139/interpreter-compiler-312483.html#post1342279)
+
+######Parsing Methods and Grammar theory
+
 * [More notes on Recursive Parsing](http://math.hws.edu/javanotes/c9/s5.html)
 * [Top Down Recursive Parsing](https://www.cs.duke.edu/~raw/cps218/Handouts/TDRD.htm)
 * [Recursive Descent Parser](http://en.wikipedia.org/wiki/Recursive_descent_parser)
 * [Terminals and Non-terminals](http://en.wikipedia.org/wiki/Terminal_and_nonterminal_symbols)
 * [Pascal Grammar](https://www.cs.utexas.edu/users/novak/grammar.html)
 * [Pascal Complete Grammar](http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&ved=0CC0QFjAC&url=http%3A%2F%2Fwww.cse.iitk.ac.in%2Fusers%2Facprasad%2Fgrammar.pdf&ei=GtoyVJW8GI-byASbyoD4Cg&usg=AFQjCNG_vQuq3Wmejnc6EkPCd8XAitCntQ&sig2=sO6dazNpRIviE1dGQ_CfkA&bvm=bv.76802529,d.aWw)
+
+######Bytecode
+
+* [Python Disassembly](http://lance-modis.eosdis.nasa.gov/cgi-bin/imagery/realtime.cgi)
+
+
 
 Compiling Pascal on Mac OS X
 ----------------------------
