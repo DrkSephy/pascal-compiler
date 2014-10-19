@@ -21,7 +21,7 @@ from prettytable import PrettyTable
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op, nodes, decorated_nodes, level=0):
+    def __init__(self, tokens, curr_token, op, nodes, decorated_nodes):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -35,7 +35,6 @@ class Parser(object):
         self.iterator           = self.return_iterator()
         self.nodes              = []
         self.decorated_nodes    = decorated_nodes
-        self.level              = 0
 
     def parse(self):
         self.goal()
