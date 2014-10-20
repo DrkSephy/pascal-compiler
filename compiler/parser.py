@@ -185,8 +185,3 @@ class Parser(object):
             self.decorated_nodes.append('SUB')
         else:
             pass
-
-    #----------------------------------------
-    #    PARSE TREE VISUALIZATION METHODS              
-    #----------------------------------------
-
