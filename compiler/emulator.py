@@ -41,7 +41,7 @@ if __name__ == '__main__':
     tokens   = scanner.scan(filename)
     tokens.append(('EOF', 0, 0, 0))
     # Initialize parser
-    parser   = Parser(tokens, 0, '', [], [])
+    parser   = Parser(tokens, 0, '')
     # Return the AST using tokens
     ast      = parser.parse()
     
