@@ -16,6 +16,10 @@
 # - [    ] Needs to handle if-then-else statements
 # - [    ] Create functions to handle each token
 # - [done] Returns parse tree
+# - [    ] Build Simulator
+# - [    ] Build byte array 
+# - [    ] Build Symbol Tables
+# - [    ] Implement op codes
 
 from prettytable import PrettyTable
 
