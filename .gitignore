@@ -1,2 +1,3 @@
 *.o
 compiler/*.pyc
+.DS_Store
