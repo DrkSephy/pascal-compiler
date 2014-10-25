@@ -130,12 +130,12 @@ class Parser(object):
         if self.curr_token[0] == 'TK_PLUS':
             self.match('TK_PLUS')
             self.term()
-            self.code_generation('TK_PLUS')
+            self.postfix('TK_PLUS')
             self.expression_prime()
         elif self.curr_token[0] == 'TK_MINUS':
             self.match('TK_MINUS')
             self.term()
-            self.code_generation('TK_MINUS')
+            self.postfix('TK_MINUS')
             self.expression_prime()
         else:
             pass
@@ -152,12 +152,12 @@ class Parser(object):
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
             self.factor()
-            self.code_generation('TK_MULT')
+            self.postfix('TK_MULT')
             self.term_prime()
         elif self.curr_token[0] == 'TK_DIV_FLOAT':
             self.match('TK_DIV_FLOAT')
             self.factor()
-            self.code_generation('TK_DIV_FLOAT')
+            self.postfix('TK_DIV_FLOAT')
             self.term_prime()
         else:
             pass
@@ -166,18 +166,18 @@ class Parser(object):
         # Factor -> id
 
         if self.curr_token[0] == 'TK_IDENTIFIER':
-            self.code_generation(self.curr_token)
+            self.postfix(self.curr_token)
             self.match('TK_IDENTIFIER')
 
         if self.curr_token[0] == 'TK_INTEGER':
-            self.code_generation(self.curr_token)
+            self.postfix(self.curr_token)
             self.match('TK_INTEGER')
 
     #----------------------------------------
     #        DECORATED GRAMMAR METHODS                
     #----------------------------------------
 
-    def code_generation(self, token):
+    def postfix(self, token):
         if token[0] == 'TK_IDENTIFIER':
             self.decorated_nodes.append(self.curr_token[1])
         elif token[0] == 'TK_INTEGER':
