@@ -25,7 +25,7 @@ from prettytable import PrettyTable
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = []):
+    def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = [], byte_array = []):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -39,6 +39,7 @@ class Parser(object):
         self.iterator           = self.return_iterator()
         self.nodes              = nodes
         self.decorated_nodes    = decorated_nodes
+        self.byte_array         = byte_array
 
     def parse(self):
         self.goal()
@@ -178,14 +179,14 @@ class Parser(object):
 
     def code_generation(self, token):
         if token[0] == 'TK_IDENTIFIER':
-            self.decorated_nodes.append('PUSH ' + self.curr_token[1])
+            self.decorated_nodes.append(self.curr_token[1])
         elif token[0] == 'TK_INTEGER':
-            self.decorated_nodes.append('PUSH ' + self.curr_token[1])
+            self.decorated_nodes.append(self.curr_token[1])
         elif token == 'TK_MULT':
-            self.decorated_nodes.append('MUL')
+            self.decorated_nodes.append('*')
         elif token == 'TK_PLUS':
-            self.decorated_nodes.append('ADD')
+            self.decorated_nodes.append('+')
         elif token == 'TK_MINUS':
-            self.decorated_nodes.append('SUB')
+            self.decorated_nodes.append('-')
         else:
             pass
