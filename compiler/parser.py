@@ -177,6 +177,8 @@ class Parser(object):
     #----------------------------------------
 
     def postfix(self, token):
+        # Method for building postfix notation of tokens.
+
         if token[0] == 'TK_IDENTIFIER':
             self.decorated_nodes.append(self.curr_token[1])
         elif token[0] == 'TK_INTEGER':
@@ -189,3 +191,17 @@ class Parser(object):
             self.decorated_nodes.append('-')
         else:
             pass
+
+    #----------------------------------------
+    #             OPCODE METHODS               
+    #----------------------------------------
+
+    def op_push(self):
+        # opcode implementation of push
+        pass
+
+    def op_pushi(self):
+        # opcode implementation of pushi
+        pass
+
+    
