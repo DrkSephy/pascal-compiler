@@ -43,8 +43,7 @@ class Parser(object):
 
     def parse(self):
         self.goal()
-        print self.nodes
-        print self.decorated_nodes
+        print "Postfix Notation: " + str(self.decorated_nodes)
         print (self.printer(1, ['NUMBER', 'INSTRUCTIONS'], [], self.decorated_nodes))
 
 
