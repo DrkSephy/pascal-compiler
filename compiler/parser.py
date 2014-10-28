@@ -43,8 +43,7 @@ class Parser(object):
 
     def parse(self):
         self.goal()
-        print "Postfix Notation: " + str(self.decorated_nodes)
-        print (self.printer(1, ['NUMBER', 'INSTRUCTIONS'], [], self.decorated_nodes))
+        return self.decorated_nodes
 
 
     #----------------------------------------
@@ -202,6 +201,10 @@ class Parser(object):
 
     def op_pushi(self):
         # opcode implementation of pushi
+        # Looks up symbol table to fetch values
         pass
 
-    
+    def op_add(self):
+        pass
+
+
