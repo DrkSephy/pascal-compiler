@@ -191,20 +191,3 @@ class Parser(object):
         else:
             pass
 
-    #----------------------------------------
-    #             OPCODE METHODS               
-    #----------------------------------------
-
-    def op_push(self):
-        # opcode implementation of push
-        pass
-
-    def op_pushi(self):
-        # opcode implementation of pushi
-        # Looks up symbol table to fetch values
-        pass
-
-    def op_add(self):
-        pass
-
-
