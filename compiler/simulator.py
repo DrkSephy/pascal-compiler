@@ -12,3 +12,10 @@
 # - [   ] Implement opcodes
 # - [   ] Create simulator 
 
+class Simulator(object):
+
+    def __init__(self, ast):
+        self.ast = ast
+
+    def simulate(self, ast):
+        print self.ast
