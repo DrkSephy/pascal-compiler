@@ -3,5 +3,12 @@
 # -*- drksephy.github.io -*-
 
 #---------------------------------------
-#                TODO
+#                  TODO
 #---------------------------------------
+
+# - [   ] Create code array
+# - [   ] Create data array
+# - [   ] Create stack array
+# - [   ] Implement opcodes
+# - [   ] Create simulator 
+
