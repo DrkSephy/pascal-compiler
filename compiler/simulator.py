@@ -35,7 +35,8 @@ class Simulator(object):
     #         SIMULATOR
     #--------------------------
     def simulate(self, ast):
-        print self.ast
+        for node in ast:
+            print node
 
 
     
