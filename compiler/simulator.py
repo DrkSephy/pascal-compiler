@@ -40,6 +40,8 @@ class Simulator(object):
                 self.push(node['value'])
             if node['type'] == 'TK_MULT':
                 self.mult()
+            if node['type'] == 'TK_MINUS':
+                self.minus()
             print self.stack
 
 
@@ -52,6 +54,13 @@ class Simulator(object):
 
     def mult(self):
         val = int(self.stack[1]) * int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def minus(self):
+        val = int(self.stack[1]) - int(self.stack[0])
         self.stack.remove(self.stack[1])
         self.stack.remove(self.stack[0])
         self.push(val)
