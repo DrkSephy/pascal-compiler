@@ -66,6 +66,12 @@ class Simulator(object):
         self.push(val)
         return
 
+    #--------------------------
+    #       HELPER METHODS
+    #--------------------------
+    def type(self, value):
+        return type(value)
+
 
 
     
