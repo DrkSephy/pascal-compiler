@@ -36,7 +36,18 @@ class Simulator(object):
     #--------------------------
     def simulate(self, ast):
         for node in ast:
-            print node
+            if node['type'] == 'TK_INTEGER':
+                self.push(node['value'])
+            print self.stack
+
+
+    #--------------------------
+    #         OP CODES
+    #--------------------------
+    def push(self, value):
+        self.stack.insert(0, value)
+        return
+
 
 
     
