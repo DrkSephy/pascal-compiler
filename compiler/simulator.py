@@ -38,6 +38,8 @@ class Simulator(object):
         for node in ast:
             if node['type'] == 'TK_INTEGER':
                 self.push(node['value'])
+            if node['type'] == 'TK_MULT':
+                self.mult()
             print self.stack
 
 
@@ -46,6 +48,13 @@ class Simulator(object):
     #--------------------------
     def push(self, value):
         self.stack.insert(0, value)
+        return
+
+    def mult(self):
+        val = int(self.stack[1]) * int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
         return
 
 
