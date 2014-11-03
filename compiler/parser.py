@@ -175,15 +175,15 @@ class Parser(object):
         # Method for building postfix notation of tokens.
 
         if token[0] == 'TK_IDENTIFIER':
-            self.decorated_nodes.append(self.curr_token[1])
+            self.decorated_nodes.append({'value': self.curr_token[1], 'type': self.curr_token[0]})
         elif token[0] == 'TK_INTEGER':
-            self.decorated_nodes.append(self.curr_token[1])
+            self.decorated_nodes.append({'value': self.curr_token[1], 'type': self.curr_token[0]})
         elif token == 'TK_MULT':
-            self.decorated_nodes.append('*')
+            self.decorated_nodes.append({'value': '*', 'type': 'TK_MULT'})
         elif token == 'TK_PLUS':
-            self.decorated_nodes.append('+')
+            self.decorated_nodes.append({'value': '+', 'type': 'TK_PLUS'})
         elif token == 'TK_MINUS':
-            self.decorated_nodes.append('-')
+            self.decorated_nodes.append({'value': '-', 'type': 'TK_MINUS'})
         else:
             pass
 
