@@ -112,6 +112,14 @@ class Parser(object):
         #   <halt>
         pass
 
+    def declarations(self):
+        # <declarations> ->
+        #   <var decl>   ; <declarations>
+        #   <label decl> ; <declarations>
+        #   <prodecure>  ; <declarations>
+        #   <function>   ; <declarations>
+        pass
+         
     def goal(self):
         # Goal -> Expression EOF
 
