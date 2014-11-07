@@ -410,6 +410,7 @@ class Scanner(object):
         if self.to_ascii(char) <= 32: 
             # If current token exists, we append it
             if self.curr_token:
+                print self.curr_token
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))
@@ -442,10 +443,12 @@ class Scanner(object):
                             self.tokens.append((self.curr_token, ':', self.curr_row, self.curr_col - 1))
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : ':', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
+                            self.curr_val = ''
                         elif self.curr_token == 'TK_OPEN_PARENTHESIS':
                             self.tokens.append((self.curr_token, '(', self.curr_row, self.curr_col - 1))
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : '(', 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
                             self.curr_token = ''
+                            self.curr_val = ''
                         else: 
                             self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col -1))
                             self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
@@ -562,6 +565,16 @@ class Scanner(object):
                 self.curr_token = ''
                 return
 
+        #----------------------------------------
+        #              COMMA SUBSTATE              
+        #----------------------------------------
+
+        # Character is a comma
+        if self.to_ascii(char) == 44:
+            self.tokens.append(('TK_COMMA', ',', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN': 'TK_COMMA', 'VALUE': ',', 'ROW' : self.curr_row, 'COL' : self.curr_col })
+            self.curr_token = ''
+            return
 
         #----------------------------------------
         #       OPEN PARENTHESIS SUBSTATE        
@@ -734,7 +747,8 @@ class Scanner(object):
         ')'         : 'TK_CLOSE_PARENTHESIS',
         '\''        : 'TK_QUOTE',
         '(*'        : 'TK_BEGIN_COMMENT',
-        '*)'        : 'TK_END_COMMENT'
+        '*)'        : 'TK_END_COMMENT',
+        ','         : 'TK_COMMA'
     }
 
     SYSTEM = {
