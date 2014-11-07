@@ -124,7 +124,17 @@ class Parser(object):
         # <begin-statement> ->
         #   begin <statements> end
         pass
- 
+    
+    def statements(self):
+        # <statements> ->
+        #   <while statement> ; <statement>
+        #   <for statement>   ; <statement>
+        #   <goto statement>  ; <statement>
+        #   <if statement>    ; <statement>
+        #   <case statement>  ; <statement>
+        #   <assignment statement> ; <statement>
+        #   <proc call>       ; <statement>
+        pass 
     def goal(self):
         # Goal -> Expression EOF
 
