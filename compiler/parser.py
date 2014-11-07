@@ -104,6 +104,14 @@ class Parser(object):
     #          PARSER GRAMMAR METHODS                
     #----------------------------------------
 
+    def program(self):
+        # <program> ->
+        #   <header>
+        #   <declarations>
+        #   <begin-statement>
+        #   <halt>
+        pass
+
     def goal(self):
         # Goal -> Expression EOF
 
