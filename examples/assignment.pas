@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer;
+PROGRAMvar x , y , z : integer;

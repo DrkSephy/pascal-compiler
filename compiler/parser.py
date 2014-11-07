@@ -38,7 +38,9 @@ class Parser(object):
         self.byte_array         = byte_array
 
     def parse(self):
-        self.goal()
+        self.get_token()
+        self.program()
+        # self.goal()
         return self.decorated_nodes
 
 
@@ -110,7 +112,10 @@ class Parser(object):
         #   <declarations>
         #   <begin-statement>
         #   <halt>
-        pass
+        if self.curr_token[0] == 'TK_PROGRAM':
+            print "Matched PROGRAM: " + self.curr_token[1]
+            self.match('TK_PROGRAM')
+            self.declarations()
 
     def declarations(self):
         # <declarations> ->
@@ -118,7 +123,37 @@ class Parser(object):
         #   <label decl> ; <declarations>
         #   <prodecure>  ; <declarations>
         #   <function>   ; <declarations>
-        pass
+        self.var_decl()
+
+    def var_decl(self):
+        if self.curr_token[0] == 'TK_VAR':
+            print "Matched TK_VAR: " + self.curr_token[1]
+            self.match('TK_VAR')
+        else:
+            # Our next token isn't TK_VAR, so it must be begin
+            self.begin()
+        # Keep matching identifiers and commas
+        while(1):
+            if self.curr_token[0] == 'TK_IDENTIFIER':
+                print "Matched TK_IDENTIFIER: " + self.curr_token[1]
+                self.match('TK_IDENTIFIER')
+            if self.curr_token[0] == 'TK_COMMA': 
+                print "Matched TK_COMMA: " + self.curr_token[1]
+                self.match('TK_COMMA')
+            if self.curr_token[0] == 'TK_COLON':
+                print "Matched TK_COLON: " + self.curr_token[1]
+                self.match('TK_COLON')
+                break
+        if self.curr_token[0] == 'TK_ID_INTEGER':
+            print "Matched TK_ID_INTEGER: " + self.curr_token[1]
+            self.match('TK_ID_INTEGER')
+
+        if self.curr_token[0] == 'TK_SEMICOLON': 
+            print "Matched TK_SEMICOLON: " + self.curr_token[1]
+            self.match('TK_SEMICOLON')
+        # Keep checking for declarations
+        self.var_decl()
+
 
     def begin(self):
         # <begin-statement> ->
@@ -138,8 +173,6 @@ class Parser(object):
          
     def goal(self):
         # Goal -> Expression EOF
-
-        self.get_token()
         self.expression()
         if self.curr_token[0] == 'TK_EOF':
             return 
