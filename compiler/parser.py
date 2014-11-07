@@ -41,7 +41,8 @@ class Parser(object):
         self.get_token()
         self.program()
         # self.goal()
-        return self.decorated_nodes
+        return 
+        # return self.decorated_nodes
 
 
     #----------------------------------------
@@ -124,14 +125,16 @@ class Parser(object):
         #   <prodecure>  ; <declarations>
         #   <function>   ; <declarations>
         self.var_decl()
+        return 
 
     def var_decl(self):
         if self.curr_token[0] == 'TK_VAR':
             print "Matched TK_VAR: " + self.curr_token[1]
             self.match('TK_VAR')
         else:
-            # Our next token isn't TK_VAR, so it must be begin
+            # Our next token isn't TK_VAR, so it must be begin 
             self.begin()
+            return
         # Keep matching identifiers and commas
         while(1):
             if self.curr_token[0] == 'TK_IDENTIFIER':
@@ -158,7 +161,11 @@ class Parser(object):
     def begin(self):
         # <begin-statement> ->
         #   begin <statements> end
-        pass
+        print "Hello"
+        if self.curr_token[0] == 'TK_BEGIN':
+            print "Matched TK_BEGIN: " + self.curr_token[1]
+            self.match('TK_BEGIN')
+        return 
     
     def statements(self):
         # <statements> ->
