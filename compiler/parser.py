@@ -21,7 +21,8 @@ from prettytable import PrettyTable
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = [], byte_array = []):
+    def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = [], byte_array = [], 
+                 symtable = []):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -36,10 +37,12 @@ class Parser(object):
         self.nodes              = nodes
         self.decorated_nodes    = decorated_nodes
         self.byte_array         = byte_array
+        self.symtable           = symtable
 
     def parse(self):
         self.get_token()
         self.program()
+        print self.symtable
         # self.goal()
         return 
         # return self.decorated_nodes
@@ -139,6 +142,7 @@ class Parser(object):
         while(1):
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
+                self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty'})
                 self.match('TK_IDENTIFIER')
             if self.curr_token[0] == 'TK_COMMA': 
                 print "Matched TK_COMMA: " + self.curr_token[1]
@@ -149,6 +153,11 @@ class Parser(object):
                 break
         if self.curr_token[0] == 'TK_ID_INTEGER':
             print "Matched TK_ID_INTEGER: " + self.curr_token[1]
+            # Now that we know the type of all the variables we declared
+            # We go back and assign the types in our symbol table
+            for vars in self.symtable:
+                if vars['TYPE'] == 'empty':
+                    vars['TYPE'] = 'integer'
             self.match('TK_ID_INTEGER')
 
         if self.curr_token[0] == 'TK_SEMICOLON': 
