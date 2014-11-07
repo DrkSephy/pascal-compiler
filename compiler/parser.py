@@ -119,7 +119,12 @@ class Parser(object):
         #   <prodecure>  ; <declarations>
         #   <function>   ; <declarations>
         pass
-         
+
+    def begin(self):
+        # <begin-statement> ->
+        #   begin <statements> end
+        pass
+ 
     def goal(self):
         # Goal -> Expression EOF
 
