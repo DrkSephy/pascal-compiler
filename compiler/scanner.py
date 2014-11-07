@@ -410,7 +410,6 @@ class Scanner(object):
         if self.to_ascii(char) <= 32: 
             # If current token exists, we append it
             if self.curr_token:
-                print self.curr_token
                 if self.to_upper(self.curr_val) in self.KEYWORDS:
                     self.curr_token = self.lookup(self.KEYWORDS, self.to_upper(self.curr_val))
                     self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))

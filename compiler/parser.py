@@ -134,7 +134,8 @@ class Parser(object):
         #   <case statement>  ; <statement>
         #   <assignment statement> ; <statement>
         #   <proc call>       ; <statement>
-        pass 
+        pass
+         
     def goal(self):
         # Goal -> Expression EOF
 
