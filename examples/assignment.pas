@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer;BEGIN    x := 5 + 2 ;    y := 3 - 1 ; END.
+PROGRAMvar x , y : integer;var a , b : real;BEGIN    a := 8 * 2 ;    b := a * 2 ; END.

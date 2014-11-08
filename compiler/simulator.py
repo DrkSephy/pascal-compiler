@@ -48,7 +48,9 @@ class Simulator(object):
                 self.pop(node['value'])
             if node['instruction'] == 'minus':
                 self.minus()
-            print self.stack
+            if node['instruction'] == 'mult':
+                self.mult()
+            # print self.stack
         # print self.symtable
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
 
@@ -73,8 +75,6 @@ class Simulator(object):
             del storage[:]
             iterator += 1
         return table
-
-
 
     #--------------------------
     #         OP CODES
