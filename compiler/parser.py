@@ -158,6 +158,7 @@ class Parser(object):
                 print "Matched TK_COLON: " + self.curr_token[1]
                 self.match('TK_COLON')
                 break
+
         if self.curr_token[0] == 'TK_ID_INTEGER':
             print "Matched TK_ID_INTEGER: " + self.curr_token[1]
             # Now that we know the type of all the variables we declared
@@ -214,11 +215,7 @@ class Parser(object):
             # We've seen a variable and := (ex: x := )
             # Now we expect an expression
             self.expression()
-            # Now that we have computed the RHS of the assignment
-            # We need to update the symbol table
-            # for var in self.symtable:
-            #   if var['NAME'] == self.lhs:
-            #        var['VALUE'] = self.rhs
+
             if self.curr_token[0] == 'TK_SEMICOLON':
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
@@ -286,11 +283,12 @@ class Parser(object):
 
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
+            # self.rhs = self.curr_token[1]
             self.match('TK_IDENTIFIER')
 
         if self.curr_token[0] == 'TK_INTEGER':
             self.postfix(self.curr_token)
-            self.rhs = self.curr_token[1]
+            # self.rhs = self.curr_token[1]
             self.match('TK_INTEGER')
 
     #----------------------------------------
@@ -301,7 +299,7 @@ class Parser(object):
         # Method for building postfix notation of tokens.
 
         if token[0] == 'TK_IDENTIFIER':
-            self.decorated_nodes.append({'pop' : self.curr_token[1]})
+            self.decorated_nodes.append({'instruction' : 'push', 'value': self.curr_token[1]})
         elif token[0] == 'TK_INTEGER':
             self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1]})
         elif token == 'TK_MULT':
