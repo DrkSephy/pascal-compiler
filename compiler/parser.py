@@ -48,7 +48,7 @@ class Parser(object):
         self.program()
         # self.goal()
         # return 
-        # print self.decorated_nodes
+        print self.decorated_nodes
         # print self.symtable
         return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
         # return self.decorated_nodes
@@ -241,6 +241,7 @@ class Parser(object):
 
     def expression_prime(self):
         # Expression' -> + Term [+] Expression' | - Term [-] Expression' | e
+        #                   | or T [or] E'
 
         if self.curr_token[0] == 'TK_PLUS':
             print "Seen plus"
@@ -252,6 +253,11 @@ class Parser(object):
             self.match('TK_MINUS')
             self.term()
             self.postfix('TK_MINUS')
+            self.expression_prime()
+        elif self.curr_token[0] == 'TK_OR':
+            self.match('TK_OR')
+            self.term()
+            self.postfix('TK_OR')
             self.expression_prime()
         else:
             pass
@@ -288,12 +294,10 @@ class Parser(object):
 
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
-            # self.rhs = self.curr_token[1]
             self.match('TK_IDENTIFIER')
 
         if self.curr_token[0] == 'TK_INTEGER':
             self.postfix(self.curr_token)
-            # self.rhs = self.curr_token[1]
             self.match('TK_INTEGER')
 
     #----------------------------------------
@@ -317,6 +321,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
         elif token == 'TK_MOD':
             self.decorated_nodes.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
+        elif token == 'TK_OR':
+            self.decorated_nodes.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
         else:
             pass
 
