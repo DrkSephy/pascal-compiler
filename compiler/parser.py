@@ -275,6 +275,11 @@ class Parser(object):
             self.factor()
             self.postfix('TK_DIV_FLOAT')
             self.term_prime()
+        elif self.curr_token[0] == 'TK_MOD':
+            self.match('TK_MOD')
+            self.factor()
+            self.postfix('TK_MOD')
+            self.term_prime()
         else:
             pass
 
@@ -308,6 +313,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'add', 'value':  '+', 'token': '+'})
         elif token == 'TK_MINUS':
             self.decorated_nodes.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
+        elif token == 'TK_MOD':
+            self.decorated_nodes.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
         else:
             pass
 
