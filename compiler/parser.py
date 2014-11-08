@@ -43,12 +43,12 @@ class Parser(object):
 
     def parse(self):
         self.get_token()
-        # self.expression()
-        self.program()
+        self.expression()
+        # self.program()
         # self.goal()
         # return 
         print self.decorated_nodes
-        return self.decorated_nodes
+        # return self.decorated_nodes
 
 
     #----------------------------------------
@@ -145,7 +145,7 @@ class Parser(object):
         while(1):
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
-                self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty', 'VALUE' : 0})
+                # self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty', 'VALUE' : 0})
                 self.match('TK_IDENTIFIER')
             if self.curr_token[0] == 'TK_COMMA': 
                 print "Matched TK_COMMA: " + self.curr_token[1]
@@ -158,9 +158,9 @@ class Parser(object):
             print "Matched TK_ID_INTEGER: " + self.curr_token[1]
             # Now that we know the type of all the variables we declared
             # We go back and assign the types in our symbol table
-            for vars in self.symtable:
-                if vars['TYPE'] == 'empty':
-                    vars['TYPE'] = 'integer'
+            #for vars in self.symtable:
+            #    if vars['TYPE'] == 'empty':
+            #        vars['TYPE'] = 'integer'
             self.match('TK_ID_INTEGER')
 
         if self.curr_token[0] == 'TK_SEMICOLON': 
@@ -202,9 +202,9 @@ class Parser(object):
             self.expression()
             # Now that we have computed the RHS of the assignment
             # We need to update the symbol table
-            for var in self.symtable:
-                if var['NAME'] == self.lhs:
-                    var['VALUE'] = self.rhs
+            # for var in self.symtable:
+            #   if var['NAME'] == self.lhs:
+            #        var['VALUE'] = self.rhs
             if self.curr_token[0] == 'TK_SEMICOLON':
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
@@ -231,6 +231,7 @@ class Parser(object):
         # Expression' -> + Term [+] Expression' | - Term [-] Expression' | e
 
         if self.curr_token[0] == 'TK_PLUS':
+            print "Seen plus"
             self.match('TK_PLUS')
             self.term()
             self.postfix('TK_PLUS')
@@ -285,15 +286,15 @@ class Parser(object):
         # Method for building postfix notation of tokens.
 
         if token[0] == 'TK_IDENTIFIER':
-            self.decorated_nodes.append({'value': self.curr_token[1], 'type': self.curr_token[0]})
+            self.decorated_nodes.append('POP ' + self.curr_token[1])
         elif token[0] == 'TK_INTEGER':
-            self.decorated_nodes.append({'value': self.curr_token[1], 'type': self.curr_token[0]})
+            self.decorated_nodes.append('PUSH ' + self.curr_token[1])
         elif token == 'TK_MULT':
-            self.decorated_nodes.append({'value': '*', 'type': 'TK_MULT'})
+            self.decorated_nodes.append('MULT ' + self.curr_token[1])
         elif token == 'TK_PLUS':
-            self.decorated_nodes.append({'value': '+', 'type': 'TK_PLUS'})
+            self.decorated_nodes.append('ADD')
         elif token == 'TK_MINUS':
-            self.decorated_nodes.append({'value': '-', 'type': 'TK_MINUS'})
+            self.decorated_nodes.append('MINUS: ' + self.curr_token[1])
         else:
             pass
 

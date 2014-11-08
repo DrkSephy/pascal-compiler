@@ -1,1 +1,1 @@
-PROGRAMvar x , y , z : integer;BEGIN    x := 5 ;    y := 3 ;    z := 2 ;END.
+PROGRAMvar x : integer;BEGIN    x := 5 + 2;END.
