@@ -309,6 +309,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token == 'TK_MULT':
             self.decorated_nodes.append({'instruction': 'mult', 'value': '*', 'token': '*'})
+        elif token == 'TK_DIV_FLOAT':
+            self.decorated_nodes.append({'instruction': 'div_float', 'value': '/', 'token': '/'})
         elif token == 'TK_PLUS':
             self.decorated_nodes.append({'instruction': 'add', 'value':  '+', 'token': '+'})
         elif token == 'TK_MINUS':
