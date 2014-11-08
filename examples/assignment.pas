@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer;var a , b , c : real;BEGIN    a := 8 * 2 ;    b := a * 2 ;    c := 2 * b; END.
+PROGRAMvar x , y : integer;var a , b , c : real;BEGIN    a := 8 * 2 ;    b := a * 2 ;    c := b / 7 ; END.
