@@ -22,7 +22,7 @@ from prettytable import PrettyTable
 class Parser(object):
 
     def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = [], byte_array = [], 
-                 symtable = [], lhs = '', rhs = ''):
+                 symtable = [], lhs = '', rhs = '', address = 0):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -40,6 +40,7 @@ class Parser(object):
         self.symtable           = symtable
         self.lhs                = lhs
         self.rhs                = rhs
+        self.address            = address
 
     def parse(self):
         self.get_token()
@@ -147,7 +148,8 @@ class Parser(object):
         while(1):
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
-                self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty', 'VALUE' : 0})
+                self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty', 'VALUE' : 0, 'ADDRESS' : self.address})
+                self.address += 4
                 self.match('TK_IDENTIFIER')
             if self.curr_token[0] == 'TK_COMMA': 
                 print "Matched TK_COMMA: " + self.curr_token[1]
