@@ -46,6 +46,8 @@ class Simulator(object):
                     self.push(node['value'])
             if node['instruction'] == 'mod':
                 self.mod()
+            if node['instruction'] == 'div_float':
+                self.div_float()
             if node['instruction'] == 'add':
                 self.add()
             if node['instruction'] == 'pop':
@@ -90,7 +92,14 @@ class Simulator(object):
         self.stack.remove(self.stack[0])
         self.push(val)
         return 
-        
+
+    def div_float(self):
+        val = int(self.stack[1]) / int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
     def pushi(self, value):
         for var in self.symtable:
             if var['NAME'] == value:
