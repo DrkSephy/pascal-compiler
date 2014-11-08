@@ -163,6 +163,16 @@ class Parser(object):
             #        vars['TYPE'] = 'integer'
             self.match('TK_ID_INTEGER')
 
+        if self.curr_token[0] == 'TK_ID_REAL':
+            print "Matched TK_ID_REAL: " + self.curr_token[1]
+            # Now that we know the type of all the variables we declared
+            # We go back and assign the types in our symbol table
+            #for vars in self.symtable:
+            #    if vars['TYPE'] == 'empty':
+            #        vars['TYPE'] = 'integer'
+            self.match('TK_ID_REAL')
+
+
         if self.curr_token[0] == 'TK_SEMICOLON': 
             print "Matched TK_SEMICOLON: " + self.curr_token[1]
             self.match('TK_SEMICOLON')
