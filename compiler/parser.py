@@ -43,8 +43,8 @@ class Parser(object):
 
     def parse(self):
         self.get_token()
-        self.expression()
-        # self.program()
+        # self.expression()
+        self.program()
         # self.goal()
         # return 
         print self.decorated_nodes
@@ -208,6 +208,7 @@ class Parser(object):
             if self.curr_token[0] == 'TK_SEMICOLON':
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
+                self.decorated_nodes.append('pop ' + self.lhs)
 
             if self.curr_token[0] == 'TK_END_CODE':
                 break
@@ -286,15 +287,15 @@ class Parser(object):
         # Method for building postfix notation of tokens.
 
         if token[0] == 'TK_IDENTIFIER':
-            self.decorated_nodes.append('POP ' + self.curr_token[1])
+            self.decorated_nodes.append('pop ' + self.curr_token[1])
         elif token[0] == 'TK_INTEGER':
-            self.decorated_nodes.append('PUSH ' + self.curr_token[1])
+            self.decorated_nodes.append('push ' + self.curr_token[1])
         elif token == 'TK_MULT':
-            self.decorated_nodes.append('MULT ' + self.curr_token[1])
+            self.decorated_nodes.append('mult ' + self.curr_token[1])
         elif token == 'TK_PLUS':
-            self.decorated_nodes.append('ADD')
+            self.decorated_nodes.append('add')
         elif token == 'TK_MINUS':
-            self.decorated_nodes.append('MINUS: ' + self.curr_token[1])
+            self.decorated_nodes.append('minus')
         else:
             pass
 
