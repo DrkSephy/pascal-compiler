@@ -36,13 +36,7 @@ class Simulator(object):
     #--------------------------
     def simulate(self, ast):
         for node in ast:
-            if node['type'] == 'TK_INTEGER':
-                self.push(node['value'])
-            if node['type'] == 'TK_MULT':
-                self.mult()
-            if node['type'] == 'TK_MINUS':
-                self.minus()
-            print self.stack
+            print node
 
 
     #--------------------------

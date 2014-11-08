@@ -47,8 +47,8 @@ class Parser(object):
         self.program()
         # self.goal()
         # return 
-        print self.decorated_nodes
-        print self.symtable
+        # print self.decorated_nodes
+        # print self.symtable
         return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
         # return self.decorated_nodes
 
@@ -220,7 +220,7 @@ class Parser(object):
             if self.curr_token[0] == 'TK_SEMICOLON':
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
-                self.decorated_nodes.append('pop ' + self.lhs)
+                self.decorated_nodes.append({'instruction': 'pop ', 'value': self.lhs})
 
             if self.curr_token[0] == 'TK_END_CODE':
                 break
