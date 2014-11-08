@@ -220,7 +220,7 @@ class Parser(object):
             if self.curr_token[0] == 'TK_SEMICOLON':
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
-                self.decorated_nodes.append({'instruction': 'pop ', 'value': self.lhs})
+                self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
 
             if self.curr_token[0] == 'TK_END_CODE':
                 break

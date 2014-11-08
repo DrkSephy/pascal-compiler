@@ -37,6 +37,13 @@ class Simulator(object):
     def simulate(self, ast):
         for node in ast:
             print node
+            if node['instruction'] == 'push':
+                self.push(node['value'])
+            if node['instruction'] == 'add':
+                self.add()
+            if node['instruction'] == 'pop':
+                self.pop(node['value'])
+            print self.stack
 
 
     #--------------------------
@@ -46,12 +53,25 @@ class Simulator(object):
         self.stack.insert(0, value)
         return
 
+    def pop(self, value):
+        for var in self.symtable:
+            print var
+        return
+
     def mult(self):
         val = int(self.stack[1]) * int(self.stack[0])
         self.stack.remove(self.stack[1])
         self.stack.remove(self.stack[0])
         self.push(val)
         return
+
+    def add(self):
+        val = int(self.stack[1]) + int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
 
     def minus(self):
         val = int(self.stack[1]) - int(self.stack[0])
