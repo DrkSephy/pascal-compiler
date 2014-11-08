@@ -44,6 +44,8 @@ class Simulator(object):
                     self.pushi(node['value'])
                 else:
                     self.push(node['value'])
+            if node['instruction'] == 'mod':
+                self.mod()
             if node['instruction'] == 'add':
                 self.add()
             if node['instruction'] == 'pop':
@@ -52,6 +54,7 @@ class Simulator(object):
                 self.minus()
             if node['instruction'] == 'mult':
                 self.mult()
+            print self.stack
         # print self.symtable
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
 
@@ -81,6 +84,13 @@ class Simulator(object):
     #         OP CODES
     #--------------------------
 
+    def mod(self):
+        val = int(self.stack[1]) % int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+        
     def pushi(self, value):
         for var in self.symtable:
             if var['NAME'] == value:
