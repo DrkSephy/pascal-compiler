@@ -39,9 +39,11 @@ class Simulator(object):
     
     def simulate(self, ast):
         for node in ast:
-            print node
             if node['instruction'] == 'push':
-                self.push(node['value'])
+                if node['token'] == 'TK_IDENTIFIER':
+                    self.pushi(node['value'])
+                else:
+                    self.push(node['value'])
             if node['instruction'] == 'add':
                 self.add()
             if node['instruction'] == 'pop':
@@ -50,7 +52,6 @@ class Simulator(object):
                 self.minus()
             if node['instruction'] == 'mult':
                 self.mult()
-            # print self.stack
         # print self.symtable
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
 
@@ -79,6 +80,12 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+
+    def pushi(self, value):
+        for var in self.symtable:
+            if var['NAME'] == value:
+                self.stack.insert(0, var['VALUE'])
+        return
 
     def push(self, value):
         self.stack.insert(0, value)
