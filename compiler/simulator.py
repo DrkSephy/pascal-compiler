@@ -13,6 +13,8 @@
 # - [   ] Create simulator 
 # - [   ] Build symbol tables
 
+from prettytable import PrettyTable
+
 class Simulator(object):
 
     def __init__(self, ast, stack, symtable, ip):
@@ -34,6 +36,7 @@ class Simulator(object):
     #--------------------------
     #         SIMULATOR
     #--------------------------
+    
     def simulate(self, ast):
         for node in ast:
             print node
@@ -46,12 +49,37 @@ class Simulator(object):
             if node['instruction'] == 'minus':
                 self.minus()
             print self.stack
-        print self.symtable
+        # print self.symtable
+        print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
+
+    #----------------------------------------
+    #             PRETTY PRINTER             
+    #----------------------------------------
+    def printer(self, iterator, field_names, storage, data):
+        table = PrettyTable()
+        table.field_names = field_names
+        for datum in data: 
+            storage.append(iterator)
+            for k, v in datum.items():
+                if str(k) == 'NAME':
+                    storage.append(v)
+                if str(k) == 'VALUE':
+                    storage.append(v)
+                if str(k) == 'TYPE':
+                    storage.append(v)
+                if str(k) == 'ADDRESS':
+                    storage.append(v)
+            table.add_row(storage)
+            del storage[:]
+            iterator += 1
+        return table
+
 
 
     #--------------------------
     #         OP CODES
     #--------------------------
+
     def push(self, value):
         self.stack.insert(0, value)
         return
