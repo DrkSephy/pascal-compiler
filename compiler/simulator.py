@@ -43,7 +43,10 @@ class Simulator(object):
                 self.add()
             if node['instruction'] == 'pop':
                 self.pop(node['value'])
+            if node['instruction'] == 'minus':
+                self.minus()
             print self.stack
+        print self.symtable
 
 
     #--------------------------
@@ -54,8 +57,11 @@ class Simulator(object):
         return
 
     def pop(self, value):
+        val = self.stack[0]
+        self.stack.remove(self.stack[0])
         for var in self.symtable:
-            print var
+            if var['NAME'] == value:
+                var['VALUE'] = val
         return
 
     def mult(self):
