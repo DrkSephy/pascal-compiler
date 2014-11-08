@@ -71,7 +71,7 @@ class Simulator(object):
                 if str(k) == 'TYPE':
                     storage.append(v)
                 if str(k) == 'ADDRESS':
-                    storage.append(v)
+                    storage.append(hex(v))
             table.add_row(storage)
             del storage[:]
             iterator += 1
