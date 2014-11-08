@@ -22,7 +22,7 @@ from prettytable import PrettyTable
 class Parser(object):
 
     def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = [], byte_array = [], 
-                 symtable = []):
+                 symtable = [], lhs = '', rhs = ''):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -38,14 +38,17 @@ class Parser(object):
         self.decorated_nodes    = decorated_nodes
         self.byte_array         = byte_array
         self.symtable           = symtable
+        self.lhs                = lhs
+        self.rhs                = rhs
 
     def parse(self):
         self.get_token()
+        # self.expression()
         self.program()
-        print self.symtable
         # self.goal()
-        return 
-        # return self.decorated_nodes
+        # return 
+        print self.decorated_nodes
+        return self.decorated_nodes
 
 
     #----------------------------------------
@@ -142,7 +145,7 @@ class Parser(object):
         while(1):
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
-                self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty'})
+                self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty', 'VALUE' : 0})
                 self.match('TK_IDENTIFIER')
             if self.curr_token[0] == 'TK_COMMA': 
                 print "Matched TK_COMMA: " + self.curr_token[1]
@@ -170,10 +173,10 @@ class Parser(object):
     def begin(self):
         # <begin-statement> ->
         #   begin <statements> end
-        print "Hello"
         if self.curr_token[0] == 'TK_BEGIN':
             print "Matched TK_BEGIN: " + self.curr_token[1]
             self.match('TK_BEGIN')
+        self.statements()
         return 
     
     def statements(self):
@@ -185,7 +188,32 @@ class Parser(object):
         #   <case statement>  ; <statement>
         #   <assignment statement> ; <statement>
         #   <proc call>       ; <statement>
-        pass
+        while(1):
+            if self.curr_token[0] == 'TK_IDENTIFIER':
+                self.lhs = self.curr_token[1]
+                print "Matched TK_IDENTIFIER: " + self.curr_token[1]
+                self.match('TK_IDENTIFIER')
+
+            if self.curr_token[0] == 'TK_ASSIGNMENT':
+                print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
+                self.match('TK_ASSIGNMENT')
+            # We've seen a variable and := (ex: x := )
+            # Now we expect an expression
+            self.expression()
+            # Now that we have computed the RHS of the assignment
+            # We need to update the symbol table
+            for var in self.symtable:
+                if var['NAME'] == self.lhs:
+                    var['VALUE'] = self.rhs
+            if self.curr_token[0] == 'TK_SEMICOLON':
+                print "Matched TK_SEMICOLON: " + self.curr_token[1]
+                self.match('TK_SEMICOLON')
+
+            if self.curr_token[0] == 'TK_END_CODE':
+                break
+        return
+
+        
          
     def goal(self):
         # Goal -> Expression EOF
@@ -246,6 +274,7 @@ class Parser(object):
 
         if self.curr_token[0] == 'TK_INTEGER':
             self.postfix(self.curr_token)
+            self.rhs = self.curr_token[1]
             self.match('TK_INTEGER')
 
     #----------------------------------------
