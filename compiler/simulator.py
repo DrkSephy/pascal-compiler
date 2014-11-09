@@ -50,6 +50,8 @@ class Simulator(object):
                 self.op_and()
             if node['instruction'] == 'xor':
                 self.op_xor()
+            if node['instruction'] == 'not':
+                self.op_not()
             if node['instruction'] == 'mod':
                 self.mod()
             if node['instruction'] == 'div_float':
@@ -91,6 +93,13 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+
+
+    def op_not(self):
+        val = not int(self.stack[0])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
 
     def op_and(self):
         val = int(self.stack[1]) and int(self.stack[0])
