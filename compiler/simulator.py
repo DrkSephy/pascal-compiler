@@ -39,6 +39,7 @@ class Simulator(object):
     
     def simulate(self, ast):
         for node in ast:
+            print node
             if node['instruction'] == 'push':
                 if node['token'] == 'TK_IDENTIFIER':
                     self.pushi(node['value'])
@@ -56,6 +57,10 @@ class Simulator(object):
                 self.mod()
             if node['instruction'] == 'less':
                 self.op_less()
+            if node['instruction'] == 'greater':
+                self.op_greater()
+            if node['instruction'] == 'less_equals':
+                self.op_lesseq()
             if node['instruction'] == 'div_float':
                 self.div_float()
             if node['instruction'] == 'add':
@@ -95,6 +100,21 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+
+    def op_lesseq(self):
+        val = int(self.stack[1]) <= int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+
+    def op_greater(self):
+        val = int(self.stack[1]) > int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
 
     def op_less(self):
         val = int(self.stack[1]) < int(self.stack[0])
