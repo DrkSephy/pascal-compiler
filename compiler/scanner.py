@@ -739,6 +739,7 @@ class Scanner(object):
         '!'         : 'TK_EXCLAMATION',
         '!='        : 'TK_NOT_EQUALS',
         'AND'       : 'TK_AND',
+        'XOR'       : 'TK_XOR',
         'OR'        : 'TK_OR',
         'NOT'       : 'TK_NOT',
         ';'         : 'TK_SEMICOLON',
