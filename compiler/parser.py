@@ -301,7 +301,7 @@ class Parser(object):
             pass
 
     def factor(self):
-        # Factor -> id
+        # Factor -> id | lit | not F
 
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
@@ -310,6 +310,11 @@ class Parser(object):
         if self.curr_token[0] == 'TK_INTEGER':
             self.postfix(self.curr_token)
             self.match('TK_INTEGER')
+
+        if self.curr_token[0] == 'TK_NOT':
+            self.match('TK_NOT')
+            self.factor()
+            self.postfix('TK_NOT')
 
     #----------------------------------------
     #        DECORATED GRAMMAR METHODS                
@@ -338,6 +343,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
         elif token == 'TK_AND':
             self.decorated_nodes.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
+        elif token == 'TK_NOT':
+            self.decorated_nodes.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
         else:
             pass
 
