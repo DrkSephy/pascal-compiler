@@ -61,6 +61,8 @@ class Simulator(object):
                 self.op_greater()
             if node['instruction'] == 'less_equals':
                 self.op_lesseq()
+            if node['instruction'] == 'greater_equals':
+                self.op_greatereq()
             if node['instruction'] == 'div_float':
                 self.div_float()
             if node['instruction'] == 'add':
@@ -103,6 +105,13 @@ class Simulator(object):
 
     def op_lesseq(self):
         val = int(self.stack[1]) <= int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_greatereq(self):
+        val = int(self.stack[1]) >= int(self.stack[0])
         self.stack.remove(self.stack[1])
         self.stack.remove(self.stack[0])
         self.push(val)
