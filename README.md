@@ -10,6 +10,13 @@ As a means to learn, no libraries will be used for heavy lifting of the implemen
 
 * [Pretty Tables](https://github.com/dprince/python-prettytable) : Library for printing ascii tables, useful for formatting debug statements and generated tokens to console.
 
+Progress
+--------
+
+The following is a list of features that have been implemented.
+
+- [ ] Task 
+
 ###Compiler Research Links
 
 ######General 
