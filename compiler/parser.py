@@ -235,7 +235,7 @@ class Parser(object):
 
     def logic(self):
         # Logic -> E | < E [<] E | > E [>] E | <= E [<=] E
-        #           | >= E [>=] E | = E [=] E
+        #           | >= E [>=] E | = E [=] E | != E [!=] E
         if self.curr_token[0] == 'TK_LESS':
             print "hello"
             self.match('TK_LESS')
@@ -257,6 +257,10 @@ class Parser(object):
             self.match('TK_EQUALS')
             self.expression()
             self.postfix('TK_EQUALS')
+        elif self.curr_token[0] == 'TK_NOT_EQUALS':
+            self.match('TK_NOT_EQUALS')
+            self.expression()
+            self.postfix('TK_NOT_EQUALS')
         else:
             self.expression()
 
@@ -382,6 +386,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
         elif token == 'TK_EQUALS':
             self.decorated_nodes.append({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
+        elif token == 'TK_NOT_EQUALS':
+            self.decorated_nodes.append({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
             pass
 
