@@ -15,13 +15,39 @@ Progress
 
 The following is a list of features that have been implemented.
 
-- [x] &lt;program&gt;
+- [x] &lt;program&gt; -->
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;header&gt;
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;declarations&gt;
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;begin-statement&gt;
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;halt> 
+- [x] &lt;declarations&gt; -->
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;var decl&gt;;&lt;declarations&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;label decl&gt;;&lt;declarations&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;procedure decl&gt;;&lt;declarations&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;function decl&gt;;&lt;declarations&gt;
+- [x] &lt;begin-statement&gt; -->
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;begin&lt;statements&gt;end
+- [x] &lt;statements&gt; -->
+- [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;while statement&gt;;&lt;statement&gt;
+- [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;goto statement&gt;;&lt;statement&gt;
+- [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;for statement&gt;;&lt;statement&gt;
+- [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;if statement&gt;;&lt;statement&gt;
+- [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;case statement&gt;;&lt;statement&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;assignment&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;proc call&gt;
+- [x] &lt;var decl&gt; -->
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;var[&lt;namelist&gt;:&lt;type&gt;]*
+- [x] &lt;assignment&gt; -->
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;LHS&gt; := &lt;RHS&gt;
 
-
+- [x] L -> E | < E [<] E | > E [>] E | <= E [<=] E | >= E [>=] E | = E [=] E | != E [!=] E
+- [x] E -> TE'
+- [x] E' -> + T [+] E' | - T [-] E' | e | OR T [OR] E' | XOR T [XOR] E'
+- [x] T -> FT'
+- [x] T' -> x F [x] T' | /F [/] T' | e | DIV F [DIV] T' | MOD F [MOD] T'
+- [ ] F -> id | lit | (E) | -F | + F | not F
+- [ ] Need to implement (E)
+- [ ] Need to implement -F and +F
 
 ###Compiler Research Links
 
