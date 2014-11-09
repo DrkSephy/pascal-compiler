@@ -48,7 +48,7 @@ class Parser(object):
         self.program()
         # self.goal()
         # return 
-        print self.decorated_nodes
+        # print self.decorated_nodes
         # print self.symtable
         return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
         # return self.decorated_nodes
@@ -234,14 +234,22 @@ class Parser(object):
             return 
 
     def logic(self):
-        # Logic -> E | < E [<] E
-        self.expression()
+        # Logic -> E | < E [<] E | > E [>] E | <= E [<=] E
         if self.curr_token[0] == 'TK_LESS':
+            print "hello"
             self.match('TK_LESS')
             self.expression()
             self.postfix('TK_LESS')
+        elif self.curr_token[0] == 'TK_GREATER':
+            self.match('TK_GREATER')
+            self.expression()
+            self.postfix('TK_GREATER')
+        elif self.curr_token[0] == 'TK_LESS_EQUALS':
+            self.match('TK_LESS_EQUALS')
+            self.expression()
+            self.postfix('TK_LESS_EQUALS')
         else:
-            pass
+            self.expression()
 
     def expression(self):
         # Expression -> Term Expression'
@@ -357,6 +365,10 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
         elif token == 'TK_LESS':
             self.decorated_nodes.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
+        elif token == 'TK_GREATER':
+            self.decorated_nodes.append({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
+        elif token == 'TK_LESS_EQUALS':
+            self.decorated_nodes.append({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
         else:
             pass
 
