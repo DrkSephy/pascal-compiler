@@ -46,6 +46,8 @@ class Simulator(object):
                     self.push(node['value'])
             if node['instruction'] == 'or':
                 self.op_or()
+            if node['instruction'] == 'xor':
+                self.op_xor()
             if node['instruction'] == 'mod':
                 self.mod()
             if node['instruction'] == 'div_float':
@@ -87,6 +89,13 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+
+    def op_xor(self):
+        val = int(self.stack[1]) ^ int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
 
     def op_or(self):
         val = int(self.stack[1]) or int(self.stack[0])
