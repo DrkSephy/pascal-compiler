@@ -15,7 +15,9 @@ Progress
 
 The following is a list of features that have been implemented.
 
-- [ ] Task 
+- [ ] <program>
+        <header>
+        <declarations> 
 
 ###Compiler Research Links
 
