@@ -214,7 +214,7 @@ class Parser(object):
                 self.match('TK_ASSIGNMENT')
             # We've seen a variable and := (ex: x := )
             # Now we expect an expression
-            self.expression()
+            self.logic()
 
             if self.curr_token[0] == 'TK_SEMICOLON':
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
@@ -232,6 +232,16 @@ class Parser(object):
         self.expression()
         if self.curr_token[0] == 'TK_EOF':
             return 
+
+    def logic(self):
+        # Logic -> E | < E [<] E
+        self.expression()
+        if self.curr_token[0] == 'TK_LESS':
+            self.match('TK_LESS')
+            self.expression()
+            self.postfix('TK_LESS')
+        else:
+            pass
 
     def expression(self):
         # Expression -> Term Expression'
@@ -345,6 +355,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
         elif token == 'TK_NOT':
             self.decorated_nodes.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
+        elif token == 'TK_LESS':
+            self.decorated_nodes.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
         else:
             pass
 
