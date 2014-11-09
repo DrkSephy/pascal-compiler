@@ -241,7 +241,7 @@ class Parser(object):
 
     def expression_prime(self):
         # Expression' -> + Term [+] Expression' | - Term [-] Expression' | e
-        #                   | or T [or] E'
+        #                   | or T [or] E' | XOR T [xor] E' 
 
         if self.curr_token[0] == 'TK_PLUS':
             print "Seen plus"
@@ -274,7 +274,8 @@ class Parser(object):
         self.term_prime()
 
     def term_prime(self):
-        # Term' -> * Factor [*] Term' | / Factor [/] Term' | e
+        # Term' -> * Factor [*] Term' | / Factor [/] Term' | e 
+        #               | MOD T [mod] F | AND T [and] F 
 
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
@@ -290,6 +291,11 @@ class Parser(object):
             self.match('TK_MOD')
             self.factor()
             self.postfix('TK_MOD')
+            self.term_prime()
+        elif self.curr_token[0] == 'TK_AND': 
+            self.match('TK_AND')
+            self.factor()
+            self.postfix('TK_AND')
             self.term_prime()
         else:
             pass
@@ -330,6 +336,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
         elif token == 'TK_XOR':
             self.decorated_nodes.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
+        elif token == 'TK_AND':
+            self.decorated_nodes.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
         else:
             pass
 
