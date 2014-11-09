@@ -54,6 +54,8 @@ class Simulator(object):
                 self.op_not()
             if node['instruction'] == 'mod':
                 self.mod()
+            if node['instruction'] == 'less':
+                self.op_less()
             if node['instruction'] == 'div_float':
                 self.div_float()
             if node['instruction'] == 'add':
@@ -94,6 +96,12 @@ class Simulator(object):
     #         OP CODES
     #--------------------------
 
+    def op_less(self):
+        val = int(self.stack[1]) < int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
 
     def op_not(self):
         val = not int(self.stack[0])
