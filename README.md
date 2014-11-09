@@ -15,11 +15,12 @@ Progress
 
 The following is a list of features that have been implemented.
 
-- [x] <program>
-- [x] <header>
-- [x] <declarations>
-- [x] <begin-statement>
-- [x] <halt> 
+- [x] &lt;program&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;header&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;declarations&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;begin-statement&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;halt> 
+
 
 
 ###Compiler Research Links
