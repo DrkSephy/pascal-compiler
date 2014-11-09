@@ -259,6 +259,11 @@ class Parser(object):
             self.term()
             self.postfix('TK_OR')
             self.expression_prime()
+        elif self.curr_token[0] == 'TK_XOR':
+            self.match('TK_XOR')
+            self.term()
+            self.postfix('TK_XOR')
+            self.expression_prime()
         else:
             pass
 
@@ -323,6 +328,8 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
         elif token == 'TK_OR':
             self.decorated_nodes.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
+        elif token == 'TK_XOR':
+            self.decorated_nodes.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
         else:
             pass
 
