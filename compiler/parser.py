@@ -332,7 +332,7 @@ class Parser(object):
             pass
 
     def factor(self):
-        # Factor -> id | lit | not F
+        # Factor -> id | lit | not F | ( E ) | + F | - F
 
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
