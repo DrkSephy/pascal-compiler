@@ -1,0 +1,1 @@
+PROGRAMvar x : integer;BEGIN    x := ( 5 + 2 ) * 3 * ( 1 + 2 );END.
