@@ -347,6 +347,11 @@ class Parser(object):
             self.factor()
             self.postfix('TK_NOT')
 
+        if self.curr_token[0] == 'TK_OPEN_PARENTHESIS':
+            self.match('TK_OPEN_PARENTHESIS')
+            self.expression()
+            self.match('TK_CLOSE_PARENTHESIS')
+
     #----------------------------------------
     #        DECORATED GRAMMAR METHODS                
     #----------------------------------------
