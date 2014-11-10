@@ -237,7 +237,6 @@ class Parser(object):
         # Logic -> E | < E [<] E | > E [>] E | <= E [<=] E
         #           | >= E [>=] E | = E [=] E | != E [!=] E
         if self.curr_token[0] == 'TK_LESS':
-            print "hello"
             self.match('TK_LESS')
             self.expression()
             self.postfix('TK_LESS')
@@ -349,7 +348,7 @@ class Parser(object):
 
         if self.curr_token[0] == 'TK_OPEN_PARENTHESIS':
             self.match('TK_OPEN_PARENTHESIS')
-            self.expression()
+            self.logic()
             self.match('TK_CLOSE_PARENTHESIS')
 
     #----------------------------------------
