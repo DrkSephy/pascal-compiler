@@ -122,6 +122,7 @@ class Parser(object):
         #   <declarations>
         #   <begin-statement>
         #   <halt>
+        print "Called program() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_PROGRAM':
             print "Matched PROGRAM: " + self.curr_token[1]
             self.match('TK_PROGRAM')
@@ -133,10 +134,12 @@ class Parser(object):
         #   <label decl> ; <declarations>
         #   <prodecure>  ; <declarations>
         #   <function>   ; <declarations>
+        print "Called declarations() with " + self.curr_token[1]
         self.var_decl()
         return 
 
     def var_decl(self):
+        print "Called var_decl() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_VAR':
             print "Matched TK_VAR: " + self.curr_token[1]
             self.match('TK_VAR')
@@ -188,6 +191,7 @@ class Parser(object):
     def begin(self):
         # <begin-statement> ->
         #   begin <statements> end
+        print "Called begin() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_BEGIN':
             print "Matched TK_BEGIN: " + self.curr_token[1]
             self.match('TK_BEGIN')
@@ -203,6 +207,7 @@ class Parser(object):
         #   <case statement>  ; <statement>
         #   <assignment statement> ; <statement>
         #   <proc call>       ; <statement>
+        print "Called statements() with " + self.curr_token[1]
         while(1):
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
@@ -229,6 +234,7 @@ class Parser(object):
          
     def goal(self):
         # Goal -> Expression EOF
+        print "Called goal() with " + self.curr_token[1]
         self.expression()
         if self.curr_token[0] == 'TK_EOF':
             return 
@@ -236,6 +242,7 @@ class Parser(object):
     def logic(self):
         # Logic -> E | < E [<] E | > E [>] E | <= E [<=] E
         #           | >= E [>=] E | = E [=] E | != E [!=] E
+        print "Called logic() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_LESS':
             self.match('TK_LESS')
             self.expression()
@@ -265,14 +272,14 @@ class Parser(object):
 
     def expression(self):
         # Expression -> Term Expression'
-
+        print "Called expression() with " + self.curr_token[1]
         self.term()
         self.expression_prime()
 
     def expression_prime(self):
         # Expression' -> + Term [+] Expression' | - Term [-] Expression' | e
         #                   | or T [or] E' | XOR T [xor] E' 
-
+        print "Called expression_prime() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_PLUS':
             print "Seen plus"
             self.match('TK_PLUS')
@@ -299,7 +306,7 @@ class Parser(object):
 
     def term(self):
         # Term -> Factor Term'
-
+        print "Called term() with " + self.curr_token[1]
         self.factor()
         self.term_prime()
 
@@ -307,6 +314,7 @@ class Parser(object):
         # Term' -> * Factor [*] Term' | / Factor [/] Term' | e 
         #               | MOD T [mod] F | AND T [and] F 
 
+        print "Called term_prime() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
             self.factor()
@@ -332,7 +340,7 @@ class Parser(object):
 
     def factor(self):
         # Factor -> id | lit | not F | ( E ) | + F | - F
-
+        print "Called factor() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
             self.match('TK_IDENTIFIER')
