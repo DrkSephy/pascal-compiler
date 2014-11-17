@@ -203,6 +203,7 @@ class Parser(object):
         #   <while statement> ; <statement>
         #   <for statement>   ; <statement>
         #   <goto statement>  ; <statement>
+        #   <repeat statement>; <statement>
         #   <if statement>    ; <statement>
         #   <case statement>  ; <statement>
         #   <assignment statement> ; <statement>
