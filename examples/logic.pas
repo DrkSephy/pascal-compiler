@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer;var a , b , c : real;BEGIN    a := 2 != 2 ;END.
+PROGRAMvar x , y : integer;var a , b , c : real;BEGIN    a := ( 2 < 3 ) ;END.
