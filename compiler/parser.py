@@ -335,6 +335,30 @@ class Parser(object):
             self.factor()
             self.postfix('TK_AND')
             self.term_prime()
+        elif self.curr_token[0] == 'TK_LESS':
+            self.match('TK_LESS')
+            self.expression()
+            self.postfix('TK_LESS')
+        elif self.curr_token[0] == 'TK_GREATER':
+            self.match('TK_GREATER')
+            self.expression()
+            self.postfix('TK_GREATER')
+        elif self.curr_token[0] == 'TK_LESS_EQUALS':
+            self.match('TK_LESS_EQUALS')
+            self.expression()
+            self.postfix('TK_LESS_EQUALS')
+        elif self.curr_token[0] == 'TK_GREATER_EQUALS':
+            self.match('TK_GREATER_EQUALS')
+            self.expression()
+            self.postfix('TK_GREATER_EQUALS')
+        elif self.curr_token[0] == 'TK_EQUALS':
+            self.match('TK_EQUALS')
+            self.expression()
+            self.postfix('TK_EQUALS')
+        elif self.curr_token[0] == 'TK_NOT_EQUALS':
+            self.match('TK_NOT_EQUALS')
+            self.expression()
+            self.postfix('TK_NOT_EQUALS')
         else:
             pass
 
@@ -344,20 +368,25 @@ class Parser(object):
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
             self.match('TK_IDENTIFIER')
+            return
 
         if self.curr_token[0] == 'TK_INTEGER':
             self.postfix(self.curr_token)
             self.match('TK_INTEGER')
+            return 
 
         if self.curr_token[0] == 'TK_NOT':
             self.match('TK_NOT')
             self.factor()
             self.postfix('TK_NOT')
+            return
 
         if self.curr_token[0] == 'TK_OPEN_PARENTHESIS':
             self.match('TK_OPEN_PARENTHESIS')
+            print "Calling logic() from within factor()"
             self.logic()
             self.match('TK_CLOSE_PARENTHESIS')
+            return
 
     #----------------------------------------
     #        DECORATED GRAMMAR METHODS                
