@@ -244,6 +244,7 @@ class Parser(object):
         self.statements()
         print "Returned from statements: " + self.curr_token[0]
         self.match('TK_UNTIL')
+        self.logic()
         return 
 
          
