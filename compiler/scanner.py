@@ -715,6 +715,7 @@ class Scanner(object):
         'TO'        : 'TK_TO',
         'TYPE'      : 'TK_TYPE',
         'VAR'       : 'TK_VAR',
+        'UNTIL'     : 'TK_UNTIL', 
         'WHILE'     : 'TK_WHILE',
         'INTEGER'   : 'TK_ID_INTEGER', 
         'REAL'      : 'TK_ID_REAL',
