@@ -210,6 +210,9 @@ class Parser(object):
         #   <proc call>       ; <statement>
         print "Called statements() with " + self.curr_token[1]
         while(1):
+            if self.curr_token[0] == 'TK_REPEAT':
+                self.repeat() 
+
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
@@ -229,9 +232,20 @@ class Parser(object):
 
             if self.curr_token[0] == 'TK_END_CODE':
                 break
+
+            if self.curr_token[0] == 'TK_UNTIL':
+                print "Looking at TK_UNTIL"
+                return
         return
 
-        
+    def repeat(self):
+        self.match('TK_REPEAT')
+        print "Matched TK_REPEAT"
+        self.statements()
+        print "Returned from statements: " + self.curr_token[0]
+        self.match('TK_UNTIL')
+        return 
+
          
     def goal(self):
         # Goal -> Expression EOF
