@@ -234,15 +234,12 @@ class Parser(object):
                 break
 
             if self.curr_token[0] == 'TK_UNTIL':
-                print "Looking at TK_UNTIL"
                 return
         return
 
     def repeat(self):
         self.match('TK_REPEAT')
-        print "Matched TK_REPEAT"
         self.statements()
-        print "Returned from statements: " + self.curr_token[0]
         self.match('TK_UNTIL')
         self.logic()
         return 
