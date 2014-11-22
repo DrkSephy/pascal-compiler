@@ -14,7 +14,7 @@
 # - [    ] Handle while statements
 # - [    ] Handle for statements
 # - [    ] Handle if-then-else statements
-# - [    ] Create functions to handle each token
+# - [done] Create functions to handle each token
 # - [done] Returns parse tree
 
 from prettytable import PrettyTable
