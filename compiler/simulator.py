@@ -6,12 +6,12 @@
 #                  TODO
 #---------------------------------------
 
-# - [   ] Create code array
-# - [   ] Create data array
-# - [   ] Create stack array
-# - [   ] Implement opcodes
-# - [   ] Create simulator 
-# - [   ] Build symbol tables
+# - [done] Create code array
+# - [done] Create data array
+# - [done] Create stack array
+# - [done] Implement opcodes
+# - [done] Create simulator 
+# - [done] Build symbol tables
 
 from prettytable import PrettyTable
 
