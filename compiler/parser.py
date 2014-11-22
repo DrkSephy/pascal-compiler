@@ -22,7 +22,7 @@ from prettytable import PrettyTable
 class Parser(object):
 
     def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = [], byte_array = [], 
-                 symtable = [], lhs = '', rhs = '', address = 0):
+                 symtable = [], lhs = '', rhs = '', address = 0, token_loop = [], loop = False):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -41,6 +41,8 @@ class Parser(object):
         self.lhs                = lhs
         self.rhs                = rhs
         self.address            = address
+        self.token_loop         = token_loop
+        self.loop               = loop
 
     def parse(self):
         self.get_token()
@@ -98,6 +100,9 @@ class Parser(object):
         return
 
     def match(self, token):
+        if self.loop:
+            self.token_loop.append(token)
+        print self.token_loop
         # Checks if expected token is proper
         if token == self.curr_token[0]:
             # Append leaf nodes into list
@@ -237,9 +242,11 @@ class Parser(object):
                 return
         return
 
-    def repeat(self):
+    def repeat(self): 
         self.match('TK_REPEAT')
+        self.loop = True
         self.statements()
+        self.loop = False
         self.match('TK_UNTIL')
         self.logic()
         return 

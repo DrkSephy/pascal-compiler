@@ -28,3 +28,6 @@ tokens = [
 
 for token in tokens:
     print token
+
+token_list = iter(tokens)
+
