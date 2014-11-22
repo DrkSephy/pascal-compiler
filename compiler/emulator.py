@@ -18,8 +18,9 @@
 # - [done] Read <target program>
 # - [done] Print program 
 # - [done] Tokenize <target program>
-# - [    ] Build Parser
-# - [    ] Build Abstract Syntax Tree
+# - [done] Build Parser
+# - [done] Build Abstract Syntax Tree
+# - [    ] Complete Simulator
 
 
 import sys
