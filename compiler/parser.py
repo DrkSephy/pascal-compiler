@@ -21,7 +21,7 @@ from prettytable import PrettyTable
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op, nodes = [], decorated_nodes = [], byte_array = [], 
+    def __init__(self, tokens, curr_token, op = False, nodes = [], decorated_nodes = [], byte_array = [], 
                  symtable = [], lhs = '', rhs = '', address = 0, token_loop = [], loop = False):
         # Parameters:
         #   * tokens : list of tuples of tokens
@@ -226,6 +226,7 @@ class Parser(object):
             if self.curr_token[0] == 'TK_ASSIGNMENT':
                 print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
                 self.match('TK_ASSIGNMENT')
+                self.op = True
             # We've seen a variable and := (ex: x := )
             # Now we expect an expression
             self.logic()
