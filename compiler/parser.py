@@ -9,11 +9,11 @@
 # - [done] Consumes tokens one at a time
 # - [done] Needs grammar to handle arithmetic structures
 # - [done] Generate stack machine assembly
-# - [    ] Print parse tree
-# - [    ] Needs to handle if statements
-# - [    ] Needs to handle while statements
-# - [    ] Needs to handle for statements
-# - [    ] Needs to handle if-then-else statements
+# - [    ] Handle repeat statements
+# - [    ] Handle if statements
+# - [    ] Handle while statements
+# - [    ] Handle for statements
+# - [    ] Handle if-then-else statements
 # - [    ] Create functions to handle each token
 # - [done] Returns parse tree
 
@@ -227,6 +227,7 @@ class Parser(object):
                 print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
                 self.match('TK_ASSIGNMENT')
                 self.op = True
+
             # We've seen a variable and := (ex: x := )
             # Now we expect an expression
             self.logic()
