@@ -60,163 +60,6 @@ class Parser(object):
         # return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
 
     #----------------------------------------
-    #         SYM TABLE PRETTY PRINTER             
-    #----------------------------------------
-    def printer(self, iterator, field_names, storage, data):
-        table = PrettyTable()
-        table.field_names = field_names
-        for datum in data: 
-            storage.append(iterator)
-            for k, v in datum.items():
-                if str(k) == 'NAME':
-                    storage.append(v)
-                if str(k) == 'VALUE':
-                    storage.append(v)
-                if str(k) == 'TYPE':
-                    storage.append(v)
-                if str(k) == 'ADDRESS':
-                    storage.append(hex(v))
-            table.add_row(storage)
-            del storage[:]
-            iterator += 1
-        return table
-
-
-    #--------------------------
-    #         OP CODES
-    #--------------------------
-
-    def op_lesseq(self):
-        val = int(self.stack[1]) <= int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def op_noteq(self):
-        val = int(self.stack[1]) != int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def op_equals(self):
-        val = int(self.stack[1]) == int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def op_greatereq(self):
-        val = int(self.stack[1]) >= int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-
-    def op_greater(self):
-        val = int(self.stack[1]) > int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def op_less(self):
-        val = int(self.stack[1]) < int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return 
-
-    def op_not(self):
-        val = not int(self.stack[0])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return 
-
-    def op_and(self):
-        val = int(self.stack[1]) and int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def op_xor(self):
-        val = int(self.stack[1]) ^ int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def op_or(self):
-        val = int(self.stack[1]) or int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def mod(self):
-        val = int(self.stack[1]) % int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return 
-
-    def div_float(self):
-        val = int(self.stack[1]) / int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return 
-
-    def pushi(self, value):
-        for var in self.symtable:
-            if var['NAME'] == value:
-                self.stack.insert(0, var['VALUE'])
-        return
-
-    def push(self, value):
-        self.stack.insert(0, value)
-        return
-
-    def pop(self, value):
-        val = self.stack[0]
-        self.stack.remove(self.stack[0])
-        for var in self.symtable:
-            if var['NAME'] == value:
-                var['VALUE'] = val
-        return
-
-    def mult(self):
-        val = int(self.stack[1]) * int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    def add(self):
-        val = int(self.stack[1]) + int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-
-    def minus(self):
-        val = int(self.stack[1]) - int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
-        self.push(val)
-        return
-
-    #--------------------------
-    #       HELPER METHODS
-    #--------------------------
-    def type(self, value):
-        return type(value)
-
-    #----------------------------------------
     #          PARSER HELPER METHODS                 
     #----------------------------------------
 
@@ -649,4 +492,163 @@ class Parser(object):
             self.simulate({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
             pass
+
+
+    #----------------------------------------
+    #         SYM TABLE PRETTY PRINTER             
+    #----------------------------------------
+    def printer(self, iterator, field_names, storage, data):
+        table = PrettyTable()
+        table.field_names = field_names
+        for datum in data: 
+            storage.append(iterator)
+            for k, v in datum.items():
+                if str(k) == 'NAME':
+                    storage.append(v)
+                if str(k) == 'VALUE':
+                    storage.append(v)
+                if str(k) == 'TYPE':
+                    storage.append(v)
+                if str(k) == 'ADDRESS':
+                    storage.append(hex(v))
+            table.add_row(storage)
+            del storage[:]
+            iterator += 1
+        return table
+
+    #--------------------------
+    #         OP CODES
+    #--------------------------
+
+    def op_lesseq(self):
+        val = int(self.stack[1]) <= int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_noteq(self):
+        val = int(self.stack[1]) != int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_equals(self):
+        val = int(self.stack[1]) == int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_greatereq(self):
+        val = int(self.stack[1]) >= int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+
+    def op_greater(self):
+        val = int(self.stack[1]) > int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_less(self):
+        val = int(self.stack[1]) < int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def op_not(self):
+        val = not int(self.stack[0])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def op_and(self):
+        val = int(self.stack[1]) and int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_xor(self):
+        val = int(self.stack[1]) ^ int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_or(self):
+        val = int(self.stack[1]) or int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def mod(self):
+        val = int(self.stack[1]) % int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def div_float(self):
+        val = int(self.stack[1]) / int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def pushi(self, value):
+        for var in self.symtable:
+            if var['NAME'] == value:
+                self.stack.insert(0, var['VALUE'])
+        return
+
+    def push(self, value):
+        self.stack.insert(0, value)
+        return
+
+    def pop(self, value):
+        val = self.stack[0]
+        self.stack.remove(self.stack[0])
+        for var in self.symtable:
+            if var['NAME'] == value:
+                var['VALUE'] = val
+        return
+
+    def mult(self):
+        val = int(self.stack[1]) * int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def add(self):
+        val = int(self.stack[1]) + int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+
+    def minus(self):
+        val = int(self.stack[1]) - int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    #--------------------------
+    #       HELPER METHODS
+    #--------------------------
+    def type(self, value):
+        return type(value)
+
+
 
