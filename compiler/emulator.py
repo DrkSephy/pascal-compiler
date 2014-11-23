@@ -25,8 +25,7 @@
 
 import sys
 from scanner import Scanner
-from parser import Parser
-from simulator import Simulator 
+from parser import Parser 
 
 
 def usage():
@@ -46,10 +45,7 @@ if __name__ == '__main__':
     parser   = Parser(tokens, 0)
     # Return the AST using tokens
     ast      = parser.parse()
-    # Initialize the simulator
-    simulator = Simulator(ast['decorated_nodes'], [], ast['symtable'], 0)
-    # Simulate the AST
-    simulation = simulator.simulate(ast['decorated_nodes'])
+    print ast
 
     
     
