@@ -22,7 +22,8 @@ from prettytable import PrettyTable
 class Parser(object):
 
     def __init__(self, tokens, curr_token, op = False, nodes = [], decorated_nodes = [], byte_array = [], 
-                 symtable = [], lhs = '', rhs = '', address = 0, token_loop = [], loop = False):
+                 symtable = [], lhs = '', rhs = '', address = 0, token_loop = [], loop = False, stack = [],
+                 ip = ''):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -43,46 +44,170 @@ class Parser(object):
         self.address            = address
         self.token_loop         = token_loop
         self.loop               = loop
+        self.stack              = stack
+        self.ip                 = ip
 
     def parse(self):
         self.get_token()
-        # self.expression()
         self.program()
-        # self.goal()
-        # return 
-        # print self.decorated_nodes
-        # print self.symtable
-        return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
-        # return self.decorated_nodes
-
+        # return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
 
     #----------------------------------------
-    #             PRETTY PRINTER             
+    #         SYM TABLE PRETTY PRINTER             
     #----------------------------------------
-
     def printer(self, iterator, field_names, storage, data):
-        # Returns: Ascii formatted table 
-        #
-        # Parameters:
-        #   iterator: int
-        #       token counter
-        #   field_names: list of strings
-        #       table headers
-        #   storage: list
-        #       row of data to append 
-        #   data: list of dictionaries
-        #      key, value pairs of metadata
-
         table = PrettyTable()
         table.field_names = field_names
-        for datum in data:
+        for datum in data: 
             storage.append(iterator)
-            storage.append(datum)
+            for k, v in datum.items():
+                if str(k) == 'NAME':
+                    storage.append(v)
+                if str(k) == 'VALUE':
+                    storage.append(v)
+                if str(k) == 'TYPE':
+                    storage.append(v)
+                if str(k) == 'ADDRESS':
+                    storage.append(hex(v))
             table.add_row(storage)
             del storage[:]
-
             iterator += 1
         return table
+
+
+    #--------------------------
+    #         OP CODES
+    #--------------------------
+
+    def op_lesseq(self):
+        val = int(self.stack[1]) <= int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_noteq(self):
+        val = int(self.stack[1]) != int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_equals(self):
+        val = int(self.stack[1]) == int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_greatereq(self):
+        val = int(self.stack[1]) >= int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+
+    def op_greater(self):
+        val = int(self.stack[1]) > int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_less(self):
+        val = int(self.stack[1]) < int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def op_not(self):
+        val = not int(self.stack[0])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def op_and(self):
+        val = int(self.stack[1]) and int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_xor(self):
+        val = int(self.stack[1]) ^ int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def op_or(self):
+        val = int(self.stack[1]) or int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def mod(self):
+        val = int(self.stack[1]) % int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def div_float(self):
+        val = int(self.stack[1]) / int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return 
+
+    def pushi(self, value):
+        for var in self.symtable:
+            if var['NAME'] == value:
+                self.stack.insert(0, var['VALUE'])
+        return
+
+    def push(self, value):
+        self.stack.insert(0, value)
+        return
+
+    def pop(self, value):
+        val = self.stack[0]
+        self.stack.remove(self.stack[0])
+        for var in self.symtable:
+            if var['NAME'] == value:
+                var['VALUE'] = val
+        return
+
+    def mult(self):
+        val = int(self.stack[1]) * int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    def add(self):
+        val = int(self.stack[1]) + int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+
+    def minus(self):
+        val = int(self.stack[1]) - int(self.stack[0])
+        self.stack.remove(self.stack[1])
+        self.stack.remove(self.stack[0])
+        self.push(val)
+        return
+
+    #--------------------------
+    #       HELPER METHODS
+    #--------------------------
+    def type(self, value):
+        return type(value)
 
     #----------------------------------------
     #          PARSER HELPER METHODS                 
@@ -102,7 +227,7 @@ class Parser(object):
     def match(self, token):
         if self.loop:
             self.token_loop.append(token)
-        print self.token_loop
+        # print self.token_loop
         # Checks if expected token is proper
         if token == self.curr_token[0]:
             # Append leaf nodes into list
@@ -127,9 +252,9 @@ class Parser(object):
         #   <declarations>
         #   <begin-statement>
         #   <halt>
-        print "Called program() with " + self.curr_token[1]
+        # print "Called program() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_PROGRAM':
-            print "Matched PROGRAM: " + self.curr_token[1]
+            # print "Matched PROGRAM: " + self.curr_token[1]
             self.match('TK_PROGRAM')
             self.declarations()
 
@@ -139,14 +264,14 @@ class Parser(object):
         #   <label decl> ; <declarations>
         #   <prodecure>  ; <declarations>
         #   <function>   ; <declarations>
-        print "Called declarations() with " + self.curr_token[1]
+        # print "Called declarations() with " + self.curr_token[1]
         self.var_decl()
         return 
 
     def var_decl(self):
-        print "Called var_decl() with " + self.curr_token[1]
+        # print "Called var_decl() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_VAR':
-            print "Matched TK_VAR: " + self.curr_token[1]
+            # print "Matched TK_VAR: " + self.curr_token[1]
             self.match('TK_VAR')
         else:
             # Our next token isn't TK_VAR, so it must be begin 
@@ -155,20 +280,20 @@ class Parser(object):
         # Keep matching identifiers and commas
         while(1):
             if self.curr_token[0] == 'TK_IDENTIFIER':
-                print "Matched TK_IDENTIFIER: " + self.curr_token[1]
+                # print "Matched TK_IDENTIFIER: " + self.curr_token[1]
                 self.symtable.append({'NAME': self.curr_token[1], 'TYPE': 'empty', 'VALUE' : 0, 'ADDRESS' : self.address})
                 self.address += 4
                 self.match('TK_IDENTIFIER')
             if self.curr_token[0] == 'TK_COMMA': 
-                print "Matched TK_COMMA: " + self.curr_token[1]
+                # print "Matched TK_COMMA: " + self.curr_token[1]
                 self.match('TK_COMMA')
             if self.curr_token[0] == 'TK_COLON':
-                print "Matched TK_COLON: " + self.curr_token[1]
+                # print "Matched TK_COLON: " + self.curr_token[1]
                 self.match('TK_COLON')
                 break
 
         if self.curr_token[0] == 'TK_ID_INTEGER':
-            print "Matched TK_ID_INTEGER: " + self.curr_token[1]
+            # print "Matched TK_ID_INTEGER: " + self.curr_token[1]
             # Now that we know the type of all the variables we declared
             # We go back and assign the types in our symbol table
             for vars in self.symtable:
@@ -177,7 +302,7 @@ class Parser(object):
             self.match('TK_ID_INTEGER')
 
         if self.curr_token[0] == 'TK_ID_REAL':
-            print "Matched TK_ID_REAL: " + self.curr_token[1]
+            # print "Matched TK_ID_REAL: " + self.curr_token[1]
             # Now that we know the type of all the variables we declared
             # We go back and assign the types in our symbol table
             for vars in self.symtable:
@@ -187,7 +312,7 @@ class Parser(object):
 
 
         if self.curr_token[0] == 'TK_SEMICOLON': 
-            print "Matched TK_SEMICOLON: " + self.curr_token[1]
+            # print "Matched TK_SEMICOLON: " + self.curr_token[1]
             self.match('TK_SEMICOLON')
         # Keep checking for declarations
         self.var_decl()
@@ -196,7 +321,7 @@ class Parser(object):
     def begin(self):
         # <begin-statement> ->
         #   begin <statements> end
-        print "Called begin() with " + self.curr_token[1]
+        # print "Called begin() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_BEGIN':
             print "Matched TK_BEGIN: " + self.curr_token[1]
             self.match('TK_BEGIN')
@@ -213,18 +338,18 @@ class Parser(object):
         #   <case statement>  ; <statement>
         #   <assignment statement> ; <statement>
         #   <proc call>       ; <statement>
-        print "Called statements() with " + self.curr_token[1]
+        # print "Called statements() with " + self.curr_token[1]
         while(1):
             if self.curr_token[0] == 'TK_REPEAT':
                 self.repeat() 
 
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
-                print "Matched TK_IDENTIFIER: " + self.curr_token[1]
+                # print "Matched TK_IDENTIFIER: " + self.curr_token[1]
                 self.match('TK_IDENTIFIER')
 
             if self.curr_token[0] == 'TK_ASSIGNMENT':
-                print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
+                # print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
                 self.match('TK_ASSIGNMENT')
                 self.op = True
 
@@ -233,10 +358,11 @@ class Parser(object):
             self.logic()
 
             if self.curr_token[0] == 'TK_SEMICOLON':
-                print "Matched TK_SEMICOLON: " + self.curr_token[1]
+                # print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
                 if self.op: 
                     self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
+                    self.simulate({'instruction': 'pop', 'value': self.lhs})
                     self.op = False
 
             if self.curr_token[0] == 'TK_END_CODE':
@@ -250,7 +376,6 @@ class Parser(object):
         self.match('TK_REPEAT')
         self.loop = True
         self.statements()
-        self.loop = False
         self.match('TK_UNTIL')
         self.logic()
         return 
@@ -258,7 +383,7 @@ class Parser(object):
          
     def goal(self):
         # Goal -> Expression EOF
-        print "Called goal() with " + self.curr_token[1]
+        # print "Called goal() with " + self.curr_token[1]
         self.expression()
         if self.curr_token[0] == 'TK_EOF':
             return 
@@ -266,7 +391,7 @@ class Parser(object):
     def logic(self):
         # Logic -> E | < E [<] E | > E [>] E | <= E [<=] E
         #           | >= E [>=] E | = E [=] E | != E [!=] E
-        print "Called logic() with " + self.curr_token[1]
+        # print "Called logic() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_LESS':
             self.match('TK_LESS')
             self.expression()
@@ -296,14 +421,14 @@ class Parser(object):
 
     def expression(self):
         # Expression -> Term Expression'
-        print "Called expression() with " + self.curr_token[1]
+        # print "Called expression() with " + self.curr_token[1]
         self.term()
         self.expression_prime()
 
     def expression_prime(self):
         # Expression' -> + Term [+] Expression' | - Term [-] Expression' | e
         #                   | or T [or] E' | XOR T [xor] E' 
-        print "Called expression_prime() with " + self.curr_token[1]
+        # print "Called expression_prime() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_PLUS':
             print "Seen plus"
             self.match('TK_PLUS')
@@ -330,7 +455,7 @@ class Parser(object):
 
     def term(self):
         # Term -> Factor Term'
-        print "Called term() with " + self.curr_token[1]
+        # print "Called term() with " + self.curr_token[1]
         self.factor()
         self.term_prime()
 
@@ -338,7 +463,7 @@ class Parser(object):
         # Term' -> * Factor [*] Term' | / Factor [/] Term' | e 
         #               | MOD T [mod] F | AND T [and] F 
 
-        print "Called term_prime() with " + self.curr_token[1]
+        # print "Called term_prime() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
             self.factor()
@@ -388,7 +513,7 @@ class Parser(object):
 
     def factor(self):
         # Factor -> id | lit | not F | ( E ) | + F | - F
-        print "Called factor() with " + self.curr_token[1]
+        # print "Called factor() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
             self.match('TK_IDENTIFIER')
@@ -407,10 +532,56 @@ class Parser(object):
 
         if self.curr_token[0] == 'TK_OPEN_PARENTHESIS':
             self.match('TK_OPEN_PARENTHESIS')
-            print "Calling logic() from within factor()"
+            # print "Calling logic() from within factor()"
             self.logic()
             self.match('TK_CLOSE_PARENTHESIS')
             return
+
+    #--------------------------
+    #         SIMULATOR
+    #--------------------------
+    
+    def simulate(self, node):
+        if node['instruction'] == 'push':
+            if node['token'] == 'TK_IDENTIFIER':
+                self.pushi(node['value'])
+            else:
+                self.push(node['value'])
+        if node['instruction'] == 'or':
+            self.op_or()
+        if node['instruction'] == 'and':
+            self.op_and()
+        if node['instruction'] == 'xor':
+            self.op_xor()
+        if node['instruction'] == 'not':
+            self.op_not()
+        if node['instruction'] == 'mod':
+            self.mod()
+        if node['instruction'] == 'less':
+            self.op_less()
+        if node['instruction'] == 'greater':
+            self.op_greater()
+        if node['instruction'] == 'less_equals':
+            self.op_lesseq()
+        if node['instruction'] == 'greater_equals':
+            self.op_greatereq()
+        if node['instruction'] == 'not_equals':
+            self.op_noteq()
+        if node['instruction'] == 'equals':
+            self.op_equals()
+        if node['instruction'] == 'div_float':
+            self.div_float()
+        if node['instruction'] == 'add':
+            self.add()
+        if node['instruction'] == 'pop':
+            self.pop(node['value'])
+        if node['instruction'] == 'minus':
+            self.minus()
+        if node['instruction'] == 'mult':
+            self.mult()
+        print self.stack
+        print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
+
 
     #----------------------------------------
     #        DECORATED GRAMMAR METHODS                
@@ -421,38 +592,55 @@ class Parser(object):
 
         if token[0] == 'TK_IDENTIFIER':
             self.decorated_nodes.append({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.simulate({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token[0] == 'TK_INTEGER':
             self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.simulate({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token == 'TK_MULT':
             self.decorated_nodes.append({'instruction': 'mult', 'value': '*', 'token': '*'})
+            self.simulate({'instruction': 'mult', 'value': '*', 'token': '*'})
         elif token == 'TK_DIV_FLOAT':
             self.decorated_nodes.append({'instruction': 'div_float', 'value': '/', 'token': '/'})
+            self.simulate({'instruction': 'div_float', 'value': '/', 'token': '/'})
         elif token == 'TK_PLUS':
             self.decorated_nodes.append({'instruction': 'add', 'value':  '+', 'token': '+'})
+            self.simulate({'instruction': 'add', 'value':  '+', 'token': '+'})
         elif token == 'TK_MINUS':
             self.decorated_nodes.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
+            self.simulate({'instruction': 'minus', 'value':  '-', 'token': '-'})
         elif token == 'TK_MOD':
             self.decorated_nodes.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
+            self.simulate({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
         elif token == 'TK_OR':
             self.decorated_nodes.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
+            self.simulate({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
         elif token == 'TK_XOR':
             self.decorated_nodes.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
+            self.simulate({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
         elif token == 'TK_AND':
             self.decorated_nodes.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
+            self.simulate({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
         elif token == 'TK_NOT':
             self.decorated_nodes.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
+            self.simulate({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
         elif token == 'TK_LESS':
             self.decorated_nodes.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
+            self.simulate({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
         elif token == 'TK_GREATER':
             self.decorated_nodes.append({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
+            self.simulate({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
         elif token == 'TK_LESS_EQUALS':
             self.decorated_nodes.append({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
+            self.simulate({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
         elif token == 'TK_GREATER_EQUALS':
             self.decorated_nodes.append({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
+            self.simulate({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
         elif token == 'TK_EQUALS':
             self.decorated_nodes.append({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
+            self.simulate({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
         elif token == 'TK_NOT_EQUALS':
             self.decorated_nodes.append({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
+            self.simulate({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
             pass
 
