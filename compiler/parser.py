@@ -56,6 +56,7 @@ class Parser(object):
     def parse(self):
         self.get_token()
         self.program()
+        print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
         # return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
 
     #----------------------------------------
@@ -548,6 +549,7 @@ class Parser(object):
     #--------------------------
     
     def simulate(self, node):
+        print node
         if node['instruction'] == 'push':
             if node['token'] == 'TK_IDENTIFIER':
                 self.pushi(node['value'])
@@ -586,8 +588,6 @@ class Parser(object):
         if node['instruction'] == 'mult':
             self.mult()
         print self.stack
-        print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
-
 
     #----------------------------------------
     #        DECORATED GRAMMAR METHODS                
