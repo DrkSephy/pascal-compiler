@@ -234,7 +234,7 @@ class Parser(object):
             for instruction in self.token_loop:
                 # print instruction   
                 self.simulate(instruction)
-
+        self.loop = False
         return 
 
          
