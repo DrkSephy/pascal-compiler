@@ -1,1 +1,1 @@
-PROGRAM var x : integer; BEGIN     x := 17 ;    repeat        x := x + 1 ;    until x > 100 ; END.
+PROGRAM var x , y : integer;var a , b , c : real;BEGIN     x := 17 ;    repeat        x := x + 1 ;    until x > 100 ; END.
