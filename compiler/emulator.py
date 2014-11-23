@@ -45,7 +45,6 @@ if __name__ == '__main__':
     parser   = Parser(tokens, 0)
     # Return the AST using tokens
     ast      = parser.parse()
-    print ast
 
     
     
