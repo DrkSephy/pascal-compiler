@@ -16,6 +16,12 @@
 # - [    ] Handle if-then-else statements
 # - [done] Create functions to handle each token
 # - [done] Returns parse tree
+# - [done] Create code array
+# - [done] Create data array
+# - [done] Create stack array
+# - [done] Implement opcodes
+# - [done] Create simulator 
+# - [done] Build symbol tables
 
 from prettytable import PrettyTable
 
