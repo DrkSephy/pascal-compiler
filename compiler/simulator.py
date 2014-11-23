@@ -78,7 +78,6 @@ class Simulator(object):
             if node['instruction'] == 'mult':
                 self.mult()
             print self.stack
-        # print self.symtable
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
 
     #----------------------------------------
