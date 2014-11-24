@@ -194,28 +194,34 @@ class Parser(object):
             if self.curr_token[0] == 'TK_WHILE':
                 self.while_loop()
 
+            if self.curr_token[0] == 'TK_FOR':
+                self.for_loop()
+
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
-                # print "Matched TK_IDENTIFIER: " + self.curr_token[1]
+                print "Matched TK_IDENTIFIER: " + self.curr_token[1]
                 self.match('TK_IDENTIFIER')
 
             if self.curr_token[0] == 'TK_ASSIGNMENT':
-                # print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
+                print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
                 self.match('TK_ASSIGNMENT')
                 self.op = True
 
             # We've seen a variable and := (ex: x := )
             # Now we expect an expression
             self.logic()
-
             if self.curr_token[0] == 'TK_SEMICOLON':
-                # print "Matched TK_SEMICOLON: " + self.curr_token[1]
+                print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
                 if self.op: 
                     self.token_loop.append({'instruction': 'pop', 'value': self.lhs})
                     self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
                     self.simulate({'instruction': 'pop', 'value': self.lhs})
                     self.op = False
+
+            if self.curr_token[0] == 'TK_TO':
+                print "Going back to for loop"
+                self.for_loop()
 
             if self.curr_token[0] == 'TK_END_CODE':
                 break
@@ -254,8 +260,17 @@ class Parser(object):
         self.loop = False
         return
 
+    def for_loop(self):
 
-         
+        if self.curr_token[0] == 'TK_FOR':
+            self.match('TK_FOR')
+            self.logic()
+        print "BLAH"
+        if self.curr_token[0] == 'TK_TO':
+            self.match('TK_TO')
+            print "Matched TK_TO"
+        return
+
     def goal(self):
         # Goal -> Expression EOF
         # print "Called goal() with " + self.curr_token[1]
@@ -330,7 +345,7 @@ class Parser(object):
 
     def term(self):
         # Term -> Factor Term'
-        # print "Called term() with " + self.curr_token[1]
+        print "Called term() with " + self.curr_token[1]
         self.factor()
         self.term_prime()
 
@@ -338,7 +353,7 @@ class Parser(object):
         # Term' -> * Factor [*] Term' | / Factor [/] Term' | e 
         #               | MOD T [mod] F | AND T [and] F 
 
-        # print "Called term_prime() with " + self.curr_token[1]
+        print "Called term_prime() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
             self.factor()
@@ -388,7 +403,7 @@ class Parser(object):
 
     def factor(self):
         # Factor -> id | lit | not F | ( E ) | + F | - F
-        # print "Called factor() with " + self.curr_token[1]
+        print "Called factor() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
             self.match('TK_IDENTIFIER')
@@ -407,7 +422,7 @@ class Parser(object):
 
         if self.curr_token[0] == 'TK_OPEN_PARENTHESIS':
             self.match('TK_OPEN_PARENTHESIS')
-            # print "Calling logic() from within factor()"
+            print "Calling logic() from within factor()"
             self.logic()
             self.match('TK_CLOSE_PARENTHESIS')
             return
