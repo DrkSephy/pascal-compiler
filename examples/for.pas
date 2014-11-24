@@ -1,0 +1,1 @@
+PROGRAMvar x , y : integer ; BEGIN    y := 1 ;    for x := 20 to 30 do         y := y + 1 ;END. 
