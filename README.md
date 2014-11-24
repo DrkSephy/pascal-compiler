@@ -28,7 +28,7 @@ The following is a list of features that have been implemented.
 - [x] &lt;begin-statement&gt; -->
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;begin&lt;statements&gt;end
 - [x] &lt;statements&gt; -->
-- [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;while statement&gt;;&lt;statement&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;while statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;goto statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;for statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;if statement&gt;;&lt;statement&gt;
@@ -46,7 +46,7 @@ The following is a list of features that have been implemented.
 - [x] T -> FT'
 - [x] T' -> x F [x] T' | /F [/] T' | e | DIV F [DIV] T' | MOD F [MOD] T'
 - [ ] F -> id | lit | (E) | -F | + F | not F
-- [ ] Need to implement (E)
+- [x] Need to implement (E)
 - [ ] Need to implement -F and +F
 
 ###Compiler Research Links
