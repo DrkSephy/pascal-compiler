@@ -30,6 +30,7 @@ The following is a list of features that have been implemented.
 - [x] &lt;statements&gt; -->
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;while statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;goto statement&gt;;&lt;statement&gt;
+- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;repeat statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;for statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;if statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;case statement&gt;;&lt;statement&gt;
