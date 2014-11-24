@@ -29,7 +29,7 @@ class Parser(object):
 
     def __init__(self, tokens, curr_token, op = False, nodes = [], decorated_nodes = [], byte_array = [], 
                  symtable = [], lhs = '', rhs = '', address = 0, token_loop = [], loop = False, stack = [],
-                 ip = ''):
+                 ip = 0):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -57,9 +57,6 @@ class Parser(object):
         self.get_token()
         self.program()
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
-        print self.decorated_nodes
-        for node in self.decorated_nodes:
-            print node 
         # return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
 
     #----------------------------------------
@@ -239,13 +236,8 @@ class Parser(object):
         self.statements()
         self.match('TK_UNTIL')
         self.logic()
-        # Remove first pop
-        self.token_loop.pop(0)
-        while self.stack[0] == False:
-            self.stack.pop(0)
-            for instruction in self.token_loop:   
-                self.simulate(instruction)
-        self.loop = False
+        for node in self.decorated_nodes:
+            print str(node) + str(self.ip)
         return 
 
     def while_loop(self):
@@ -436,6 +428,7 @@ class Parser(object):
     
     def simulate(self, node):
         print node
+        print self.ip
         if node['instruction'] == 'push':
             if node['token'] == 'TK_IDENTIFIER':
                 self.pushi(node['value'])
@@ -481,7 +474,7 @@ class Parser(object):
 
     def postfix(self, token):
         # Method for building postfix notation of tokens.
-
+        self.ip += 1
         if token[0] == 'TK_IDENTIFIER':
             if self.loop:
                 self.token_loop.append({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]}) 
