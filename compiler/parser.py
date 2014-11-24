@@ -191,6 +191,9 @@ class Parser(object):
             if self.curr_token[0] == 'TK_REPEAT':
                 self.repeat() 
 
+            if self.curr_token[0] == 'TK_WHILE':
+                self.while_loop()
+
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 # print "Matched TK_IDENTIFIER: " + self.curr_token[1]
@@ -236,6 +239,13 @@ class Parser(object):
                 self.simulate(instruction)
         self.loop = False
         return 
+
+    def while_loop(self):
+        self.match('TK_WHILE')
+        print "Matched while"
+        self.logic()
+        self.match('TK_DO')
+        print "Matched DO"
 
          
     def goal(self):
