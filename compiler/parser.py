@@ -57,6 +57,9 @@ class Parser(object):
         self.get_token()
         self.program()
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
+        print self.decorated_nodes
+        for node in self.decorated_nodes:
+            print node 
         # return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
 
     #----------------------------------------
