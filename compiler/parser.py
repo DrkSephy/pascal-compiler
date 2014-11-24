@@ -243,9 +243,19 @@ class Parser(object):
     def while_loop(self):
         self.match('TK_WHILE')
         print "Matched while"
+        self.loop = True
         self.logic()
         self.match('TK_DO')
         print "Matched DO"
+        self.statements()
+        self.token_loop.pop(0)
+        while self.stack[0] == True:
+            self.stack.pop(0)
+            for instruction in self.token_loop:
+                self.simulate(instruction)
+        self.loop = False
+        return
+
 
          
     def goal(self):
