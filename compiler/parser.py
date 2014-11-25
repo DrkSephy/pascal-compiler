@@ -240,6 +240,9 @@ class Parser(object):
         self.statements()
         self.match('TK_UNTIL')
         self.logic()
+        print "The instruction pointer is back to : " + str(self.decorated_nodes[target])
+
+
         return 
 
     def while_loop(self):
