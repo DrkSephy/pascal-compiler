@@ -242,15 +242,13 @@ class Parser(object):
 
     def while_loop(self):
         self.match('TK_WHILE')
+        target = self.ip + 1
         self.logic()
         self.match('TK_DO')
         self.statements()
-        # Remove first pop
-        self.token_loop.pop(0)
         while self.stack[0] == True:
-            self.stack.pop(0)
-            for instruction in self.token_loop:
-                self.simulate(instruction)
+            for node in self.decorated_nodes[target:]:
+                self.simulate(node)
         return
 
     def for_loop(self):
