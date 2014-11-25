@@ -12,7 +12,7 @@
 # - [done] Handle repeat statements
 # - [    ] Handle if statements
 # - [done] Handle while statements
-# - [    ] Handle for statements
+# - [done] Handle for statements
 # - [    ] Handle if-then-else statements
 # - [done] Create functions to handle each token
 # - [done] Returns parse tree
