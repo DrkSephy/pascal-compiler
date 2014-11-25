@@ -28,7 +28,7 @@ from prettytable import PrettyTable
 class Parser(object):
 
     def __init__(self, tokens, curr_token, op = False, nodes = [], decorated_nodes = [], byte_array = [], 
-                 symtable = [], lhs = '', rhs = '', address = 0, token_loop = [], loop = False, stack = [],
+                 symtable = [], lhs = '', rhs = 0, address = 0, token_loop = [], loop = False, stack = [],
                  ip = -1):
         # Parameters:
         #   * tokens : list of tuples of tokens
@@ -283,7 +283,11 @@ class Parser(object):
         print "Matched TK_TO"
         self.match('TK_DO')
         target = self.ip + 1
-        
+        self.statements()
+        while int(str(self.rhs)) <= max_iterations:
+            for node in self.decorated_nodes[target:]:
+                self.simulate(node)
+            int(str(self.rhs)) + 1
         return
 
     def goal(self):

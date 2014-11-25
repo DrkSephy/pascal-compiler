@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ; BEGIN    y := 1 ;     for x := 1 ; to 10 do         y := y + 1 ;END. 
+PROGRAMvar x , y : integer ; BEGIN    y := 1 ;     for x := 1 ; to 10 do         y := y + 1 ; END. 
