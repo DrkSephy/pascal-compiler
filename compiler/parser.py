@@ -215,11 +215,11 @@ class Parser(object):
                 self.match('TK_SEMICOLON')
                 if self.op: 
                     self.ip += 1
-                    print "Inside statements, currently IP is: " + str(self.ip)
                     self.token_loop.append({'instruction': 'pop', 'value': self.lhs})
                     self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
                     self.simulate({'instruction': 'pop', 'value': self.lhs})
                     self.op = False
+
 
             if self.curr_token[0] == 'TK_TO':
                 print "Going back to for loop"
@@ -427,7 +427,7 @@ class Parser(object):
     #--------------------------
     
     def simulate(self, node):
-        print node
+        print "instruction: " + node['instruction'] + ", value: " + node['value'] +  ", ip: " + str(self.ip)
         if node['instruction'] == 'push':
             if node['token'] == 'TK_IDENTIFIER':
                 self.pushi(node['value'])
@@ -561,7 +561,6 @@ class Parser(object):
             self.simulate({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
             pass
-        print "Inside postfix, currently IP is: " + str(self.ip)
 
 
     #----------------------------------------
