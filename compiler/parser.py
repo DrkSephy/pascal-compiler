@@ -194,8 +194,6 @@ class Parser(object):
             if self.curr_token[0] == 'TK_WHILE':
                 self.while_loop()
 
-            if self.curr_token[0] == 'TK_FOR':
-                self.for_loop()
 
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
@@ -219,11 +217,6 @@ class Parser(object):
                     self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
                     self.simulate({'instruction': 'pop', 'value': self.lhs})
                     self.op = False
-
-
-            if self.curr_token[0] == 'TK_TO':
-                print "Going back to for loop"
-                self.for_loop()
 
             if self.curr_token[0] == 'TK_END_CODE':
                 break
