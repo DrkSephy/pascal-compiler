@@ -237,7 +237,6 @@ class Parser(object):
         print "After REPEAT, current IP is: " + str(self.ip)
         target = self.ip
         print "JUMP BACK TARGET: " + str(self.ip)
-        self.loop = True
         self.statements()
         self.match('TK_UNTIL')
         self.logic()
@@ -245,7 +244,6 @@ class Parser(object):
 
     def while_loop(self):
         self.match('TK_WHILE')
-        self.loop = True
         self.logic()
         self.match('TK_DO')
         self.statements()
@@ -255,7 +253,6 @@ class Parser(object):
             self.stack.pop(0)
             for instruction in self.token_loop:
                 self.simulate(instruction)
-        self.loop = False
         return
 
     def for_loop(self):
@@ -477,89 +474,55 @@ class Parser(object):
     def postfix(self, token):
         # Method for building postfix notation of tokens.
         self.ip += 1
-        if token[0] == 'TK_IDENTIFIER':
-            if self.loop:
-                self.token_loop.append({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]}) 
+        if token[0] == 'TK_IDENTIFIER': 
             self.decorated_nodes.append({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
             self.simulate({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token[0] == 'TK_INTEGER':
-            if self.loop:
-                self.token_loop.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
             self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
             self.simulate({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token == 'TK_MULT':
-            if self.loop:
-                self.token_loop.append({'instruction': 'mult', 'value': '*', 'token': '*'})
             self.decorated_nodes.append({'instruction': 'mult', 'value': '*', 'token': '*'})
             self.simulate({'instruction': 'mult', 'value': '*', 'token': '*'})
         elif token == 'TK_DIV_FLOAT':
-            if self.loop:
-                self.token_loop.append({'instruction': 'div_float', 'value': '/', 'token': '/'})
             self.decorated_nodes.append({'instruction': 'div_float', 'value': '/', 'token': '/'})
             self.simulate({'instruction': 'div_float', 'value': '/', 'token': '/'})
         elif token == 'TK_PLUS':
-            if self.loop:
-                self.token_loop.append({'instruction': 'add', 'value':  '+', 'token': '+'})
             self.decorated_nodes.append({'instruction': 'add', 'value':  '+', 'token': '+'})
             self.simulate({'instruction': 'add', 'value':  '+', 'token': '+'})
         elif token == 'TK_MINUS':
-            if self.loop:
-                self.token_loop.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
             self.decorated_nodes.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
             self.simulate({'instruction': 'minus', 'value':  '-', 'token': '-'})
         elif token == 'TK_MOD':
-            if self.loop:
-                self.token_loop.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
             self.decorated_nodes.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
             self.simulate({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
         elif token == 'TK_OR':
-            if self.loop:
-                self.token_loop.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
             self.decorated_nodes.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
             self.simulate({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
         elif token == 'TK_XOR':
-            if self.loop:
-                self.token_loop.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
             self.decorated_nodes.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
             self.simulate({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
         elif token == 'TK_AND':
-            if self.loop:
-                self.token_loop.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
             self.decorated_nodes.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
             self.simulate({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
         elif token == 'TK_NOT':
-            if self.loop:
-                self.token_loop.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
             self.decorated_nodes.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
             self.simulate({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
         elif token == 'TK_LESS':
-            if self.loop:
-                self.token_loop.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
             self.decorated_nodes.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
             self.simulate({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
         elif token == 'TK_GREATER':
-            if self.loop:
-                self.token_loop.append({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
             self.decorated_nodes.append({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
             self.simulate({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
         elif token == 'TK_LESS_EQUALS':
-            if self.loop:
-                self.token_loop.append({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
             self.decorated_nodes.append({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
             self.simulate({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
         elif token == 'TK_GREATER_EQUALS':
-            if self.loop:
-                self.token_loop.append({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
             self.decorated_nodes.append({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
             self.simulate({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
         elif token == 'TK_EQUALS':
-            if self.loop:
-                self.token_loop.append({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
             self.decorated_nodes.append({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
             self.simulate({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
         elif token == 'TK_NOT_EQUALS':
-            if self.loop:
-                self.token_loop.append({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
             self.decorated_nodes.append({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
             self.simulate({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
