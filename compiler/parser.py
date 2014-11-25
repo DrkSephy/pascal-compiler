@@ -226,16 +226,18 @@ class Parser(object):
 
     def repeat(self): 
         self.match('TK_REPEAT')
-        print "After REPEAT, current IP is: " + str(self.ip)
         target = self.ip + 1
-        print "JUMP BACK TARGET: " + str(target)
         self.statements()
         self.match('TK_UNTIL')
         self.logic()
-        print "The instruction pointer is back to : " + str(self.decorated_nodes[target])
         while self.stack[0] == False:
+            # Remove lingering comparison on stack
+            self.stack.pop(0)
             for node in self.decorated_nodes[target:]:
                 self.simulate(node)
+        # Remove lingering comparison on stack
+        self.stack.pop(0)
+
         return 
 
     def while_loop(self):
