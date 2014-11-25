@@ -234,6 +234,9 @@ class Parser(object):
 
     def repeat(self): 
         self.match('TK_REPEAT')
+        print "After REPEAT, current IP is: " + str(self.ip)
+        target = self.ip
+        print "JUMP BACK TARGET: " + str(self.ip)
         self.loop = True
         self.statements()
         self.match('TK_UNTIL')
