@@ -194,7 +194,6 @@ class Parser(object):
             if self.curr_token[0] == 'TK_WHILE':
                 self.while_loop()
 
-
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
@@ -234,8 +233,9 @@ class Parser(object):
         self.match('TK_UNTIL')
         self.logic()
         print "The instruction pointer is back to : " + str(self.decorated_nodes[target])
-
-
+        while self.stack[0] == False:
+            for node in self.decorated_nodes[target:]:
+                self.simulate(node)
         return 
 
     def while_loop(self):
