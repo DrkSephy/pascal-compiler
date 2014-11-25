@@ -267,7 +267,7 @@ class Parser(object):
             self.match('TK_ASSIGNMENT')
         if self.curr_token[0] == 'TK_INTEGER':
             self.ip += 1
-            self.rhs = self.curr_token[1]
+            self.rhs = int(self.curr_token[1])
             self.simulate({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
             self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
             self.match('TK_INTEGER')
@@ -278,16 +278,18 @@ class Parser(object):
             self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
         self.match('TK_TO')
         if self.curr_token[0] == 'TK_INTEGER':
-            max_iterations = self.curr_token[1]
+            max_iterations = int(self.curr_token[1])
             self.match('TK_INTEGER')
         print "Matched TK_TO"
         self.match('TK_DO')
         target = self.ip + 1
+
         self.statements()
-        while int(str(self.rhs)) <= max_iterations:
+        while self.rhs <= max_iterations:
             for node in self.decorated_nodes[target:]:
                 self.simulate(node)
-            int(str(self.rhs)) + 1
+            self.rhs += 1
+            
         return
 
     def goal(self):
