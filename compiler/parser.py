@@ -273,7 +273,13 @@ class Parser(object):
             self.match('TK_SEMICOLON')
             self.simulate({'instruction': 'pop', 'value': self.lhs})
         self.match('TK_TO')
+        if self.curr_token[0] == 'TK_INTEGER':
+            max_iterations = self.curr_token[1]
+            self.match('TK_INTEGER')
+            print max_iterations
         print "Matched TK_TO"
+        self.match('TK_DO')
+        print "Matched TK_DO"
         return
 
     def goal(self):
