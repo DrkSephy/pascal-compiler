@@ -29,7 +29,7 @@ class Parser(object):
 
     def __init__(self, tokens, curr_token, op = False, nodes = [], decorated_nodes = [], byte_array = [], 
                  symtable = [], lhs = '', rhs = '', address = 0, token_loop = [], loop = False, stack = [],
-                 ip = 0):
+                 ip = -1):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -214,6 +214,8 @@ class Parser(object):
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
                 if self.op: 
+                    self.ip += 1
+                    print "Inside statements, currently IP is: " + str(self.ip)
                     self.token_loop.append({'instruction': 'pop', 'value': self.lhs})
                     self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
                     self.simulate({'instruction': 'pop', 'value': self.lhs})
@@ -236,8 +238,6 @@ class Parser(object):
         self.statements()
         self.match('TK_UNTIL')
         self.logic()
-        for node in self.decorated_nodes:
-            print str(node) + str(self.ip)
         return 
 
     def while_loop(self):
@@ -428,7 +428,6 @@ class Parser(object):
     
     def simulate(self, node):
         print node
-        print self.ip
         if node['instruction'] == 'push':
             if node['token'] == 'TK_IDENTIFIER':
                 self.pushi(node['value'])
@@ -562,6 +561,7 @@ class Parser(object):
             self.simulate({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
             pass
+        print "Inside postfix, currently IP is: " + str(self.ip)
 
 
     #----------------------------------------
