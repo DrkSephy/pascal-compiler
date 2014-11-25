@@ -194,6 +194,9 @@ class Parser(object):
             if self.curr_token[0] == 'TK_WHILE':
                 self.while_loop()
 
+            if self.curr_token[0] == 'TK_FOR':
+                self.for_loop()
+
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
@@ -256,14 +259,21 @@ class Parser(object):
         return
 
     def for_loop(self):
-
-        if self.curr_token[0] == 'TK_FOR':
-            self.match('TK_FOR')
-            self.logic()
-        print "BLAH"
-        if self.curr_token[0] == 'TK_TO':
-            self.match('TK_TO')
-            print "Matched TK_TO"
+        self.match('TK_FOR')
+        if self.curr_token[0] == 'TK_IDENTIFIER':
+            self.lhs = self.curr_token[1]
+            self.match('TK_IDENTIFIER')
+        if self.curr_token[0] == 'TK_ASSIGNMENT':
+            self.match('TK_ASSIGNMENT')
+        if self.curr_token[0] == 'TK_INTEGER':
+            self.rhs = self.curr_token[1]
+            self.simulate({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.match('TK_INTEGER')
+        if self.curr_token[0] == 'TK_SEMICOLON':
+            self.match('TK_SEMICOLON')
+            self.simulate({'instruction': 'pop', 'value': self.lhs})
+        self.match('TK_TO')
+        print "Matched TK_TO"
         return
 
     def goal(self):
