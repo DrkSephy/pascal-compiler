@@ -266,20 +266,24 @@ class Parser(object):
         if self.curr_token[0] == 'TK_ASSIGNMENT':
             self.match('TK_ASSIGNMENT')
         if self.curr_token[0] == 'TK_INTEGER':
+            self.ip += 1
             self.rhs = self.curr_token[1]
             self.simulate({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
             self.match('TK_INTEGER')
         if self.curr_token[0] == 'TK_SEMICOLON':
+            self.ip += 1
             self.match('TK_SEMICOLON')
             self.simulate({'instruction': 'pop', 'value': self.lhs})
+            self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
         self.match('TK_TO')
         if self.curr_token[0] == 'TK_INTEGER':
             max_iterations = self.curr_token[1]
             self.match('TK_INTEGER')
-            print max_iterations
         print "Matched TK_TO"
         self.match('TK_DO')
-        print "Matched TK_DO"
+        target = self.ip + 1
+        
         return
 
     def goal(self):
