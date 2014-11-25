@@ -11,7 +11,7 @@
 # - [done] Generate stack machine assembly
 # - [done] Handle repeat statements
 # - [    ] Handle if statements
-# - [    ] Handle while statements
+# - [done] Handle while statements
 # - [    ] Handle for statements
 # - [    ] Handle if-then-else statements
 # - [done] Create functions to handle each token
@@ -247,8 +247,12 @@ class Parser(object):
         self.match('TK_DO')
         self.statements()
         while self.stack[0] == True:
+            # Remove lingering comparison on stack
+            self.stack.pop(0)
             for node in self.decorated_nodes[target:]:
                 self.simulate(node)
+        # Remove lingering comparison on stack
+        self.stack.pop(0)
         return
 
     def for_loop(self):
