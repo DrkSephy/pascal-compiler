@@ -234,9 +234,11 @@ class Parser(object):
         self.match('TK_IF')
         print "Matched TK_IF AND MOVING ON"
         self.logic()
-        self.match('TK_THEN')
-        self.statements()
-        print "MATCHED TK_THEN AND MOVING ON"
+        if self.stack[0] == True:
+            self.match('TK_THEN')
+            self.statements()
+        else: 
+            return
         return 
 
     def repeat(self): 
