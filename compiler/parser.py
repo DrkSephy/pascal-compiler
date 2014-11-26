@@ -235,6 +235,7 @@ class Parser(object):
         print "Matched TK_IF AND MOVING ON"
         self.logic()
         self.match('TK_THEN')
+        self.statements()
         print "MATCHED TK_THEN AND MOVING ON"
         return 
 
