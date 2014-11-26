@@ -197,6 +197,9 @@ class Parser(object):
             if self.curr_token[0] == 'TK_FOR':
                 self.for_loop()
 
+            if self.curr_token[0] == 'TK_IF':
+                self.if_statement()
+
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 print "Matched TK_IDENTIFIER: " + self.curr_token[1]
@@ -227,6 +230,9 @@ class Parser(object):
                 return
         return
 
+    def if_statement(self):
+        pass
+        
     def repeat(self): 
         self.match('TK_REPEAT')
         target = self.ip + 1
