@@ -232,7 +232,6 @@ class Parser(object):
 
     def if_statement(self):
         self.match('TK_IF')
-        print "Matched TK_IF AND MOVING ON"
         self.logic()
         if self.stack[0] == True:
             self.match('TK_THEN')
