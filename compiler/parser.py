@@ -233,7 +233,7 @@ class Parser(object):
     def if_statement(self):
         self.match('TK_IF')
         print "Matched TK_IF AND MOVING ON"
-        self.statements()
+        self.logic()
         self.match('TK_THEN')
         print "MATCHED TK_THEN AND MOVING ON"
         return 
