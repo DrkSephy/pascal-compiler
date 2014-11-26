@@ -231,8 +231,13 @@ class Parser(object):
         return
 
     def if_statement(self):
-        pass
-        
+        self.match('TK_IF')
+        print "Matched TK_IF AND MOVING ON"
+        self.statements()
+        self.match('TK_THEN')
+        print "MATCHED TK_THEN AND MOVING ON"
+        return 
+
     def repeat(self): 
         self.match('TK_REPEAT')
         target = self.ip + 1
