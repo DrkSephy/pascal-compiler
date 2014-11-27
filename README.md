@@ -35,7 +35,7 @@ The following is a list of features that have been implemented.
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;if statement&gt;;&lt;statement&gt;
 - [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;case statement&gt;;&lt;statement&gt;
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;assignment&gt;
-- [x] &nbsp;&nbsp;&nbsp;&nbsp;&lt;proc call&gt;
+- [ ] &nbsp;&nbsp;&nbsp;&nbsp;&lt;proc call&gt;
 - [x] &lt;var decl&gt; -->
 - [x] &nbsp;&nbsp;&nbsp;&nbsp;var[&lt;namelist&gt;:&lt;type&gt;]*
 - [x] &lt;assignment&gt; -->
