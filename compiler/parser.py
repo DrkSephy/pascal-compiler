@@ -22,6 +22,8 @@
 # - [done] Implement opcodes
 # - [done] Create simulator 
 # - [done] Build symbol tables
+# - [    ] Implement Writeln( )
+# - [    ] Implement Case statements
 
 from prettytable import PrettyTable
 
