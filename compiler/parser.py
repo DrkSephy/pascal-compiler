@@ -24,6 +24,7 @@
 # - [done] Build symbol tables
 # - [    ] Implement Writeln( )
 # - [    ] Implement Case statements
+# - [    ] Implement Array operations
 
 from prettytable import PrettyTable
 
