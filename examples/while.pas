@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ;BEGIN    x := 20 ;    y := 21 ;    while x < y do         x := x + 9 ;        y := y + 5 ;END. 
+PROGRAMvar x , y : integer ;BEGIN    x := 1 ;    y := 21 ;    while x < y do         x := x + 1 ;END. 
