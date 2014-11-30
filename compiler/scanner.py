@@ -99,7 +99,6 @@ class Scanner(object):
         text = open(source, 'r').readlines()
         for line in text:
             for char in line: 
-
                 # Handle comments
                 if self.comment: 
                     self.handle_comments(char)
@@ -134,6 +133,8 @@ class Scanner(object):
                     self.curr_col += 1
 
         # Print out metadata
+        print "\n"
+        print "[scanner]: Tokens returned from scanning source file" 
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
         # print(self.tokens)
         return self.tokens
