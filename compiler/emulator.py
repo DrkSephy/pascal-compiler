@@ -25,7 +25,8 @@
 
 import sys
 from scanner import Scanner
-from parser import Parser 
+from parser import Parser
+from simulator import Simulator 
 
 
 def usage():
