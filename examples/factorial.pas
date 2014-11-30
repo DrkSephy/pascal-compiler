@@ -1,0 +1,1 @@
+PROGRAMvar product , stop , step : integer ;BEGIN    stop := 5 ;     step := 1 ;    product := 1 ;    while step <= stop do         product := product * step ;        step := step + 1 ;END. 
