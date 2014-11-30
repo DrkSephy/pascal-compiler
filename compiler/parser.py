@@ -49,7 +49,7 @@ class Parser(object):
         self.rhs                = rhs
         self.address            = 0
         self.stack              = []
-        self.ip                 = -1
+        self.ip                 = 0
 
     def parse(self):
         self.get_token()
@@ -214,12 +214,13 @@ class Parser(object):
                 print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
                 if self.op: 
-                    self.ip += 1
                     self.instructions.append({'instruction': 'op_pop', 'value': self.lhs})
+                    self.ip += 1
                     self.op = False
 
             if self.curr_token[0] == 'TK_END_CODE':
                 self.instructions.append({'instruction': 'op_halt', 'value': 'END.'})
+                self.ip += 1
                 break
 
             if self.curr_token[0] == 'TK_UNTIL':
@@ -410,41 +411,56 @@ class Parser(object):
 
     def postfix(self, token):
         # Method for building postfix notation of tokens.
-        self.ip += 1
         if token[0] == 'TK_IDENTIFIER': 
             self.instructions.append({'instruction' : 'op_push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.ip += 1
         elif token[0] == 'TK_INTEGER':
             self.instructions.append({'instruction': 'op_push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.ip += 1
         elif token == 'TK_MULT':
             self.instructions.append({'instruction': 'op_mult', 'value': '*', 'token': '*'})
+            self.ip += 1
         elif token == 'TK_DIV_FLOAT':
             self.instructions.append({'instruction': 'op_div_float', 'value': '/', 'token': '/'})
+            self.ip += 1
         elif token == 'TK_PLUS':
             self.instructions.append({'instruction': 'op_add', 'value':  '+', 'token': '+'})
+            self.ip += 1
         elif token == 'TK_MINUS':
             self.instructions.append({'instruction': 'op_minus', 'value':  '-', 'token': '-'})
+            self.ip += 1
         elif token == 'TK_MOD':
             self.instructions.append({'instruction': 'op_mod', 'value': 'mod', 'token': 'TK_MOD'})
+            self.ip += 1
         elif token == 'TK_OR':
             self.instructions.append({'instruction': 'op_or', 'value': 'or', 'token': 'TK_OR'})
+            self.ip += 1
         elif token == 'TK_XOR':
             self.instructions.append({'instruction': 'op_xor', 'value': 'xor', 'token': 'TK_XOR'})
+            self.ip += 1
         elif token == 'TK_AND':
             self.instructions.append({'instruction': 'op_and', 'value': 'and', 'token': 'TK_AND'})
+            self.ip += 1
         elif token == 'TK_NOT':
             self.instructions.append({'instruction': 'op_not', 'value': 'not', 'token': 'TK_NOT'})
+            self.ip += 1
         elif token == 'TK_LESS':
             self.instructions.append({'instruction': 'op_less', 'value': 'less', 'token': 'TK_LESS'})
+            self.ip += 1
         elif token == 'TK_GREATER':
             self.instructions.append({'instruction': 'op_greater', 'value': 'greater', 'token': 'TK_GREATER'})
+            self.ip += 1
         elif token == 'TK_LESS_EQUALS':
             self.instructions.append({'instruction': 'op_less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
         elif token == 'TK_GREATER_EQUALS':
             self.instructions.append({'instruction': 'op_greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
+            self.ip += 1
         elif token == 'TK_EQUALS':
             self.instructions.append({'instruction': 'op_equals', 'value': 'equals', 'token': 'TK_EQUALS'})
+            self.ip += 1
         elif token == 'TK_NOT_EQUALS':
             self.instructions.append({'instruction': 'op_not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
+            self.ip += 1
         else:
             pass
 
