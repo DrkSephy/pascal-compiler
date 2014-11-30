@@ -77,6 +77,8 @@ class Simulator(object):
                 self.minus()
             if node['instruction'] == 'mult':
                 self.mult()
+            if node['instruction'] == 'halt':
+                self.halt()
             print self.stack
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
 
@@ -105,6 +107,8 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+    def halt(self):
+        print "\n[Emulator]: Finished running program"
 
     def op_lesseq(self):
         val = int(self.stack[1]) <= int(self.stack[0])
