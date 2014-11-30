@@ -30,9 +30,8 @@ from prettytable import PrettyTable
 
 class Parser(object):
 
-    def __init__(self, tokens, curr_token, op = False, nodes = [], decorated_nodes = [], byte_array = [], 
-                 symtable = [], lhs = '', rhs = 0, address = 0, token_loop = [], loop = False, stack = [],
-                 ip = -1):
+    def __init__(self, tokens, curr_token, op = False, 
+                 symtable = [], lhs = '', rhs = 0):
         # Parameters:
         #   * tokens : list of tuples of tokens
         #       - tokens produced by scanner
@@ -44,26 +43,22 @@ class Parser(object):
         self.curr_token         = curr_token
         self.op                 = op
         self.iterator           = self.return_iterator()
-        self.nodes              = nodes
-        self.decorated_nodes    = decorated_nodes
-        self.byte_array         = byte_array
+        self.instructions       = []
         self.symtable           = symtable
         self.lhs                = lhs
         self.rhs                = rhs
-        self.address            = address
-        self.token_loop         = token_loop
-        self.loop               = loop
-        self.stack              = stack
-        self.ip                 = ip
+        self.address            = 0
+        self.stack              = []
+        self.ip                 = -1
 
     def parse(self):
         self.get_token()
         self.program()
         # print self.stack
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
-        for inst in self.decorated_nodes:
+        for inst in self.instructions:
             print inst
-        return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
+        return {'decorated_nodes' : self.instructions, 'symtable' : self.symtable}
 
     #----------------------------------------
     #          PARSER HELPER METHODS                 
@@ -81,11 +76,9 @@ class Parser(object):
         return
 
     def match(self, token):
-        # print self.token_loop
+        # print 
         # Checks if expected token is proper
         if token == self.curr_token[0]:
-            # Append leaf nodes into list
-            self.nodes.append(self.curr_token[1])
             # Get next token
             self.get_token()
             return True
@@ -224,8 +217,7 @@ class Parser(object):
                 self.match('TK_SEMICOLON')
                 if self.op: 
                     self.ip += 1
-                    self.token_loop.append({'instruction': 'pop', 'value': self.lhs})
-                    self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
+                    self.instructions.append({'instruction': 'pop', 'value': self.lhs})
                     self.op = False
 
             if self.curr_token[0] == 'TK_END_CODE':
@@ -421,39 +413,39 @@ class Parser(object):
         # Method for building postfix notation of tokens.
         self.ip += 1
         if token[0] == 'TK_IDENTIFIER': 
-            self.decorated_nodes.append({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.instructions.append({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token[0] == 'TK_INTEGER':
-            self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
+            self.instructions.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token == 'TK_MULT':
-            self.decorated_nodes.append({'instruction': 'mult', 'value': '*', 'token': '*'})
+            self.instructions.append({'instruction': 'mult', 'value': '*', 'token': '*'})
         elif token == 'TK_DIV_FLOAT':
-            self.decorated_nodes.append({'instruction': 'div_float', 'value': '/', 'token': '/'})
+            self.instructions.append({'instruction': 'div_float', 'value': '/', 'token': '/'})
         elif token == 'TK_PLUS':
-            self.decorated_nodes.append({'instruction': 'add', 'value':  '+', 'token': '+'})
+            self.instructions.append({'instruction': 'add', 'value':  '+', 'token': '+'})
         elif token == 'TK_MINUS':
-            self.decorated_nodes.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
+            self.instructions.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
         elif token == 'TK_MOD':
-            self.decorated_nodes.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
+            self.instructions.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
         elif token == 'TK_OR':
-            self.decorated_nodes.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
+            self.instructions.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
         elif token == 'TK_XOR':
-            self.decorated_nodes.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
+            self.instructions.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
         elif token == 'TK_AND':
-            self.decorated_nodes.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
+            self.instructions.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
         elif token == 'TK_NOT':
-            self.decorated_nodes.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
+            self.instructions.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
         elif token == 'TK_LESS':
-            self.decorated_nodes.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
+            self.instructions.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
         elif token == 'TK_GREATER':
-            self.decorated_nodes.append({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
+            self.instructions.append({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
         elif token == 'TK_LESS_EQUALS':
-            self.decorated_nodes.append({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
+            self.instructions.append({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
         elif token == 'TK_GREATER_EQUALS':
-            self.decorated_nodes.append({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
+            self.instructions.append({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
         elif token == 'TK_EQUALS':
-            self.decorated_nodes.append({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
+            self.instructions.append({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
         elif token == 'TK_NOT_EQUALS':
-            self.decorated_nodes.append({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
+            self.instructions.append({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
             pass
 
