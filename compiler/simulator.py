@@ -13,6 +13,7 @@
 # - [done] Create simulator 
 # - [done] Build symbol tables
 
+import sys
 from prettytable import PrettyTable
 
 class Simulator(object):
@@ -38,49 +39,49 @@ class Simulator(object):
     #--------------------------
     
     def simulate(self):
-        for node in self.ast:
-            print node
-            if node['instruction'] == 'push':
-                if node['token'] == 'TK_IDENTIFIER':
-                    self.pushi(node['value'])
+        while True: 
+            print self.ast[self.ip]
+            if self.ast[self.ip]['instruction'] == 'push':
+                if self.ast[self.ip]['token'] == 'TK_IDENTIFIER':
+                    self.pushi(self.ast[self.ip]['value'])
                 else:
-                    self.push(node['value'])
-            if node['instruction'] == 'or':
+                    self.push(self.ast[self.ip]['value'])
+            if self.ast[self.ip]['instruction'] == 'or':
                 self.op_or()
-            if node['instruction'] == 'and':
+            if self.ast[self.ip]['instruction'] == 'and':
                 self.op_and()
-            if node['instruction'] == 'xor':
+            if self.ast[self.ip]['instruction'] == 'xor':
                 self.op_xor()
-            if node['instruction'] == 'not':
+            if self.ast[self.ip]['instruction'] == 'not':
                 self.op_not()
-            if node['instruction'] == 'mod':
+            if self.ast[self.ip]['instruction'] == 'mod':
                 self.mod()
-            if node['instruction'] == 'less':
+            if self.ast[self.ip]['instruction'] == 'less':
                 self.op_less()
-            if node['instruction'] == 'greater':
+            if self.ast[self.ip]['instruction'] == 'greater':
                 self.op_greater()
-            if node['instruction'] == 'less_equals':
+            if self.ast[self.ip]['instruction'] == 'less_equals':
                 self.op_lesseq()
-            if node['instruction'] == 'greater_equals':
+            if self.ast[self.ip]['instruction'] == 'greater_equals':
                 self.op_greatereq()
-            if node['instruction'] == 'not_equals':
+            if self.ast[self.ip]['instruction'] == 'not_equals':
                 self.op_noteq()
-            if node['instruction'] == 'equals':
+            if self.ast[self.ip]['instruction'] == 'equals':
                 self.op_equals()
-            if node['instruction'] == 'div_float':
+            if self.ast[self.ip]['instruction'] == 'div_float':
                 self.div_float()
-            if node['instruction'] == 'add':
+            if self.ast[self.ip]['instruction'] == 'add':
                 self.add()
-            if node['instruction'] == 'pop':
-                self.pop(node['value'])
-            if node['instruction'] == 'minus':
+            if self.ast[self.ip]['instruction'] == 'pop':
+                self.pop(self.ast[self.ip]['value'])
+            if self.ast[self.ip]['instruction'] == 'minus':
                 self.minus()
-            if node['instruction'] == 'mult':
+            if self.ast[self.ip]['instruction'] == 'mult':
                 self.mult()
-            if node['instruction'] == 'halt':
+            if self.ast[self.ip]['instruction'] == 'halt':
                 self.halt()
             print self.stack
-        print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
+            self.ip += 1
 
     #----------------------------------------
     #             PRETTY PRINTER             
@@ -109,6 +110,8 @@ class Simulator(object):
     #--------------------------
     def halt(self):
         print "\n[Emulator]: Finished running program"
+        print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
+        sys.exit(0)
 
     def op_lesseq(self):
         val = int(self.stack[1]) <= int(self.stack[0])
