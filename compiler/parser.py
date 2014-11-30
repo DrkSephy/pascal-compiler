@@ -59,6 +59,7 @@ class Parser(object):
     def parse(self):
         self.get_token()
         self.program()
+        print self.stack
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
         # return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
 
@@ -237,15 +238,11 @@ class Parser(object):
         self.match('TK_IF')
         self.logic()
         if self.stack[0] == True:
+            self.stack.pop(0)
             self.match('TK_THEN')
             self.statements()
         else: 
-            while self.curr_token[0] != 'TK_ELSE':
-                self.get_token()
-                print self.curr_token[0]
-                print "Still haven't found ELSE"
-            self.match('TK_ELSE')
-            self.statements()
+            
         return 
 
     def repeat(self): 
@@ -387,7 +384,7 @@ class Parser(object):
 
     def term(self):
         # Term -> Factor Term'
-        print "Called term() with " + self.curr_token[1]
+        # print "Called term() with " + self.curr_token[1]
         self.factor()
         self.term_prime()
 
@@ -395,7 +392,7 @@ class Parser(object):
         # Term' -> * Factor [*] Term' | / Factor [/] Term' | e 
         #               | MOD T [mod] F | AND T [and] F 
 
-        print "Called term_prime() with " + self.curr_token[1]
+        # print "Called term_prime() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_MULT':
             self.match('TK_MULT')
             self.factor()
@@ -445,7 +442,7 @@ class Parser(object):
 
     def factor(self):
         # Factor -> id | lit | not F | ( E ) | + F | - F
-        print "Called factor() with " + self.curr_token[1]
+        # print "Called factor() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_IDENTIFIER':
             self.postfix(self.curr_token)
             self.match('TK_IDENTIFIER')
