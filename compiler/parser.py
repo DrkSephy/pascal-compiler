@@ -475,55 +475,38 @@ class Parser(object):
         self.ip += 1
         if token[0] == 'TK_IDENTIFIER': 
             self.decorated_nodes.append({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
-            self.simulate({'instruction' : 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token[0] == 'TK_INTEGER':
             self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
-            self.simulate({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
         elif token == 'TK_MULT':
             self.decorated_nodes.append({'instruction': 'mult', 'value': '*', 'token': '*'})
-            self.simulate({'instruction': 'mult', 'value': '*', 'token': '*'})
         elif token == 'TK_DIV_FLOAT':
             self.decorated_nodes.append({'instruction': 'div_float', 'value': '/', 'token': '/'})
-            self.simulate({'instruction': 'div_float', 'value': '/', 'token': '/'})
         elif token == 'TK_PLUS':
             self.decorated_nodes.append({'instruction': 'add', 'value':  '+', 'token': '+'})
-            self.simulate({'instruction': 'add', 'value':  '+', 'token': '+'})
         elif token == 'TK_MINUS':
             self.decorated_nodes.append({'instruction': 'minus', 'value':  '-', 'token': '-'})
-            self.simulate({'instruction': 'minus', 'value':  '-', 'token': '-'})
         elif token == 'TK_MOD':
             self.decorated_nodes.append({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
-            self.simulate({'instruction': 'mod', 'value': 'mod', 'token': 'TK_MOD'})
         elif token == 'TK_OR':
             self.decorated_nodes.append({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
-            self.simulate({'instruction': 'or', 'value': 'or', 'token': 'TK_OR'})
         elif token == 'TK_XOR':
             self.decorated_nodes.append({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
-            self.simulate({'instruction': 'xor', 'value': 'xor', 'token': 'TK_XOR'})
         elif token == 'TK_AND':
             self.decorated_nodes.append({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
-            self.simulate({'instruction': 'and', 'value': 'and', 'token': 'TK_AND'})
         elif token == 'TK_NOT':
             self.decorated_nodes.append({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
-            self.simulate({'instruction': 'not', 'value': 'not', 'token': 'TK_NOT'})
         elif token == 'TK_LESS':
             self.decorated_nodes.append({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
-            self.simulate({'instruction': 'less', 'value': 'less', 'token': 'TK_LESS'})
         elif token == 'TK_GREATER':
             self.decorated_nodes.append({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
-            self.simulate({'instruction': 'greater', 'value': 'greater', 'token': 'TK_GREATER'})
         elif token == 'TK_LESS_EQUALS':
             self.decorated_nodes.append({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
-            self.simulate({'instruction': 'less_equals', 'value': 'less_equals', 'token': 'TK_LESS_EQUALS'})
         elif token == 'TK_GREATER_EQUALS':
             self.decorated_nodes.append({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
-            self.simulate({'instruction': 'greater_equals', 'value': 'greater_equals', 'token': 'TK_GREATER_EQUALS'})
         elif token == 'TK_EQUALS':
             self.decorated_nodes.append({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
-            self.simulate({'instruction': 'equals', 'value': 'equals', 'token': 'TK_EQUALS'})
         elif token == 'TK_NOT_EQUALS':
             self.decorated_nodes.append({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
-            self.simulate({'instruction': 'not_equals', 'value': 'not_equals', 'token': 'TK_NOT_EQUALS'})
         else:
             pass
 
