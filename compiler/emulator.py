@@ -46,6 +46,10 @@ if __name__ == '__main__':
     parser   = Parser(tokens, 0)
     # Return the AST using tokens
     ast      = parser.parse()
+    simulator = Simulator(ast['decorated_nodes'], ast['symtable'] )
+    simulator.simulate()
+
+
 
     
     
