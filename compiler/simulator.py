@@ -17,7 +17,7 @@ from prettytable import PrettyTable
 
 class Simulator(object):
 
-    def __init__(self, ast, stack, symtable, ip):
+    def __init__(self, ast, symtable):
         # Paramaters
         #   * ast : List
         #       - Abstract Syntax Tree returned by Parser
@@ -28,17 +28,17 @@ class Simulator(object):
         #   * ip: Integer
         #       - Points to current instruction address
         self.ast        = ast
-        self.stack      = stack
+        self.stack      = []
         self.symtable   = symtable
-        self.ip         = ip
+        self.ip         = 0
 
 
     #--------------------------
     #         SIMULATOR
     #--------------------------
     
-    def simulate(self, ast):
-        for node in ast:
+    def simulate(self):
+        for node in self.ast:
             print node
             if node['instruction'] == 'push':
                 if node['token'] == 'TK_IDENTIFIER':
