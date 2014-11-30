@@ -219,6 +219,7 @@ class Parser(object):
                     self.op = False
 
             if self.curr_token[0] == 'TK_END_CODE':
+                self.instructions.append({'instruction': 'halt', 'value': 'END.'})
                 break
 
             if self.curr_token[0] == 'TK_UNTIL':
