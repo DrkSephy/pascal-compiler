@@ -59,9 +59,11 @@ class Parser(object):
     def parse(self):
         self.get_token()
         self.program()
-        print self.stack
+        # print self.stack
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
-        # return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
+        for inst in self.decorated_nodes:
+            print inst
+        return {'decorated_nodes' : self.decorated_nodes, 'symtable' : self.symtable}
 
     #----------------------------------------
     #          PARSER HELPER METHODS                 
@@ -232,17 +234,6 @@ class Parser(object):
             if self.curr_token[0] == 'TK_UNTIL':
                 return
         return
-
-    def if_statement(self):
-        self.match('TK_IF')
-        self.logic()
-        if self.stack[0] == True:
-            self.stack.pop(0)
-            self.match('TK_THEN')
-            self.statements()
-        else: 
-
-        return 
 
     def repeat(self): 
         self.match('TK_REPEAT')
