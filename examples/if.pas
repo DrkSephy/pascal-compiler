@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ;BEGIN    x := 1 ;     y := 2 ;    if x > y then         x := x + 9000 ;        y := y - 2 ;     y := y * y ; END. 
+PROGRAMvar x , y : integer ;BEGIN    x := 1 ;     if x > 0 then         x := x + 9000 ;     END. 
