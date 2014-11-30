@@ -39,46 +39,48 @@ class Simulator(object):
     #--------------------------
     
     def simulate(self):
+        for inst in self.ast:
+            print inst
         while True: 
             print self.ast[self.ip]
-            if self.ast[self.ip]['instruction'] == 'push':
+            if self.ast[self.ip]['instruction'] == 'op_push':
                 if self.ast[self.ip]['token'] == 'TK_IDENTIFIER':
                     self.pushi(self.ast[self.ip]['value'])
                 else:
                     self.push(self.ast[self.ip]['value'])
-            if self.ast[self.ip]['instruction'] == 'or':
+            if self.ast[self.ip]['instruction'] == 'op_or':
                 self.op_or()
-            if self.ast[self.ip]['instruction'] == 'and':
+            if self.ast[self.ip]['instruction'] == 'op_and':
                 self.op_and()
-            if self.ast[self.ip]['instruction'] == 'xor':
+            if self.ast[self.ip]['instruction'] == 'op_xor':
                 self.op_xor()
-            if self.ast[self.ip]['instruction'] == 'not':
+            if self.ast[self.ip]['instruction'] == 'op_not':
                 self.op_not()
-            if self.ast[self.ip]['instruction'] == 'mod':
+            if self.ast[self.ip]['instruction'] == 'op_mod':
                 self.mod()
-            if self.ast[self.ip]['instruction'] == 'less':
+            if self.ast[self.ip]['instruction'] == 'op_less':
                 self.op_less()
-            if self.ast[self.ip]['instruction'] == 'greater':
+            if self.ast[self.ip]['instruction'] == 'op_greater':
                 self.op_greater()
-            if self.ast[self.ip]['instruction'] == 'less_equals':
+            if self.ast[self.ip]['instruction'] == 'op_less_equals':
                 self.op_lesseq()
-            if self.ast[self.ip]['instruction'] == 'greater_equals':
+            if self.ast[self.ip]['instruction'] == 'op_greater_equals':
                 self.op_greatereq()
-            if self.ast[self.ip]['instruction'] == 'not_equals':
+            if self.ast[self.ip]['instruction'] == 'op_not_equals':
                 self.op_noteq()
-            if self.ast[self.ip]['instruction'] == 'equals':
+            if self.ast[self.ip]['instruction'] == 'op_equals':
                 self.op_equals()
-            if self.ast[self.ip]['instruction'] == 'div_float':
+            if self.ast[self.ip]['instruction'] == 'op_div_float':
                 self.div_float()
-            if self.ast[self.ip]['instruction'] == 'add':
+            if self.ast[self.ip]['instruction'] == 'op_add':
                 self.add()
-            if self.ast[self.ip]['instruction'] == 'pop':
+            if self.ast[self.ip]['instruction'] == 'op_pop':
                 self.pop(self.ast[self.ip]['value'])
-            if self.ast[self.ip]['instruction'] == 'minus':
+            if self.ast[self.ip]['instruction'] == 'op_minus':
                 self.minus()
-            if self.ast[self.ip]['instruction'] == 'mult':
+            if self.ast[self.ip]['instruction'] == 'op_mult':
                 self.mult()
-            if self.ast[self.ip]['instruction'] == 'halt':
+            if self.ast[self.ip]['instruction'] == 'op_halt':
                 self.halt()
             print self.stack
             self.ip += 1
