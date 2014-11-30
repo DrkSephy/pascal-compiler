@@ -240,7 +240,12 @@ class Parser(object):
             self.match('TK_THEN')
             self.statements()
         else: 
-            return
+            while self.curr_token[0] != 'TK_ELSE':
+                self.get_token()
+                print self.curr_token[0]
+                print "Still haven't found ELSE"
+            self.match('TK_ELSE')
+            self.statements()
         return 
 
     def repeat(self): 
