@@ -39,8 +39,19 @@ class Simulator(object):
     #--------------------------
     
     def simulate(self):
+        instructions = []
         for inst in self.ast:
-            print inst
+            instructions.append( [inst['instruction'], inst['value']] )
+        print "\n"
+        print "[Simulator]: Instructions to be executed by stack machine: "
+        print "\n"
+        for inst in instructions:
+            if self.ip > 9:
+                print "I" + str(self.ip) + ":     " + str(instructions[self.ip])
+            else:
+                print "I" + str(self.ip) + ":      " + str(instructions[self.ip])
+            self.ip += 1 
+        self.ip = 0 
         while True: 
             print self.ast[self.ip]
             if self.ast[self.ip]['instruction'] == 'op_push':
