@@ -224,7 +224,6 @@ class Parser(object):
                     self.ip += 1
                     self.token_loop.append({'instruction': 'pop', 'value': self.lhs})
                     self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
-                    self.simulate({'instruction': 'pop', 'value': self.lhs})
                     self.op = False
 
             if self.curr_token[0] == 'TK_END_CODE':
@@ -251,13 +250,8 @@ class Parser(object):
         self.statements()
         self.match('TK_UNTIL')
         self.logic()
-        while self.stack[0] == False:
-            # Remove lingering comparison on stack
-            self.stack.pop(0)
-            for node in self.decorated_nodes[target:]:
-                self.simulate(node)
-        # Remove lingering comparison on stack
-        self.stack.pop(0)
+
+        # TODO: Finish this up
 
         return 
 
@@ -267,47 +261,9 @@ class Parser(object):
         self.logic()
         self.match('TK_DO')
         self.statements()
-        while self.stack[0] == True:
-            # Remove lingering comparison on stack
-            self.stack.pop(0)
-            for node in self.decorated_nodes[target:]:
-                self.simulate(node)
-        # Remove lingering comparison on stack
-        self.stack.pop(0)
-        return
 
-    def for_loop(self):
-        self.match('TK_FOR')
-        if self.curr_token[0] == 'TK_IDENTIFIER':
-            self.lhs = self.curr_token[1]
-            self.match('TK_IDENTIFIER')
-        if self.curr_token[0] == 'TK_ASSIGNMENT':
-            self.match('TK_ASSIGNMENT')
-        if self.curr_token[0] == 'TK_INTEGER':
-            self.ip += 1
-            self.rhs = int(self.curr_token[1])
-            self.simulate({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
-            self.decorated_nodes.append({'instruction': 'push', 'value': self.curr_token[1], 'token': self.curr_token[0]})
-            self.match('TK_INTEGER')
-        if self.curr_token[0] == 'TK_SEMICOLON':
-            self.ip += 1
-            self.match('TK_SEMICOLON')
-            self.simulate({'instruction': 'pop', 'value': self.lhs})
-            self.decorated_nodes.append({'instruction': 'pop', 'value': self.lhs})
-        self.match('TK_TO')
-        if self.curr_token[0] == 'TK_INTEGER':
-            max_iterations = int(self.curr_token[1])
-            self.match('TK_INTEGER')
-        print "Matched TK_TO"
-        self.match('TK_DO')
-        target = self.ip + 1
+        # TODO: Finish this up
 
-        self.statements()
-        while self.rhs <= max_iterations:
-            for node in self.decorated_nodes[target:]:
-                self.simulate(node)
-            self.rhs += 1
-            
         return
 
     def goal(self):
