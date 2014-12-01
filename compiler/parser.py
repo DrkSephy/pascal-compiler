@@ -229,10 +229,12 @@ class Parser(object):
 
     def repeat(self): 
         self.match('TK_REPEAT')
-        target = self.ip + 1
+        target = self.ip 
         self.statements()
         self.match('TK_UNTIL')
         self.logic()
+        self.instructions.append({'instruction': 'op_jfalse', 'ip': self.ip, 'value': target })
+        self.ip += 1 
 
         # TODO: Finish this up
 
