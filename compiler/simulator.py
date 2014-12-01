@@ -82,6 +82,8 @@ class Simulator(object):
                 self.halt()
             if self.ast[self.ip]['instruction'] == 'op_jfalse':
                 self.op_jfalse(self.ast[self.ip]['value'])
+            if self.ast[self.ip]['instruction'] == 'op_jmp':
+                self.op_jmp(self.ast[self.ip]['value'])
             print self.stack
             self.ip += 1
 
@@ -116,7 +118,9 @@ class Simulator(object):
             self.ip = instruction - 1 
             print self.ip
 
-
+    def op_jmp(self, instruction):
+        self.ip = instruction
+        print self.ipp
 
     def halt(self):
         print "\n[Emulator]: Finished running program"
