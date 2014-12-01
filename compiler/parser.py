@@ -172,11 +172,7 @@ class Parser(object):
             self.match('TK_BEGIN')
         while self.curr_token[0] != 'TK_END_CODE':
             self.statements()
-
-        if self.curr_token[0] == 'TK_END_CODE':
-            self.instructions.append({'instruction': 'op_halt', 'ip': self.ip, 'value': 'END.'})
-            self.ip += 1
-            return  
+        return 
     
     def statements(self):
         # <statements> ->
@@ -189,39 +185,47 @@ class Parser(object):
         #   <assignment statement> ; <statement>
         #   <proc call>       ; <statement>
         # print "Called statements() with " + self.curr_token[1]
-        if self.curr_token[0] == 'TK_REPEAT':
-            self.repeat() 
+        while(1):
+            if self.curr_token[0] == 'TK_REPEAT':
+                self.repeat() 
 
-        if self.curr_token[0] == 'TK_WHILE':
-            self.while_loop()
+            if self.curr_token[0] == 'TK_WHILE':
+                self.while_loop()
 
-        if self.curr_token[0] == 'TK_FOR':
-            self.for_loop()
+            if self.curr_token[0] == 'TK_FOR':
+                self.for_loop()
 
-        if self.curr_token[0] == 'TK_IF':
-            self.if_statement()
+            if self.curr_token[0] == 'TK_IF':
+                self.if_statement()
 
-        if self.curr_token[0] == 'TK_IDENTIFIER':
-            self.lhs = self.curr_token[1]
-            print "Matched TK_IDENTIFIER: " + self.curr_token[1]
-            self.match('TK_IDENTIFIER')
+            if self.curr_token[0] == 'TK_IDENTIFIER':
+                self.lhs = self.curr_token[1]
+                print "Matched TK_IDENTIFIER: " + self.curr_token[1]
+                self.match('TK_IDENTIFIER')
 
-        if self.curr_token[0] == 'TK_ASSIGNMENT':
-            print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
-            self.match('TK_ASSIGNMENT')
-            self.op = True
+            if self.curr_token[0] == 'TK_ASSIGNMENT':
+                print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
+                self.match('TK_ASSIGNMENT')
+                self.op = True
 
-        # We've seen a variable and := (ex: x := )
-        # Now we expect an expression
-        self.logic()
-        if self.curr_token[0] == 'TK_SEMICOLON':
-            print "Matched TK_SEMICOLON: " + self.curr_token[1]
-            self.match('TK_SEMICOLON')
-            if self.op: 
-                self.instructions.append({'instruction': 'op_pop', 'ip': self.ip, 'value': self.lhs})
+            # We've seen a variable and := (ex: x := )
+            # Now we expect an expression
+            self.logic()
+            if self.curr_token[0] == 'TK_SEMICOLON':
+                print "Matched TK_SEMICOLON: " + self.curr_token[1]
+                self.match('TK_SEMICOLON')
+                if self.op: 
+                    self.instructions.append({'instruction': 'op_pop', 'ip': self.ip, 'value': self.lhs})
+                    self.ip += 1
+                    self.op = False
+
+            if self.curr_token[0] == 'TK_END_CODE':
+                self.instructions.append({'instruction': 'op_halt', 'ip': self.ip, 'value': 'END.'})
                 self.ip += 1
-                self.op = False
+                break
 
+            if self.curr_token[0] == 'TK_UNTIL':
+                return
         return
 
     def repeat(self): 
