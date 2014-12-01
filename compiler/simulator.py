@@ -80,6 +80,8 @@ class Simulator(object):
                 self.mult()
             if self.ast[self.ip]['instruction'] == 'op_halt':
                 self.halt()
+            if self.ast[self.ip]['instruction'] == 'op_jfalse':
+                self.op_jfalse(self.ast[self.ip]['value'])
             print self.stack
             self.ip += 1
 
@@ -108,6 +110,14 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+    def op_jfalse(self, instruction):
+        bool_val = self.stack.pop()
+        if bool_val == False:
+            self.ip = instruction - 1 
+            print self.ip
+
+
+
     def halt(self):
         print "\n[Emulator]: Finished running program"
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
