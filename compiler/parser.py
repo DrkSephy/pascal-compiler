@@ -236,10 +236,6 @@ class Parser(object):
         self.instructions.append({'instruction': 'op_jfalse', 'ip': self.ip, 'value': target })
         self.ip += 1 
 
-        # TODO: Finish this up
-
-        return 
-
     def while_loop(self):
         self.match('TK_WHILE')
         target = self.ip + 1
