@@ -116,11 +116,10 @@ class Simulator(object):
         bool_val = self.stack.pop()
         if bool_val == False:
             self.ip = instruction - 1 
-            print self.ip
 
     def op_jmp(self, instruction):
-        self.ip = instruction
-        print self.ipp
+        self.ip = instruction - 1 
+        print self.ip
 
     def halt(self):
         print "\n[Emulator]: Finished running program"
