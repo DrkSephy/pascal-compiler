@@ -124,86 +124,86 @@ class Simulator(object):
         sys.exit(0)
 
     def op_lesseq(self):
-        val = int(self.stack[1]) <= int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) <= int(op_1)
         self.push(val)
         return
 
     def op_noteq(self):
-        val = int(self.stack[1]) != int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) != int(op_1)
         self.push(val)
         return
 
     def op_equals(self):
-        val = int(self.stack[1]) == int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) == int(op_1)
         self.push(val)
         return
 
     def op_greatereq(self):
-        val = int(self.stack[1]) >= int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) >= int(op_1)
         self.push(val)
         return
 
 
     def op_greater(self):
-        val = int(self.stack[1]) > int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) > int(op_1)
         self.push(val)
         return
 
     def op_less(self):
-        val = int(self.stack[1]) < int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) < int(op_1)
         self.push(val)
         return 
 
     def op_not(self):
-        val = not int(self.stack[0])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        val = not int(op_1)
         self.push(val)
         return 
 
     def op_and(self):
-        val = int(self.stack[1]) and int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) and int(op_1)
         self.push(val)
         return
 
     def op_xor(self):
-        val = int(self.stack[1]) ^ int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) ^ int(op_1)
         self.push(val)
         return
 
     def op_or(self):
-        val = int(self.stack[1]) or int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) or int(op_1)
         self.push(val)
         return
 
     def mod(self):
-        val = int(self.stack[1]) % int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) % int(op_1)
         self.push(val)
         return 
 
     def div_float(self):
-        val = int(self.stack[1]) / int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_1) / int(op_2)
         self.push(val)
         return 
 
@@ -218,32 +218,31 @@ class Simulator(object):
         return
 
     def pop(self, value):
-        val = self.stack[0]
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
         for var in self.symtable:
             if var['NAME'] == value:
-                var['VALUE'] = val
+                var['VALUE'] = op_1
         return
 
     def mult(self):
-        val = int(self.stack[1]) * int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) * int(op_1)
         self.push(val)
         return
 
     def add(self):
-        val = int(self.stack[1]) + int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) + int(op_1)
         self.push(val)
         return
 
 
     def minus(self):
-        val = int(self.stack[1]) - int(self.stack[0])
-        self.stack.remove(self.stack[1])
-        self.stack.remove(self.stack[0])
+        op_1 = self.stack.pop()
+        op_2 = self.stack.pop()
+        val = int(op_2) - int(op_1)
         self.push(val)
         return
 
