@@ -168,12 +168,12 @@ class Parser(object):
         #   begin <statements> end
         # print "Called begin() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_BEGIN':
-            print "Matched TK_BEGIN: " + self.curr_token[1]
             self.match('TK_BEGIN')
             while self.curr_token[0] != 'TK_END_CODE':
                 self.statements()
             if self.curr_token[0] == 'TK_END_CODE':
-                print "Reached end of program!"
+                print "Reached end of program!" 
+                self.instructions.append({'instruction': 'op_halt', 'ip': self.ip, 'value': 'END.'})
     
     def statements(self):
         # <statements> ->
@@ -187,26 +187,16 @@ class Parser(object):
         #   <proc call>       ; <statement>
         # print "Called statements() with " + self.curr_token[1]
         while(1):
-            print self.curr_token
             if self.curr_token[0] == 'TK_REPEAT':
-                self.repeat() 
-
-            if self.curr_token[0] == 'TK_WHILE':
-                self.while_loop()
-
-            if self.curr_token[0] == 'TK_FOR':
-                self.for_loop()
-
-            if self.curr_token[0] == 'TK_IF':
-                self.if_statement()
+                self.repeat()
+            elif self.curr_token[0] == 'TK_WHILE':
+                self.while_loop() 
 
             if self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
-                print "Matched TK_IDENTIFIER: " + self.curr_token[1]
                 self.match('TK_IDENTIFIER')
 
             if self.curr_token[0] == 'TK_ASSIGNMENT':
-                print "Matched TK_ASSIGNMENT: " + self.curr_token[1]
                 self.match('TK_ASSIGNMENT')
                 self.op = True
 
@@ -214,7 +204,6 @@ class Parser(object):
             # Now we expect an expression
             self.logic()
             if self.curr_token[0] == 'TK_SEMICOLON':
-                print "Matched TK_SEMICOLON: " + self.curr_token[1]
                 self.match('TK_SEMICOLON')
                 if self.op: 
                     self.instructions.append({'instruction': 'op_pop', 'ip': self.ip, 'value': self.lhs})
@@ -222,11 +211,11 @@ class Parser(object):
                     self.op = False
 
             if self.curr_token[0] == 'TK_END_CODE':
-                self.instructions.append({'instruction': 'op_halt', 'ip': self.ip, 'value': 'END.'})
                 self.ip += 1
                 break
 
             if self.curr_token[0] == 'TK_UNTIL':
+                print "Seen TK_UNTIL"
                 return
         return
 
@@ -234,16 +223,14 @@ class Parser(object):
         self.match('TK_REPEAT')
         target = self.ip 
         self.statements()
+        print "RETURNED FROM STATEMENTS"
         self.match('TK_UNTIL')
         self.logic()
         self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': target })
         self.ip += 1 
 
     def patch(self, hole):
-        print "CURRENT UP IS: " + str(self.ip)
-        print self.instructions[hole]
         self.instructions[hole]['value'] = self.ip
-        print self.instructions[hole]
 
     def while_loop(self):
         self.match('TK_WHILE')
@@ -252,12 +239,9 @@ class Parser(object):
         self.match('TK_DO')
         hole = self.ip
         self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': target })
-        print self.curr_token
         self.statements()
-        print self.curr_token
         self.instructions.append({ 'instruction': 'op_jmp', 'ip': self.ip, 'value': target })
         self.patch(hole)
-        print self.curr_token
 
         # TODO: Finish this up
 
@@ -312,7 +296,6 @@ class Parser(object):
         #                   | or T [or] E' | XOR T [xor] E' 
         # print "Called expression_prime() with " + self.curr_token[1]
         if self.curr_token[0] == 'TK_PLUS':
-            print "Seen plus"
             self.match('TK_PLUS')
             self.term()
             self.postfix('TK_PLUS')
@@ -414,7 +397,6 @@ class Parser(object):
 
         if self.curr_token[0] == 'TK_OPEN_PARENTHESIS':
             self.match('TK_OPEN_PARENTHESIS')
-            print "Calling logic() from within factor()"
             self.logic()
             self.match('TK_CLOSE_PARENTHESIS')
             return
