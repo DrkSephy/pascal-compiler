@@ -210,7 +210,6 @@ class Parser(object):
                     self.op = False
 
             if self.curr_token[0] == 'TK_END_CODE':
-                self.ip += 1
                 break
 
             if self.curr_token[0] == 'TK_UNTIL':
