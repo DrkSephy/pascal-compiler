@@ -115,7 +115,7 @@ class Simulator(object):
     def op_jfalse(self, instruction):
         bool_val = self.stack.pop()
         if bool_val == False:
-            self.ip = instruction - 1 
+            self.ip = instruction + 1 
 
     def op_jmp(self, instruction):
         self.ip = instruction - 1 
@@ -165,7 +165,7 @@ class Simulator(object):
     def op_less(self):
         op_1 = self.stack.pop()
         op_2 = self.stack.pop()
-        val = int(op_2) < int(op_1)
+        val = int(op_1) < int(op_2)
         self.push(val)
         return 
 
