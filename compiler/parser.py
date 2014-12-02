@@ -221,7 +221,6 @@ class Parser(object):
         self.match('TK_REPEAT')
         target = self.ip 
         self.statements()
-        print "RETURNED FROM STATEMENTS"
         self.match('TK_UNTIL')
         self.logic()
         self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': target })
@@ -244,13 +243,6 @@ class Parser(object):
         # TODO: Finish this up
 
         return
-
-    def goal(self):
-        # Goal -> Expression EOF
-        # print "Called goal() with " + self.curr_token[1]
-        self.expression()
-        if self.curr_token[0] == 'TK_EOF':
-            return 
 
     def logic(self):
         # Logic -> E | < E [<] E | > E [>] E | <= E [<=] E
