@@ -191,8 +191,7 @@ class Parser(object):
                 self.repeat()
             elif self.curr_token[0] == 'TK_WHILE':
                 self.while_loop() 
-
-            if self.curr_token[0] == 'TK_IDENTIFIER':
+            elif self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 self.match('TK_IDENTIFIER')
 
@@ -230,7 +229,7 @@ class Parser(object):
         self.ip += 1 
 
     def patch(self, hole):
-        self.instructions[hole]['value'] = self.ip
+        self.instructions[hole]['value'] = self.ip + 1 
 
     def while_loop(self):
         self.match('TK_WHILE')
