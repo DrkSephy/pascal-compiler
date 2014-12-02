@@ -48,44 +48,48 @@ class Simulator(object):
                     self.pushi(self.ast[self.ip]['value'])
                 else:
                     self.push(self.ast[self.ip]['value'])
-            if self.ast[self.ip]['instruction'] == 'op_or':
+            elif self.ast[self.ip]['instruction'] == 'op_or':
                 self.op_or()
-            if self.ast[self.ip]['instruction'] == 'op_and':
+            elif self.ast[self.ip]['instruction'] == 'op_and':
                 self.op_and()
-            if self.ast[self.ip]['instruction'] == 'op_xor':
+            elif self.ast[self.ip]['instruction'] == 'op_xor':
                 self.op_xor()
-            if self.ast[self.ip]['instruction'] == 'op_not':
+            elif self.ast[self.ip]['instruction'] == 'op_not':
                 self.op_not()
-            if self.ast[self.ip]['instruction'] == 'op_mod':
+            elif self.ast[self.ip]['instruction'] == 'op_mod':
                 self.mod()
-            if self.ast[self.ip]['instruction'] == 'op_less':
+            elif self.ast[self.ip]['instruction'] == 'op_less':
                 self.op_less()
-            if self.ast[self.ip]['instruction'] == 'op_greater':
+            elif self.ast[self.ip]['instruction'] == 'op_greater':
                 self.op_greater()
-            if self.ast[self.ip]['instruction'] == 'op_less_equals':
+            elif self.ast[self.ip]['instruction'] == 'op_less_equals':
                 self.op_lesseq()
-            if self.ast[self.ip]['instruction'] == 'op_greater_equals':
+            elif self.ast[self.ip]['instruction'] == 'op_greater_equals':
                 self.op_greatereq()
-            if self.ast[self.ip]['instruction'] == 'op_not_equals':
+            elif self.ast[self.ip]['instruction'] == 'op_not_equals':
                 self.op_noteq()
-            if self.ast[self.ip]['instruction'] == 'op_equals':
+            elif self.ast[self.ip]['instruction'] == 'op_equals':
                 self.op_equals()
-            if self.ast[self.ip]['instruction'] == 'op_div_float':
+            elif self.ast[self.ip]['instruction'] == 'op_div_float':
                 self.div_float()
-            if self.ast[self.ip]['instruction'] == 'op_add':
+            elif self.ast[self.ip]['instruction'] == 'op_add':
                 self.add()
-            if self.ast[self.ip]['instruction'] == 'op_pop':
+            elif self.ast[self.ip]['instruction'] == 'op_pop':
                 self.pop(self.ast[self.ip]['value'])
-            if self.ast[self.ip]['instruction'] == 'op_minus':
+            elif self.ast[self.ip]['instruction'] == 'op_minus':
                 self.minus()
-            if self.ast[self.ip]['instruction'] == 'op_mult':
+            elif self.ast[self.ip]['instruction'] == 'op_mult':
                 self.mult()
-            if self.ast[self.ip]['instruction'] == 'op_halt':
+            elif self.ast[self.ip]['instruction'] == 'op_halt':
                 self.halt()
-            if self.ast[self.ip]['instruction'] == 'op_jfalse':
+            elif self.ast[self.ip]['instruction'] == 'op_jfalse':
                 self.op_jfalse(self.ast[self.ip]['value'])
-            if self.ast[self.ip]['instruction'] == 'op_jmp':
+            elif self.ast[self.ip]['instruction'] == 'op_jmp':
                 self.op_jmp(self.ast[self.ip]['value'])
+            elif self.ast[self.ip]['instruction'] == 'op_jtrue':
+                self.op_jtrue(self.ast[self.ip]['value'])
+            else:
+                print "Instruction does not exist"
             print self.stack
             
             print "\n"
@@ -119,11 +123,18 @@ class Simulator(object):
     def op_jfalse(self, instruction):
         bool_val = self.stack.pop()
         if bool_val == False:
+            print "Going to instruction: " + str(instruction)
             self.ip = instruction - 1 
+            print "INSTRUCTION POINTER IS: " + str(self.ip)
 
     def op_jmp(self, instruction):
         print "instruction value is : " + str(instruction)
         self.ip = instruction - 1 
+
+    def op_jtrue(self, instruction):
+        bool_val = self.stack.pop()
+        if bool_val == True:
+            self.ip = instruction - 1 
 
     def halt(self):
         print "\n[Emulator]: Finished running program"

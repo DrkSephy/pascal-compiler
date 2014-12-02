@@ -1,1 +1,1 @@
-PROGRAM var x , y , z : integer;var a , b , c : real;BEGIN     x := 0 ;     repeat        x := x + 1 ;     until x > 2 ; END.
+PROGRAM var x , y , z : integer;var a , b , c : real;BEGIN     x := 0 ;     repeat        x := x + 1 ;     until x > 1 ; END.
