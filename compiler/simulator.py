@@ -40,8 +40,9 @@ class Simulator(object):
     
     def simulate(self):
         while True: 
-            print "Executing current instruction: " + str(self.ip)
+            print "Current IP is: " + str(self.ip)
             print self.ast[self.ip]
+            
             if self.ast[self.ip]['instruction'] == 'op_push':
                 if self.ast[self.ip]['token'] == 'TK_IDENTIFIER':
                     self.pushi(self.ast[self.ip]['value'])
@@ -86,6 +87,8 @@ class Simulator(object):
             if self.ast[self.ip]['instruction'] == 'op_jmp':
                 self.op_jmp(self.ast[self.ip]['value'])
             print self.stack
+            
+            print "\n"
             self.ip += 1
 
     #----------------------------------------
@@ -119,8 +122,8 @@ class Simulator(object):
             self.ip = instruction - 1 
 
     def op_jmp(self, instruction):
+        print "instruction value is : " + str(instruction)
         self.ip = instruction - 1 
-        print "Instruction to jump back to is: " + str(self.ip)
 
     def halt(self):
         print "\n[Emulator]: Finished running program"
