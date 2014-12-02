@@ -115,10 +115,12 @@ class Simulator(object):
     def op_jfalse(self, instruction):
         bool_val = self.stack.pop()
         if bool_val == False:
+            print "FALSE"
             self.ip = instruction + 1 
+            print "IP TO DO FORWARD JUMP: " + str(self.ip)
 
     def op_jmp(self, instruction):
-        self.ip = instruction  
+        self.ip = instruction - 1 
         print "Instruction to jump back to is: " + str(self.ip)
 
     def halt(self):
@@ -158,7 +160,7 @@ class Simulator(object):
     def op_greater(self):
         op_1 = self.stack.pop()
         op_2 = self.stack.pop()
-        val = int(op_2) > int(op_1)
+        val = int(op_1) > int(op_2)
         self.push(val)
         return
 
