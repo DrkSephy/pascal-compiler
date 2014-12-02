@@ -116,7 +116,7 @@ class Simulator(object):
         bool_val = self.stack.pop()
         if bool_val == False:
             print "FALSE"
-            self.ip = instruction + 1 
+            self.ip = instruction - 1 
             print "IP TO DO FORWARD JUMP: " + str(self.ip)
 
     def op_jmp(self, instruction):
