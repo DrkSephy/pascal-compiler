@@ -232,13 +232,18 @@ class Parser(object):
     def while_loop(self):
         self.match('TK_WHILE')
         target = self.ip 
+        print "INSTRUCTION TO GO BACK TO IS: " + str(target)
         self.logic()
         self.match('TK_DO')
         hole = self.ip
+        print "THE INSTRUCTION TO PATCH IS: " + str(hole)
         self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': target })
+        self.ip += 1 
         self.statements()
         self.instructions.append({ 'instruction': 'op_jmp', 'ip': self.ip, 'value': target })
+        self.ip += 1 
         self.patch(hole)
+        print "CURRENT IP IS: " + str(self.ip)
 
         # TODO: Finish this up
 
