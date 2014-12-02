@@ -227,7 +227,7 @@ class Parser(object):
         self.ip += 1 
 
     def patch(self, hole):
-        self.instructions[hole]['value'] = self.ip + 2 
+        self.instructions[hole]['value'] = self.ip  
 
     def while_loop(self):
         self.match('TK_WHILE')
