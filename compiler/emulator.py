@@ -47,6 +47,7 @@ if __name__ == '__main__':
     # Return the AST using tokens
     ast      = parser.parse()
     simulator = Simulator(ast['decorated_nodes'], ast['symtable'] )
+
     instructions = []
     for inst in ast['decorated_nodes']:
         instructions.append( [inst['instruction'], inst['value']] )
@@ -61,6 +62,7 @@ if __name__ == '__main__':
             print "I" + str(ip) + ":      " + str(instructions[ip])
         ip += 1 
     print "\n"
+
     simulator.simulate()
 
 

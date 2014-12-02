@@ -40,6 +40,7 @@ class Simulator(object):
     
     def simulate(self):
         while True: 
+            print "Executing current instruction: " + str(self.ip)
             print self.ast[self.ip]
             if self.ast[self.ip]['instruction'] == 'op_push':
                 if self.ast[self.ip]['token'] == 'TK_IDENTIFIER':
@@ -115,9 +116,7 @@ class Simulator(object):
     def op_jfalse(self, instruction):
         bool_val = self.stack.pop()
         if bool_val == False:
-            print "FALSE"
             self.ip = instruction - 1 
-            print "IP TO DO FORWARD JUMP: " + str(self.ip)
 
     def op_jmp(self, instruction):
         self.ip = instruction - 1 
