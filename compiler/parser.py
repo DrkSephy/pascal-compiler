@@ -191,6 +191,8 @@ class Parser(object):
                 self.repeat()
             elif self.curr_token[0] == 'TK_WHILE':
                 self.while_loop() 
+            elif self.curr_token[0] == 'TK_IF':
+                self.if_statement()
             elif self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 self.match('TK_IDENTIFIER')
@@ -215,7 +217,27 @@ class Parser(object):
             if self.curr_token[0] == 'TK_UNTIL':
                 print "Seen TK_UNTIL"
                 return
+
+            if self.curr_token[0] == 'TK_ELSE':
+                return
         return
+
+    def if_statement(self):
+        # Handles the if statement
+        self.match('TK_IF')
+        self.logic()
+        self.match('TK_THEN')
+        # Mark instruction pointer if condition is true
+        hole_1 = self.ip
+        self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': 0 })
+        self.statements()
+
+        # Handles the else statement
+        if self.curr_token[0] == 'TK_ELSE':
+            hole_2 = self.ip
+            self.instructions.append({ 'instruction' : 'op_jfalse', 'ip': self.ip, 'value': 0 })
+            self.match()
+
 
     def repeat(self): 
         self.match('TK_REPEAT')
