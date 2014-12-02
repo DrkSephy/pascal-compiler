@@ -170,9 +170,7 @@ class Parser(object):
         if self.curr_token[0] == 'TK_BEGIN':
             print "Matched TK_BEGIN: " + self.curr_token[1]
             self.match('TK_BEGIN')
-        while self.curr_token[0] != 'TK_END_CODE':
             self.statements()
-        return 
     
     def statements(self):
         # <statements> ->
