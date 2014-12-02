@@ -170,7 +170,10 @@ class Parser(object):
         if self.curr_token[0] == 'TK_BEGIN':
             print "Matched TK_BEGIN: " + self.curr_token[1]
             self.match('TK_BEGIN')
-            self.statements()
+            while self.curr_token[0] != 'TK_END_CODE':
+                self.statements()
+            if self.curr_token[0] == 'TK_END_CODE':
+                print "Reached end of program!"
     
     def statements(self):
         # <statements> ->
@@ -184,6 +187,7 @@ class Parser(object):
         #   <proc call>       ; <statement>
         # print "Called statements() with " + self.curr_token[1]
         while(1):
+            print self.curr_token
             if self.curr_token[0] == 'TK_REPEAT':
                 self.repeat() 
 
