@@ -118,8 +118,8 @@ class Simulator(object):
             self.ip = instruction + 1 
 
     def op_jmp(self, instruction):
-        self.ip = instruction - 1 
-        print self.ip
+        self.ip = instruction  
+        print "Instruction to jump back to is: " + str(self.ip)
 
     def halt(self):
         print "\n[Emulator]: Finished running program"
