@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ; BEGIN    y := 1 ;     for x := 1 ; to 3 do         if y < 90 then            y := y + 9 ; END.    
+PROGRAMvar x , y : integer ; BEGIN     for x := 1 ; to 3 do         if x mod 1 = 0 then            writeln ( 'FizzBuzz' ) ;        else            writeln ( 'Fizz' ) ;END.    
