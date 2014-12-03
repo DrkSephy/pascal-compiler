@@ -10,10 +10,10 @@
 # - [done] Needs grammar to handle arithmetic structures
 # - [done] Generate stack machine assembly
 # - [done] Handle repeat statements
-# - [    ] Handle if statements
+# - [done] Handle if statements
 # - [done] Handle while statements
 # - [done] Handle for statements
-# - [    ] Handle if-then-else statements
+# - [done] Handle if-then-else statements
 # - [done] Create functions to handle each token
 # - [done] Returns parse tree
 # - [done] Create code array
