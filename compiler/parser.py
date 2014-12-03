@@ -229,8 +229,8 @@ class Parser(object):
 
     def for_statement(self):
         self.match('TK_FOR')
-        # print self.curr_token
         self.statements()
+        # Store the variable we need to increment
         loop_var = self.symtable[0]['NAME']
         self.match('TK_TO')
         loop_start = self.ip
@@ -244,6 +244,7 @@ class Parser(object):
         self.instructions.append({'instruction': 'op_jtrue', 'ip': self.ip, 'value': hole })
         self.ip += 1 
         self.statements()
+
         # Increment loop var by 1 and go back to the start of execution
         self.instructions.append({'instruction': 'op_push', 'ip': self.ip, 'value': loop_var, 'token': 'TK_IDENTIFIER' })
         self.ip += 1 
@@ -265,7 +266,6 @@ class Parser(object):
         self.match('TK_THEN')
         # Mark instruction pointer if condition is true
         hole_1 = self.ip
-        print "hole_1: " + str(hole_1)
         self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': 0 })
         self.ip += 1 
         self.statements()
@@ -273,7 +273,6 @@ class Parser(object):
         # Handles the else statement
         if self.curr_token[0] == 'TK_ELSE':
             hole_2 = self.ip
-            print "hole_2: " + str(hole_2)
             self.instructions.append({ 'instruction' : 'op_jmp', 'ip': self.ip, 'value': 0 })
             self.ip += 1 
             self.match('TK_ELSE')
@@ -296,21 +295,15 @@ class Parser(object):
     def while_loop(self):
         self.match('TK_WHILE')
         target = self.ip 
-        print "INSTRUCTION TO GO BACK TO IS: " + str(target)
         self.logic()
         self.match('TK_DO')
         hole = self.ip
-        print "THE INSTRUCTION TO PATCH IS: " + str(hole)
         self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': target })
         self.ip += 1 
         self.statements()
         self.instructions.append({ 'instruction': 'op_jmp', 'ip': self.ip, 'value': target })
         self.ip += 1 
         self.patch(hole)
-        print "CURRENT IP IS: " + str(self.ip)
-
-        # TODO: Finish this up
-
         return
 
     def logic(self):
