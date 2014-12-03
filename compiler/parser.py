@@ -238,11 +238,12 @@ class Parser(object):
         if self.curr_token[0] == 'TK_ELSE':
             hole_2 = self.ip
             print "hole_2: " + str(hole_2)
-            self.instructions.append({ 'instruction' : 'op_jfalse', 'ip': self.ip, 'value': 0 })
+            self.instructions.append({ 'instruction' : 'op_jmp', 'ip': self.ip, 'value': 0 })
             self.ip += 1 
             self.match('TK_ELSE')
             self.patch(hole_1)
             self.statements()
+            self.patch(hole_2)
 
     def repeat(self): 
         self.match('TK_REPEAT')
