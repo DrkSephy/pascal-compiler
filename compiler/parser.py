@@ -241,7 +241,7 @@ class Parser(object):
             self.instructions.append({ 'instruction' : 'op_jfalse', 'ip': self.ip, 'value': 0 })
             self.ip += 1 
             self.match('TK_ELSE')
-            return
+            self.patch(hole_1)
 
     def repeat(self): 
         self.match('TK_REPEAT')
