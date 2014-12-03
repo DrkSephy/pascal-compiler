@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ; BEGIN     for x := 1 ; to 3 do         if x mod 1 = 0 then            writeln ( 'FizzBuzz' ) ;        else            writeln ( 'Fizz' ) ;END.    
+PROGRAMvar x , y : integer ; BEGIN     FOR x := 1 ; TO 3 DO         IF x MOD 1 = 0 THEN            WRITELN ( 'FizzBuzz' ) ;        ELSE            WRITELN ( 'Fizz' ) ;END.    
