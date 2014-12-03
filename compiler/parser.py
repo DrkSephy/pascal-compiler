@@ -195,6 +195,8 @@ class Parser(object):
                 self.if_statement()
             elif self.curr_token[0] == 'TK_FOR':
                 self.for_statement()
+            elif self.curr_token[0] == 'TK_WRITELN':
+                self.writeln()
             elif self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 self.match('TK_IDENTIFIER')
@@ -259,6 +261,15 @@ class Parser(object):
         self.patch(hole)
 
 
+    def writeln(self):
+        self.match('TK_WRITELN')
+        self.match('TK_OPEN_PARENTHESIS')
+        self.logic()
+        self.match('TK_CLOSE_PARENTHESIS')
+        self.match('TK_SEMICOLON')
+        self.instructions.append({'instruction': 'op_writeln', 'ip': self.ip, 'value': ''})
+        self.ip += 1 
+        
     def if_statement(self):
         # Handles the if statement
         self.match('TK_IF')
