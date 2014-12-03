@@ -193,6 +193,8 @@ class Parser(object):
                 self.while_loop() 
             elif self.curr_token[0] == 'TK_IF':
                 self.if_statement()
+            elif self.curr_token[0] == 'TK_FOR':
+                self.for_statement()
             elif self.curr_token[0] == 'TK_IDENTIFIER':
                 self.lhs = self.curr_token[1]
                 self.match('TK_IDENTIFIER')
@@ -220,7 +222,41 @@ class Parser(object):
 
             if self.curr_token[0] == 'TK_ELSE':
                 return
+
+            if self.curr_token[0] == 'TK_TO':
+                return
         return
+
+    def for_statement(self):
+        self.match('TK_FOR')
+        # print self.curr_token
+        self.statements()
+        loop_var = self.symtable[0]['NAME']
+        self.match('TK_TO')
+        loop_start = self.ip
+        self.instructions.append({'instruction': 'op_push', 'ip': self.ip, 'value': loop_var, 'token': 'TK_IDENTIFIER' })
+        self.ip += 1 
+        self.factor()
+        self.match('TK_DO')
+        self.instructions.append({'instruction': 'op_greater', 'ip': self.ip, 'value': 'greater' })
+        self.ip += 1 
+        hole = self.ip
+        self.instructions.append({'instruction': 'op_jtrue', 'ip': self.ip, 'value': hole })
+        self.ip += 1 
+        self.statements()
+        # Increment loop var by 1 and go back to the start of execution
+        self.instructions.append({'instruction': 'op_push', 'ip': self.ip, 'value': loop_var, 'token': 'TK_IDENTIFIER' })
+        self.ip += 1 
+        self.instructions.append({'instruction': 'op_push', 'ip': self.ip, 'value': 1, 'token': 'TK_IDENTIFIER' })
+        self.ip += 1 
+        self.instructions.append({'instruction': 'op_add', 'ip': self.ip, 'value': '+' })
+        self.ip += 1
+        self.instructions.append({'instruction': 'op_pop', 'ip': self.ip, 'value': loop_var, 'token': 'TK_IDENTIFIER' })
+        self.ip += 1 
+        self.instructions.append({'instruction': 'op_jmp', 'ip': self.ip, 'value': loop_start })
+        self.ip += 1 
+        self.patch(hole)
+
 
     def if_statement(self):
         # Handles the if statement
