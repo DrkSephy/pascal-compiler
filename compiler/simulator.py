@@ -40,8 +40,8 @@ class Simulator(object):
     
     def simulate(self):
         while True: 
-            print "Current IP is: " + str(self.ip)
-            print self.ast[self.ip]
+            # print "Current IP is: " + str(self.ip)
+            # print self.ast[self.ip]
             
             if self.ast[self.ip]['instruction'] == 'op_push':
                 if self.ast[self.ip]['token'] == 'TK_IDENTIFIER':
@@ -92,9 +92,9 @@ class Simulator(object):
                 self.writeln()
             else:
                 print "Instruction does not exist"
-            print self.stack
+            # print self.stack
             
-            print "\n"
+            #print "\n"
             self.ip += 1
 
     #----------------------------------------
@@ -235,12 +235,10 @@ class Simulator(object):
         return
 
     def push(self, value):
-        print "HELLO WORLD"
         self.stack.insert(0, value)
         return
 
     def pop(self, value):
-        print value
         op_1 = self.stack.pop()
         for var in self.symtable:
             if var['NAME'] == value:
