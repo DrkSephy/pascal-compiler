@@ -420,7 +420,6 @@ class Scanner(object):
                     return
 
                 if self.to_upper(self.curr_val) in self.OPERATORS:
-                    print "Building: " + self.to_upper(self.curr_val)
                     self.curr_token = self.lookup(self.OPERATORS, self.to_upper(self.curr_val))
                     self.tokens.append((self.curr_token, self.to_lower(self.curr_val), self.curr_row, self.curr_col - 1))   
                     self.metadata.append({'TOKEN' : self.curr_token, 'VALUE' : self.to_lower(self.curr_val), 'ROW' : self.curr_row, 'COL' : self.curr_col - 1})
