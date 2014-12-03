@@ -1,1 +1,1 @@
-PROGRAMBEGIN    WRITELN ( 'FizzBuzz' ) ;END. 
+PROGRAM PRINTER;BEGIN    WRITELN ( 'FizzBuzz' ) ;END. 

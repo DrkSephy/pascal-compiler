@@ -1,1 +1,1 @@
-PROGRAM var x , y : integer; var a , b , c : real;BEGIN     a :=  ( ( 1 AND 0 ) OR ( 1 AND 1 ) ) AND 1 ; END.
+PROGRAM LOGIC; var x , y : integer; var a , b , c : real;BEGIN     a :=  ( ( 1 AND 0 ) OR ( 1 AND 1 ) ) AND 1 ; END.

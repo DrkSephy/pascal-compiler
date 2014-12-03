@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ;BEGIN    x := 0 ;     y := 0 ;     WHILE y < 10 DO         if x < 100 THEN            x := x + 2 ;         y := y + 1 ; END. 
+PROGRAM WHILEIF; var x , y : integer ;BEGIN    x := 0 ;     y := 0 ;     WHILE y < 10 DO         if x < 100 THEN            x := x + 2 ;         y := y + 1 ; END. 

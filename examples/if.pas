@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ;BEGIN    x := 1 ;         IF x > 3 THEN         WRITELN ( 'fizzbuzz' ) ;    else        WRITELN ( 'buzz' ) ; END. 
+PROGRAM IFELSE; var x , y : integer ;BEGIN    x := 1 ;         IF x > 3 THEN         WRITELN ( 'fizzbuzz' ) ;    else        WRITELN ( 'buzz' ) ; END. 

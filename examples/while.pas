@@ -1,1 +1,1 @@
-PROGRAMvar product , stop , step : integer ;BEGIN    stop := 3 ;    step := 1 ;    product := 1 ;    WHILE stop >= step DO         product := product * step ;        step := step + 1 ;END. 
+PROGRAM WHILE; var product , stop , step : integer ;BEGIN    stop := 3 ;    step := 1 ;    product := 1 ;    WHILE stop >= step DO         product := product * step ;        step := step + 1 ;END. 
