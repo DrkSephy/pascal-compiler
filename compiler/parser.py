@@ -269,7 +269,7 @@ class Parser(object):
         self.match('TK_SEMICOLON')
         self.instructions.append({'instruction': 'op_writeln', 'ip': self.ip, 'value': ''})
         self.ip += 1 
-        
+
     def if_statement(self):
         # Handles the if statement
         self.match('TK_IF')
@@ -447,6 +447,11 @@ class Parser(object):
             self.match('TK_IDENTIFIER')
             return
 
+        if self.curr_token[0] == 'TK_STRING':
+            self.postfix(self.curr_token)
+            self.match('TK_STRING')
+            return
+
         if self.curr_token[0] == 'TK_INTEGER':
             self.postfix(self.curr_token)
             self.match('TK_INTEGER')
@@ -471,6 +476,9 @@ class Parser(object):
     def postfix(self, token):
         # Method for building postfix notation of tokens.
         if token[0] == 'TK_IDENTIFIER': 
+            self.instructions.append({'instruction' : 'op_push', 'value': self.curr_token[1], 'ip': self.ip, 'token': self.curr_token[0]})
+            self.ip += 1
+        elif token[0] == 'TK_STRING':
             self.instructions.append({'instruction' : 'op_push', 'value': self.curr_token[1], 'ip': self.ip, 'token': self.curr_token[0]})
             self.ip += 1
         elif token[0] == 'TK_INTEGER':
