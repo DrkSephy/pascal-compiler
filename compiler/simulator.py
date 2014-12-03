@@ -196,21 +196,21 @@ class Simulator(object):
     def op_and(self):
         op_1 = self.stack.pop()
         op_2 = self.stack.pop()
-        val = int(op_2) and int(op_1)
+        val = int(op_1) and int(op_2)
         self.push(val)
         return
 
     def op_xor(self):
         op_1 = self.stack.pop()
         op_2 = self.stack.pop()
-        val = int(op_2) ^ int(op_1)
+        val = int(op_1) ^ int(op_2)
         self.push(val)
         return
 
     def op_or(self):
         op_1 = self.stack.pop()
         op_2 = self.stack.pop()
-        val = int(op_2) or int(op_1)
+        val = int(op_1) or int(op_2)
         self.push(val)
         return
 
