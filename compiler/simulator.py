@@ -123,12 +123,9 @@ class Simulator(object):
     def op_jfalse(self, instruction):
         bool_val = self.stack.pop()
         if bool_val == False:
-            print "Going to instruction: " + str(instruction)
             self.ip = instruction - 1 
-            print "INSTRUCTION POINTER IS: " + str(self.ip)
 
     def op_jmp(self, instruction):
-        print "instruction value is : " + str(instruction)
         self.ip = instruction - 1 
 
     def op_jtrue(self, instruction):
