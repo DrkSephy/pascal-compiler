@@ -229,15 +229,19 @@ class Parser(object):
         self.match('TK_THEN')
         # Mark instruction pointer if condition is true
         hole_1 = self.ip
+        print "hole_1: " + str(hole_1)
         self.instructions.append({ 'instruction': 'op_jfalse', 'ip': self.ip, 'value': 0 })
+        self.ip += 1 
         self.statements()
 
         # Handles the else statement
         if self.curr_token[0] == 'TK_ELSE':
             hole_2 = self.ip
+            print "hole_2: " + str(hole_2)
             self.instructions.append({ 'instruction' : 'op_jfalse', 'ip': self.ip, 'value': 0 })
-            self.match()
-
+            self.ip += 1 
+            self.match('TK_ELSE')
+            return
 
     def repeat(self): 
         self.match('TK_REPEAT')
