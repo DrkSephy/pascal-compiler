@@ -101,6 +101,8 @@ class Parser(object):
         if self.curr_token[0] == 'TK_PROGRAM':
             # print "Matched PROGRAM: " + self.curr_token[1]
             self.match('TK_PROGRAM')
+            self.match('TK_IDENTIFIER')
+            self.match('TK_SEMICOLON')
             self.declarations()
 
     def declarations(self):
