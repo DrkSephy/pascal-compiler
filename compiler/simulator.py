@@ -88,6 +88,8 @@ class Simulator(object):
                 self.op_jmp(self.ast[self.ip]['value'])
             elif self.ast[self.ip]['instruction'] == 'op_jtrue':
                 self.op_jtrue(self.ast[self.ip]['value'])
+            elif self.ast[self.ip]['instruction'] == 'op_writeln':
+                self.writeln()
             else:
                 print "Instruction does not exist"
             print self.stack
@@ -120,6 +122,10 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+    def writeln(self):
+        val = self.stack.pop()
+        print val
+
     def op_jfalse(self, instruction):
         bool_val = self.stack.pop()
         if bool_val == False:
@@ -229,6 +235,7 @@ class Simulator(object):
         return
 
     def push(self, value):
+        print "HELLO WORLD"
         self.stack.insert(0, value)
         return
 

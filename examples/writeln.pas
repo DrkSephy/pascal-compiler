@@ -1,1 +1,1 @@
-PROGRAMvar x , y : integer ;BEGIN    writeln ( "FizzBuzz" ) ;END. 
+PROGRAMvar x , y : integer ;BEGIN    writeln ( 'FizzBuzz' ) ;END. 
