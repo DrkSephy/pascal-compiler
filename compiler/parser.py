@@ -242,6 +242,7 @@ class Parser(object):
             self.ip += 1 
             self.match('TK_ELSE')
             self.patch(hole_1)
+            self.statements()
 
     def repeat(self): 
         self.match('TK_REPEAT')
