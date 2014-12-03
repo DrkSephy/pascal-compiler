@@ -247,7 +247,7 @@ class Parser(object):
         # Increment loop var by 1 and go back to the start of execution
         self.instructions.append({'instruction': 'op_push', 'ip': self.ip, 'value': loop_var, 'token': 'TK_IDENTIFIER' })
         self.ip += 1 
-        self.instructions.append({'instruction': 'op_push', 'ip': self.ip, 'value': 1, 'token': 'TK_IDENTIFIER' })
+        self.instructions.append({'instruction': 'op_push', 'ip': self.ip, 'value': 1, 'token': 'TK_INTEGER' })
         self.ip += 1 
         self.instructions.append({'instruction': 'op_add', 'ip': self.ip, 'value': '+' })
         self.ip += 1
