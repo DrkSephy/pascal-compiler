@@ -233,6 +233,7 @@ class Simulator(object):
         return
 
     def pop(self, value):
+        print value
         op_1 = self.stack.pop()
         for var in self.symtable:
             if var['NAME'] == value:
