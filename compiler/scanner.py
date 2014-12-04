@@ -761,7 +761,8 @@ class Scanner(object):
         '(*'        : 'TK_BEGIN_COMMENT',
         '*)'        : 'TK_END_COMMENT',
         ','         : 'TK_COMMA',
-        '~'         : 'TK_RANGE'
+        '~'         : 'TK_RANGE',
+        'ARRAY'     : 'TK_ARRAY'
     }
 
     SYSTEM = {
