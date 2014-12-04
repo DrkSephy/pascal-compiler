@@ -753,7 +753,8 @@ class Scanner(object):
         'INTEGER'   : 'TK_ID_INTEGER', 
         'REAL'      : 'TK_ID_REAL',
         'CHAR'      : 'TK_ID_CHAR',
-        'BOOLEAN'   : 'TK_ID_BOOLEAN'
+        'BOOLEAN'   : 'TK_ID_BOOLEAN',
+        'OF'        : 'TK_OF'
     }
 
     OPERATORS = {
