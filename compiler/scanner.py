@@ -656,6 +656,17 @@ class Scanner(object):
             return 
 
         #----------------------------------------
+        #              TILDA SUBSTATE             
+        #----------------------------------------
+
+        # Character is a ~
+        if self.to_ascii(char) == 126:
+            self.tokens.append(('TK_RANGE', '~', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN': 'TK_RANGE', 'VALUE' : '~', 'ROW': self.curr_row, 'COL': self.curr_col})
+            self.curr_val = ''
+            return
+
+        #----------------------------------------
         #            MINUS SUBSTATE              
         #----------------------------------------
 
@@ -749,7 +760,8 @@ class Scanner(object):
         '\''        : 'TK_QUOTE',
         '(*'        : 'TK_BEGIN_COMMENT',
         '*)'        : 'TK_END_COMMENT',
-        ','         : 'TK_COMMA'
+        ','         : 'TK_COMMA',
+        '~'         : 'TK_RANGE'
     }
 
     SYSTEM = {
