@@ -625,6 +625,28 @@ class Scanner(object):
             return
 
         #----------------------------------------
+        #               OPEN BRACKET      
+        #----------------------------------------
+
+        # Character is [ 
+        if self.to_ascii(char) == 91:
+            self.tokens.append(('TK_OPEN_BRACKET', '[', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN': 'TK_OPEN_BRACKET', 'VALUE': '[', 'ROW': self.curr_row, 'COL': self.curr_col})
+            self.curr_val = ''
+            return 
+
+        #----------------------------------------
+        #               CLOSE BRACKET      
+        #----------------------------------------
+
+        # Character is [ 
+        if self.to_ascii(char) == 93:
+            self.tokens.append(('TK_CLOSE_BRACKET', ']', self.curr_row, self.curr_col))
+            self.metadata.append({'TOKEN': 'TK_CLOSE_BRACKET', 'VALUE': ']', 'ROW': self.curr_row, 'COL': self.curr_col})
+            self.curr_val = ''
+            return 
+
+        #----------------------------------------
         #           BEGIN QUOTE SUBSTATE         
         #----------------------------------------
 
@@ -762,7 +784,9 @@ class Scanner(object):
         '*)'        : 'TK_END_COMMENT',
         ','         : 'TK_COMMA',
         '~'         : 'TK_RANGE',
-        'ARRAY'     : 'TK_ARRAY'
+        'ARRAY'     : 'TK_ARRAY',
+        '['         : 'TK_OPEN_BRACKET',
+        ']'         : 'TK_CLOSE_BRACKET'
     }
 
     SYSTEM = {
