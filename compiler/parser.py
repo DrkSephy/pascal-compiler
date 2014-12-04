@@ -139,10 +139,8 @@ class Parser(object):
                 self.match('TK_COLON')
                 # Here we check if we are matching an array
                 if self.curr_token[0] == 'TK_ARRAY':
-                    print "HELLO"
                     self.match('TK_ARRAY')
                     self.match('TK_OPEN_BRACKET')
-                    print "HELLO2"
                     self.match('TK_INTEGER')
                     self.match('TK_RANGE')
                     self.match('TK_INTEGER')

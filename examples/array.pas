@@ -1,1 +1,1 @@
-PROGRAM ARRAY;var values : Array [ 1 ~ 3 ] OF INTEGER;BEGINEND. 
+PROGRAM ARRAY;var     values : Array [ 1 ~ 3 ] OF INTEGER;    i : INTEGER;BEGIN    i := 0 ;    values [ i ] := 10 ; END. 
