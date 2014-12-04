@@ -122,6 +122,7 @@ class Simulator(object):
     #--------------------------
     #         OP CODES
     #--------------------------
+    
     def writeln(self):
         val = self.stack.pop()
         print val
