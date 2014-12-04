@@ -1,0 +1,1 @@
+PROGRAM ARRAY;var values : Array [ 1 ~ 3 ] OF INTEGER;BEGINEND. 
