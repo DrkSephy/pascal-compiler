@@ -39,8 +39,7 @@ class Simulator(object):
     #--------------------------
     
     def simulate(self):
-        print self.symtable
-        """
+        
         while True: 
             # print "Current IP is: " + str(self.ip)
             # print self.ast[self.ip]
@@ -96,7 +95,7 @@ class Simulator(object):
             # print self.stack
             #print "\n"
             self.ip += 1
-        """
+
 
     #----------------------------------------
     #             PRETTY PRINTER             
