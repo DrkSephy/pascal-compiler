@@ -140,15 +140,20 @@ class Parser(object):
                 # Here we check if we are matching an array
                 if self.curr_token[0] == 'TK_ARRAY':
                     self.symtable[0]['TYPE'] = 'ARRAY'
+                    self.symtable[0]['VALUE'] = []
                     self.match('TK_ARRAY')
                     self.match('TK_OPEN_BRACKET')
+                    low = int(self.curr_token[1])
                     self.match('TK_INTEGER')
                     self.match('TK_RANGE')
+                    high = int(self.curr_token[1])
                     self.match('TK_INTEGER')
                     self.match('TK_CLOSE_BRACKET')
                     self.match('TK_OF')
                     self.match('TK_ID_INTEGER')
-                    self.match('TK_SEMICOLON')
+                    self.match('TK_SEMICOLON') 
+                    for i in range(low, high + 1):
+                        self.symtable[0]['VALUE'].append(i)
                     break
                 else:
                     break
