@@ -222,6 +222,10 @@ class Parser(object):
                 self.lhs = self.curr_token[1]
                 self.match('TK_IDENTIFIER')
 
+            if self.curr_token[0] == 'TK_OPEN_BRACKET':
+                self.match('TK_OPEN_BRACKET')
+                index = self.curr_token[1]
+                print index
             if self.curr_token[0] == 'TK_ASSIGNMENT':
                 self.match('TK_ASSIGNMENT')
                 self.op = True
