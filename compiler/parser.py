@@ -139,6 +139,7 @@ class Parser(object):
                 self.match('TK_COLON')
                 # Here we check if we are matching an array
                 if self.curr_token[0] == 'TK_ARRAY':
+                    self.symtable[0]['TYPE'] = 'ARRAY'
                     self.match('TK_ARRAY')
                     self.match('TK_OPEN_BRACKET')
                     self.match('TK_INTEGER')
