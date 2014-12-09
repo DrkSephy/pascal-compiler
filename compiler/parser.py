@@ -243,7 +243,6 @@ class Parser(object):
                 break
 
             if self.curr_token[0] == 'TK_UNTIL':
-                print "Seen TK_UNTIL"
                 return
 
             if self.curr_token[0] == 'TK_ELSE':
