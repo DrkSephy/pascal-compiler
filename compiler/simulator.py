@@ -96,7 +96,6 @@ class Simulator(object):
             #print "\n"
             self.ip += 1
 
-
     #----------------------------------------
     #             PRETTY PRINTER             
     #----------------------------------------
@@ -142,6 +141,7 @@ class Simulator(object):
 
     def halt(self):
         print "\n[Emulator]: Finished running program"
+        print "\n"
         print(self.printer(1, ['NUMBER', 'TYPE', 'NAME', 'VALUE', 'ADDRESS'], [], self.symtable))
         sys.exit(0)
 
