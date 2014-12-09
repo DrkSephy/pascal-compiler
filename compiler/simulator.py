@@ -43,6 +43,7 @@ class Simulator(object):
         while True: 
             # print "Current IP is: " + str(self.ip)
             # print self.ast[self.ip]
+
             if self.ast[self.ip]['instruction'] == 'op_push':
                 if self.ast[self.ip]['token'] == 'TK_IDENTIFIER':
                     self.pushi(self.ast[self.ip]['value'])
