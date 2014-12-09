@@ -193,7 +193,6 @@ class Parser(object):
             while self.curr_token[0] != 'TK_END_CODE':
                 self.statements()
             if self.curr_token[0] == 'TK_END_CODE':
-                print "Reached end of program!" 
                 self.instructions.append({'instruction': 'op_halt', 'ip': self.ip, 'value': 'END.'})
     
     def statements(self):
