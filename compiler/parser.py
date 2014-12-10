@@ -25,6 +25,9 @@
 # - [    ] Implement Writeln( )
 # - [    ] Implement Case statements
 # - [    ] Implement Array operations
+# - [    ] Implement Scope
+# - [    ] Implement Functions
+# - [    ] Implement Recursion
 
 from prettytable import PrettyTable
 
