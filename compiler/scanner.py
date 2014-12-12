@@ -134,7 +134,7 @@ class Scanner(object):
 
         # Print out metadata
         print "\n"
-        print "[scanner]: Tokens returned from scanning source file" 
+        print "[scanner]: List of tokens" 
         print(self.printer(1, ['NUMBER', 'TOKEN', 'COLUMN', 'VALUE', 'ROW'], [], self.metadata ))
         # print(self.tokens)
         return self.tokens

@@ -52,7 +52,7 @@ if __name__ == '__main__':
     for inst in ast['decorated_nodes']:
         instructions.append( [inst['instruction'], inst['value']] )
     print "\n"
-    print "[Simulator]: Instructions to be executed by stack machine: "
+    print "[Simulator]: Generated instructions for stack machine"
     print "\n"
     ip = 0 
     for inst in instructions:
