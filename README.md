@@ -46,9 +46,9 @@ The following is a list of features that have been implemented.
 - [x] E' -> + T [+] E' | - T [-] E' | e | OR T [OR] E' | XOR T [XOR] E'
 - [x] T -> FT'
 - [x] T' -> x F [x] T' | /F [/] T' | e | DIV F [DIV] T' | MOD F [MOD] T'
-- [ ] F -> id | lit | (E) | -F | + F | not F
+- [x] F -> id | lit | (E) | -F | + F | not F
 - [x] Need to implement (E)
-- [ ] Need to implement -F and +F
+- [x] Need to implement -F and +F
 
 ###Compiler Research Links
 
